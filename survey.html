@@ -12,6 +12,12 @@
     <script>
         tailwind.config = { theme: { extend: { fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }, colors: { pupr: { blue: '#162e6b', yellow: '#facc15' } } } } }
     </script>
+    <style>
+        /* Mencegah input memperlebar grid pada layar kecil */
+        input, textarea, select {
+            min-width: 0;
+        }
+    </style>
 </head>
 <body class="bg-slate-50 font-sans text-slate-800 pb-10">
 
