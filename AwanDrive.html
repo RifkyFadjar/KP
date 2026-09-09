@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AwanDrive - Portal Aplikasi Terpadu</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], }, colors: { brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', } } } }
+        }
+    </script>
+</head>
+
+<body class="bg-slate-50 font-sans text-slate-800 antialiased min-h-screen overflow-x-hidden">
+    
+    <div id="awandrive-view" class="w-full h-auto min-h-screen flex">
+        <!-- Sidebar -->
+        <aside class="w-full md:w-64 bg-white border-r border-slate-200 flex-shrink-0 flex flex-col justify-between h-auto md:h-screen sticky top-0 z-20">
+            <div>
+                <!-- Logo Brand -->
+                <div class="p-5 flex items-center border-b border-slate-100">
+                    <!-- Tombol Kembali ke Portal -->
+                    <button onclick="window.location.href='index.html'" class="w-8 h-8 rounded-lg bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-800 flex items-center justify-center mr-3 transition" title="Kembali ke Portal">
+                        <i class="fa-solid fa-arrow-left text-sm"></i>
+                    </button>
+                    <div class="flex items-center gap-3 cursor-pointer" onclick="setActiveNav('all')">
+                        <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center shadow-lg shadow-brand-500/30">
+                            <i class="fa-solid fa-cloud text-lg"></i>
+                        </div>
+                        <div>
+                            <h1 class="font-bold text-slate-900 text-lg leading-tight">AwanDrive</h1>
+                            <p class="text-[11px] text-slate-400 font-medium">Cloud Storage</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <div class="p-4">
+                    <button onclick="openUploadModal()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3 px-4 rounded-xl shadow-md shadow-brand-500/20 transition-all flex items-center justify-center gap-2 text-sm">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Tambah Baru</span>
+                    </button>
+                </div>
+
+                <!-- Navigation Links -->
+                <nav class="px-3 space-y-1">
+                    <button onclick="setActiveNav('all')" id="nav-all" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-sm text-brand-600 bg-brand-50 transition-colors">
+                        <i class="fa-solid fa-folder-open w-5 text-center"></i>
+                        <span>Semua File</span>
+                    </button>
+                    <button onclick="setActiveNav('starred')" id="nav-starred" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition-colors">
+                        <i class="fa-solid fa-bookmark w-5 text-center text-amber-500"></i>
+                        <span>Penting</span>
+                    </button>
+                    <button onclick="setActiveNav('recent')" id="nav-recent" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition-colors">
+                        <i class="fa-solid fa-clock-rotate-left w-5 text-center text-purple-500"></i>
+                        <span>Terbaru</span>
+                    </button>
+                    <button onclick="setActiveNav('trash')" id="nav-trash" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition-colors">
+                        <i class="fa-solid fa-trash-can w-5 text-center text-rose-500"></i>
+                        <span>Sampah</span>
+                    </button>
+
+                    <!-- Kategori Section di Sidebar -->
+                    <div class="pt-4 mt-3 border-t border-slate-100">
+                        <div class="flex items-center justify-between px-3 mb-2">
+                            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Kategori</span>
+                            <button onclick="openCategoryModal()" title="Tambah Kategori Baru" class="text-slate-400 hover:text-brand-600 p-1 rounded-md hover:bg-slate-100 transition">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                            </button>
+                        </div>
+                        <div id="sidebarCategories" class="space-y-1 max-h-52 overflow-y-auto pr-1">
+                            <!-- Dynamic Sidebar Categories -->
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- Storage Indicator Widget -->
+            <div class="p-4 border-t border-slate-100 m-3 bg-slate-50 rounded-xl">
+                <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-xs font-semibold text-slate-600">Penyimpanan</span>
+                    <span id="storagePercentText" class="text-xs font-bold text-brand-600">0%</span>
+                </div>
+                <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden mb-2">
+                    <div id="storageProgressBar" class="bg-brand-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <p id="storageUsedText" class="text-[11px] text-slate-500 font-medium">0 MB dari 15 GB digunakan</p>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 flex flex-col min-w-0 bg-slate-50">
+            <!-- Top Bar Header -->
+            <header class="bg-white border-b border-slate-200 p-4 sticky top-0 z-10 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
+                <!-- Search Bar -->
+                <div class="relative w-full sm:w-96">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Cari file di semua folder..." class="w-full pl-10 pr-4 py-2 bg-slate-100 border border-transparent rounded-xl text-sm focus:outline-none focus:bg-white focus:border-brand-500 transition-all">
+                </div>
+
+                <!-- Top Actions -->
+                <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                    <button onclick="openNewFolderModal()" class="px-3.5 py-2 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-folder-plus text-amber-500"></i>
+                        <span>Folder Baru</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Main Body Workspace -->
+            <div class="p-4 sm:p-6 flex-1 flex flex-col max-w-7xl w-full mx-auto">
+                <!-- Navigation Toolbar & Breadcrumb -->
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-6 bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-sm">
+                    <!-- Back Button & Breadcrumbs -->
+                    <div class="flex items-center gap-2 overflow-x-auto py-1">
+                        <button id="btnGoBack" onclick="awanGoBack()" class="hidden items-center justify-center w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition flex-shrink-0" title="Kembali">
+                            <i class="fa-solid fa-arrow-left text-sm"></i>
+                        </button>
+                        <nav id="breadcrumbNav" class="flex items-center gap-2 text-sm text-slate-600 font-medium whitespace-nowrap">
+                            <!-- Dynamic Breadcrumbs -->
+                        </nav>
+                    </div>
+
+                    <!-- Controls & Filters -->
+                    <div class="flex items-center gap-2">
+                        <select id="typeFilter" onchange="handleFilterChange(this.value)" class="bg-slate-100 border-none rounded-xl text-xs font-medium px-3 py-2 text-slate-700 focus:ring-2 focus:ring-brand-500 outline-none cursor-pointer">
+                            <!-- Dynamic Filter Options -->
+                        </select>
+
+                        <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200/50">
+                            <button onclick="setViewMode('grid')" id="viewGridBtn" class="p-1.5 rounded-lg text-brand-600 bg-white shadow-sm transition">
+                                <i class="fa-solid fa-border-all text-xs"></i>
+                            </button>
+                            <button onclick="setViewMode('list')" id="viewListBtn" class="p-1.5 rounded-lg text-slate-500 hover:text-slate-700 transition">
+                                <i class="fa-solid fa-list text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Folder Section -->
+                <div id="foldersContainer" class="mb-8">
+                    <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Folder</h2>
+                    <div id="folderGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+                        <!-- Dynamic Folders -->
+                    </div>
+                </div>
+
+                <!-- File Section Header -->
+                <div class="flex items-center justify-between mb-3">
+                    <h2 id="filesHeaderTitle" class="text-xs font-bold text-slate-400 uppercase tracking-wider">File Saya</h2>
+                </div>
+
+                <!-- File Grid View -->
+                <div id="fileGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <!-- Dynamic Files Grid -->
+                </div>
+
+                <!-- File List View -->
+                <div id="fileList" class="hidden bg-white border border-slate-200/80 rounded-2xl overflow-hidden shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-500 uppercase">
+                                <tr>
+                                    <th class="py-3 px-4">Nama File</th>
+                                    <th class="py-3 px-4">Kategori</th>
+                                    <th class="py-3 px-4">Ukuran</th>
+                                    <th class="py-3 px-4">Diperbarui</th>
+                                    <th class="py-3 px-4 text-right">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fileListBody" class="divide-y divide-slate-100">
+                                <!-- Dynamic Files Table Rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="hidden flex-col items-center justify-center py-16 text-center">
+                    <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center text-slate-400 mb-4">
+                        <i class="fa-solid fa-folder-open text-3xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-slate-700 text-base mb-1">Tidak ada file atau folder</h3>
+                    <p class="text-slate-400 text-xs max-w-sm">Folder ini kosong atau tidak ada file yang sesuai dengan pencarian Anda.</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- AwanDrive Modals -->
+        <div id="categoryModal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100 transform transition-all">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-slate-800 text-lg">Tambah Kategori Baru</h3>
+                    <button onclick="closeCategoryModal()" class="text-slate-400 hover:text-slate-600 transition">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+                <p class="text-xs text-slate-500 mb-4">Buat kategori kustom untuk mengelompokkan file Anda secara rapi di sidebar.</p>
+                <input type="text" id="newCategoryName" placeholder="Contoh: Desain, Keuangan, Tugas" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand-500 mb-4">
+                <div class="flex items-center justify-end gap-2">
+                    <button onclick="closeCategoryModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">Batal</button>
+                    <button onclick="createNewCategory()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white hover:bg-brand-700 transition">Simpan Kategori</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="folderModal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-slate-800 text-lg">Buat Folder Baru</h3>
+                    <button onclick="closeFolderModal()" class="text-slate-400 hover:text-slate-600 transition">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+                <input type="text" id="newFolderName" placeholder="Nama folder..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand-500 mb-4">
+                <div class="flex items-center justify-end gap-2">
+                    <button onclick="closeFolderModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">Batal</button>
+                    <button onclick="createNewFolder()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white hover:bg-brand-700 transition">Buat Folder</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="uploadModal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-slate-800 text-lg">Unggah File Baru</h3>
+                    <button onclick="closeUploadModal()" class="text-slate-400 hover:text-slate-600 transition">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+                <div class="border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center bg-slate-50 hover:bg-brand-50/50 hover:border-brand-300 transition cursor-pointer" onclick="document.getElementById('fileInputElement').click()">
+                    <i class="fa-solid fa-cloud-arrow-up text-4xl text-brand-500 mb-3"></i>
+                    <p class="text-sm font-semibold text-slate-700 mb-1">Klik untuk memilih file</p>
+                    <p class="text-xs text-slate-400">PDF, Word, Excel, Gambar, Audio, atau Video</p>
+                    <input type="file" id="fileInputElement" onchange="handleFileUpload(event)" class="hidden">
+                </div>
+            </div>
+        </div>
+
+        <div id="previewModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-100 max-h-[90vh] flex flex-col">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 id="previewTitle" class="font-bold text-slate-800 text-lg truncate pr-4">Preview File</h3>
+                    <button onclick="closePreviewModal()" class="text-slate-400 hover:text-slate-600 transition">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+                <div id="previewBody" class="flex-1 bg-slate-50 rounded-xl p-4 flex items-center justify-center overflow-auto min-h-[250px]">
+                    <!-- Dynamic File Content Preview -->
+                </div>
+                <div class="mt-4 flex items-center justify-between pt-3 border-t border-slate-100">
+                    <span id="previewMeta" class="text-xs text-slate-400 font-medium"></span>
+                    <button onclick="closePreviewModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Tutup</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Toast Container for AwanDrive -->
+        <div id="awanToastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
+    </div>
+    
+    <!-- Sambungan ke File JS terpisah -->
+    <script src="js/awandrive.js"></script>
+    <script>
+        // Memastikan AwanDrive langsung dirender saat file ini dibuka
+        window.addEventListener('DOMContentLoaded', () => {
+            awanRender();
+        });
+    </script>
+</body>
+</html>

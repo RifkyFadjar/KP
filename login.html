@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Digital Archive - PUPR</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    colors: { pupr: { blue: '#162e6b', gold: '#c8a14d' } }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white font-sans min-h-screen flex flex-col items-center justify-center relative">
+
+    <div class="w-full max-w-sm px-6 py-8">
+        
+        <div class="flex justify-center mb-8">
+            <div class="w-24 h-24 rounded-full border-4 border-pupr-gold flex items-center justify-center p-2">
+                <img src="img/logo-pupr.png" alt="Logo PUPR" class="w-full h-full object-contain">
+            </div>
+        </div>
+
+        <div class="mb-8 text-center sm:text-left">
+            <h1 class="text-3xl font-light text-pupr-blue leading-none mb-1">LOGIN</h1>
+            <h2 class="text-3xl font-bold text-pupr-blue tracking-wide">DIGITAL ARCHIVE</h2>
+        </div>
+
+        <div id="alertBox" class="hidden mb-4 p-3 text-sm rounded-lg border text-center transition-all"></div>
+
+        <form id="loginForm" class="space-y-5">
+            <div>
+                <label class="block font-medium text-slate-800 mb-2">Email</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <i class="fa-regular fa-envelope text-slate-400 text-lg"></i>
+                    </div>
+                    <input type="email" id="emailInput" class="w-full pl-11 pr-4 py-3.5 border border-slate-300 rounded-lg focus:outline-none focus:border-pupr-blue" placeholder="1@gmail.com" required>
+                </div>
+            </div>
+
+            <div>
+                <div class="flex justify-between items-center mb-2">
+                    <label class="block font-medium text-slate-800">Password</label>
+                    <button type="button" onclick="openResetModal()" class="text-xs text-pupr-blue hover:underline font-semibold">Lupa Password?</button>
+                </div>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-lock text-slate-400 text-lg"></i>
+                    </div>
+                    <input type="password" id="passwordInput" class="w-full pl-11 pr-12 py-3.5 border border-slate-300 rounded-lg focus:outline-none focus:border-pupr-blue" placeholder="1" required>
+                    <div class="absolute inset-y-0 right-0 pr-3.5 flex items-center cursor-pointer" onclick="togglePassword('passwordInput', 'eyeIcon')">
+                        <i class="fa-regular fa-eye-slash text-slate-400" id="eyeIcon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-3">
+                <button type="submit" class="w-full bg-pupr-blue text-white font-semibold py-4 px-6 rounded-full shadow-lg hover:bg-blue-900 transition-all flex items-center relative">
+                    <span class="absolute left-1/2 -translate-x-1/2">MASUK KE ARSIP</span>
+                    <i class="fa-solid fa-arrow-right ml-auto"></i>
+                </button>
+            </div>
+        </form>
+
+        <div class="mt-8 text-center text-sm text-slate-600">
+            Belum punya akun? <button onclick="openRegisterModal()" class="font-bold text-pupr-blue hover:underline">Buat Akun Baru</button>
+        </div>
+
+    </div>
+
+    <div id="resetModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
+            <button onclick="closeResetModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="text-xl font-bold text-pupr-blue mb-2">Reset Password</h3>
+            <p class="text-xs text-slate-500 mb-4">Masukkan email terdaftar Anda untuk menerima instruksi pemulihan password.</p>
+            
+            <form id="resetForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Email Terdaftar</label>
+                    <input type="email" id="resetEmailInput" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" placeholder="nama@domain.com" required>
+                </div>
+                <button type="submit" class="w-full bg-pupr-blue text-white font-semibold py-2.5 rounded-lg hover:bg-blue-900 transition-colors text-sm">Kirim Link Reset</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="registerModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
+            <button onclick="closeRegisterModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h3 class="text-xl font-bold text-pupr-blue mb-2">Buat Akun Baru</h3>
+            <p class="text-xs text-slate-500 mb-4">Daftarkan akun untuk mengakses Digital Archive PUPR.</p>
+            
+            <form id="registerForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Nama Lengkap</label>
+                    <input type="text" id="regNameInput" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" placeholder="Nama Anda" required>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Email</label>
+                    <input type="email" id="regEmailInput" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" placeholder="email@domain.com" required>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Password</label>
+                    <div class="relative">
+                        <input type="password" id="regPasswordInput" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:border-pupr-blue text-sm pr-10" placeholder="Minimal 6 karakter" required>
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" onclick="togglePassword('regPasswordInput', 'regEyeIcon')">
+                            <i class="fa-regular fa-eye-slash text-slate-400 text-xs" id="regEyeIcon"></i>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-pupr-blue text-white font-semibold py-2.5 rounded-lg hover:bg-blue-900 transition-colors text-sm">Daftar Akun</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Mata Password
+        function togglePassword(inputId, eyeId) {
+            const pwd = document.getElementById(inputId);
+            const eye = document.getElementById(eyeId);
+            if (pwd.type === 'password') {
+                pwd.type = 'text'; 
+                eye.classList.replace('fa-eye-slash', 'fa-eye');
+            } else {
+                pwd.type = 'password'; 
+                eye.classList.replace('fa-eye', 'fa-eye-slash');
+            }
+        }
+
+        // Tampilkan Pesan Alert (Merah untuk error, Hijau untuk sukses)
+        function showAlert(msg, type = 'error') {
+            const box = document.getElementById('alertBox');
+            box.classList.remove('hidden', 'bg-red-50', 'text-red-600', 'border-red-200', 'bg-green-50', 'text-green-600', 'border-green-200');
+            if (type === 'error') {
+                box.classList.add('bg-red-50', 'text-red-600', 'border-red-200');
+            } else {
+                box.classList.add('bg-green-50', 'text-green-600', 'border-green-200');
+            }
+            box.innerText = msg;
+        }
+
+        // Kontrol Popup Reset Password
+        function openResetModal() {
+            document.getElementById('resetModal').classList.remove('hidden');
+            document.getElementById('resetModal').classList.add('flex');
+        }
+        function closeResetModal() {
+            document.getElementById('resetModal').classList.add('hidden');
+            document.getElementById('resetModal').classList.remove('flex');
+        }
+
+        // Kontrol Popup Buat Akun
+        function openRegisterModal() {
+            document.getElementById('registerModal').classList.remove('hidden');
+            document.getElementById('registerModal').classList.add('flex');
+        }
+        function closeRegisterModal() {
+            document.getElementById('registerModal').classList.add('hidden');
+            document.getElementById('registerModal').classList.remove('flex');
+        }
+
+        // Proses Login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('emailInput').value.trim();
+            const password = document.getElementById('passwordInput').value.trim();
+
+            // Cek daftar user terdaftar dari localStorage
+            const users = JSON.parse(localStorage.getItem('pupr_users') || '[]');
+            const foundUser = users.find(u => u.email === email && u.password === password);
+
+            // Boleh login jika menggunakan akun default ATAU akun baru yang baru didaftarkan
+            if ((email === "1@gmail.com" && password === "1") || (email === "admin@pupr.go.id" && password === "admin123") || foundUser) {
+                localStorage.setItem('isLoggedIn', 'true');
+                window.location.href = 'awandrive.html';
+            } else {
+                showAlert('Email atau password salah!', 'error');
+                document.getElementById('passwordInput').value = "";
+            }
+        });
+
+        // Proses Submit Reset Password
+        document.getElementById('resetForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('resetEmailInput').value.trim();
+            closeResetModal();
+            showAlert(`Instruksi reset password telah dikirim ke ${email}!`, 'success');
+            document.getElementById('resetEmailInput').value = "";
+        });
+
+        // Proses Submit Buat Akun Baru (Disimpan ke LocalStorage)
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('regNameInput').value.trim();
+            const email = document.getElementById('regEmailInput').value.trim();
+            const password = document.getElementById('regPasswordInput').value.trim();
+
+            const users = JSON.parse(localStorage.getItem('pupr_users') || '[]');
+            if (users.some(u => u.email === email)) {
+                alert('Email sudah terdaftar! Gunakan email lain.');
+                return;
+            }
+
+            // Simpan akun baru
+            users.push({ name, email, password });
+            localStorage.setItem('pupr_users', JSON.stringify(users));
+
+            closeRegisterModal();
+            showAlert('Akun berhasil dibuat! Silakan login dengan akun baru Anda.', 'success');
+            
+            // Otomatis isikan form login dengan akun baru tersebut
+            document.getElementById('emailInput').value = email;
+            document.getElementById('passwordInput').value = password;
+            
+            // Bersihkan form modal
+            document.getElementById('regNameInput').value = "";
+            document.getElementById('regEmailInput').value = "";
+            document.getElementById('regPasswordInput').value = "";
+        });
+    </script>
+</body>
+</html>

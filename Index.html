@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Terpadu PUPR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    colors: { pupr: { blue: '#162e6b', yellow: '#facc15' } }
+                }
+            }
+        }
+    </script>
+    <style>
+        .animated-bg {
+            background: linear-gradient(-45deg, #0f172a, #1e3a8a, #0369a1, #1e40af);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .glow-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glow-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px -15px rgba(59, 130, 246, 0.5);
+            border-color: rgba(255, 255, 255, 0.9);
+        }
+    </style>
+</head>
+
+<body class="font-sans min-h-screen relative overflow-hidden animated-bg flex flex-col items-center justify-center">
+
+    <!-- Main Content -->
+    <div class="w-full max-w-5xl mx-auto px-6 z-10 flex flex-col items-center">
+
+        <!-- Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 w-full max-w-4xl mt-10">
+
+            <!-- Digital Archive Card -->
+            <div onclick="window.location.href='login.html'"
+                class="glass-card glow-hover rounded-2xl sm:rounded-[2rem] p-5 sm:p-10 cursor-pointer flex flex-col sm:items-center sm:text-center group">
+                <div class="flex items-center gap-4 sm:block w-full">
+                    <div class="relative w-16 h-16 sm:w-24 sm:h-24 sm:mb-8 shrink-0 mx-0 sm:mx-auto">
+                        <div
+                            class="absolute inset-0 bg-blue-500 rounded-full blur-md sm:blur-xl opacity-40 group-hover:opacity-70 transition-opacity duration-300">
+                        </div>
+                        <div
+                            class="relative w-full h-full bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-xl sm:rounded-2xl flex items-center justify-center text-3xl sm:text-4xl shadow-xl transform group-hover:scale-110 transition-transform duration-300 rotate-3 group-hover:rotate-0">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                    </div>
+
+                    <div class="text-left sm:text-center flex-grow">
+                        <h3
+                            class="text-xl sm:text-3xl font-extrabold text-slate-800 mb-1 sm:mb-4 tracking-tight leading-tight">
+                            Digital Archive</h3>
+                        <p
+                            class="text-slate-600 font-medium leading-snug sm:leading-relaxed sm:px-4 text-[11px] sm:text-lg line-clamp-2 sm:line-clamp-none">
+                            Pusat manajemen arsip digital, DED, dan RAB yang terstruktur.
+                        </p>
+                    </div>
+                </div>
+
+                <button
+                    class="mt-4 sm:mt-auto w-full bg-slate-900 text-white font-bold py-3 sm:py-4 px-4 sm:px-8 rounded-xl shadow-lg group-hover:bg-blue-600 transition-colors duration-300 flex items-center justify-center gap-2 text-sm sm:text-lg">
+                    <span>Buka Ruang Kerja</span> <i
+                        class="fa-solid fa-arrow-right group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-300"></i>
+                </button>
+            </div>
+
+            <!-- Field Report Card -->
+            <div onclick="window.location.href='survey.html'"
+                class="glass-card glow-hover rounded-2xl sm:rounded-[2rem] p-5 sm:p-10 cursor-pointer flex flex-col sm:items-center sm:text-center group">
+                <div class="flex items-center gap-4 sm:block w-full">
+                    <div class="relative w-16 h-16 sm:w-24 sm:h-24 sm:mb-8 shrink-0 mx-0 sm:mx-auto">
+                        <div
+                            class="absolute inset-0 bg-yellow-500 rounded-full blur-md sm:blur-xl opacity-40 group-hover:opacity-70 transition-opacity duration-300">
+                        </div>
+                        <div
+                            class="relative w-full h-full bg-gradient-to-br from-yellow-400 to-amber-500 text-white rounded-xl sm:rounded-2xl flex items-center justify-center text-3xl sm:text-4xl shadow-xl transform group-hover:scale-110 transition-transform duration-300 -rotate-3 group-hover:rotate-0">
+                            <i class="fa-solid fa-clipboard-list"></i>
+                        </div>
+                    </div>
+
+                    <div class="text-left sm:text-center flex-grow">
+                        <h3
+                            class="text-xl sm:text-3xl font-extrabold text-slate-800 mb-1 sm:mb-4 tracking-tight leading-tight">
+                            Field Report</h3>
+                        <p
+                            class="text-slate-600 font-medium leading-snug sm:leading-relaxed sm:px-4 text-[11px] sm:text-lg line-clamp-2 sm:line-clamp-none">
+                            Sistem pelaporan cepat kerusakan infrastruktur & mitigasi darurat.
+                        </p>
+                    </div>
+                </div>
+
+                <button
+                    class="mt-4 sm:mt-auto w-full bg-slate-900 text-white font-bold py-3 sm:py-4 px-4 sm:px-8 rounded-xl shadow-lg group-hover:bg-yellow-500 group-hover:text-slate-900 transition-colors duration-300 flex items-center justify-center gap-2 text-sm sm:text-lg">
+                    <span>Buat Laporan Baru</span> <i
+                        class="fa-solid fa-arrow-right group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-300"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
