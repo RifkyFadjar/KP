@@ -47,9 +47,19 @@
                         <label class="block text-sm font-semibold text-slate-700 mb-1">Status Dokumen</label>
                         <select id="valStatusDokumen" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
                             <option value="">Pilih Status Dokumen...</option>
-                            <option value="RENDAH">Rendah</option>
-                            <option value="SEDANG">Sedang</option>
-                            <option value="TINGGI">Tinggi</option>
+                            <option value="Biasa">Biasa</option>
+                            <option value="Penting">Penting</option>
+                            <option value="Segera">Segera</option>
+                        </select>
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Sumber Informasi</label>
+                        <select id="valSumberInfo" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                            <option value="">Pilih Sumber Informasi...</option>
+                            <option value="Laporan masyarakat">Laporan masyarakat</option>
+                            <option value="Surat masuk instansi">Surat masuk instansi</option>
+                            <option value="Pengamatan petugas lapangan">Pengamatan petugas lapangan</option>
                         </select>
                     </div>
 
@@ -82,12 +92,17 @@
 
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 mb-1">Cuaca</label>
-                        <input type="text" id="valCuaca" placeholder="Contoh: Cerah" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                        <select id="valCuaca" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                            <option value="">Pilih Cuaca...</option>
+                            <option value="Cerah">Cerah</option>
+                            <option value="Berawan">Berawan</option>
+                            <option value="Hujan">Hujan</option>
+                        </select>
                     </div>
 
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">Petugas</label>
-                        <input type="text" id="valPetugas" placeholder="Contoh: Maulana Khairil Akbar" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Surveyor (Bisa diisi lebih dari 1)</label>
+                        <input type="text" id="valSurveyor" placeholder="Contoh: Maulana Khairil Akbar, Ahmad Fajar" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
                     </div>
                 </div>
             </div>
@@ -96,73 +111,70 @@
             <div>
                 <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i class="fa-solid fa-triangle-exclamation mr-2"></i> II. Permasalahan yang Ditemukan</h2>
                 <div class="space-y-4">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Kategori Permasalahan</label>
-                            <input type="text" id="valKategoriMasalah" placeholder="Contoh: Kerusakan fisik dan struktur" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Dimensi Saluran</label>
+                            <div class="flex items-center gap-2">
+                                <input type="text" id="valLebar" placeholder="Lebar (m)" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                                <span class="text-slate-500 font-bold">x</span>
+                                <input type="text" id="valKedalaman" placeholder="Kedalaman (m)" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                            </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Tingkat Urgensi</label>
-                            <input type="text" id="valUrgensi" placeholder="Contoh: Tinggi (prioritas utama)" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Kondisi Existing</label>
+                            <select id="valKondisiExisting" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" onchange="if(this.value==='Lainnya') document.getElementById('valKondisiLain').classList.remove('hidden'); else document.getElementById('valKondisiLain').classList.add('hidden');" required>
+                                <option value="">Pilih Kondisi Existing...</option>
+                                <option value="Genangan sumbatan">Genangan sumbatan</option>
+                                <option value="Talud saluran longsor (rusak, roboh)">Talud saluran longsor (rusak, roboh)</option>
+                                <option value="Penyempitan saluran">Penyempitan saluran</option>
+                                <option value="Sedimentasi tinggi">Sedimentasi tinggi</option>
+                                <option value="Plat rendah">Plat rendah</option>
+                                <option value="Saluran terbuka dan tertutup">Saluran terbuka dan tertutup</option>
+                                <option value="Lainnya">Isi Sendiri...</option>
+                            </select>
+                            <input type="text" id="valKondisiLain" placeholder="Tuliskan kondisi lainnya..." class="w-full mt-2 px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm hidden">
                         </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">Deskripsi Permasalahan</label>
-                        <textarea id="valDeskripsiMasalah" rows="3" placeholder="Contoh: Terjadi penurunan tanah sedalam 25-35 cm..." class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required></textarea>
                     </div>
                 </div>
             </div>
 
-            <!-- BAGIAN 3: HASIL SURVEY -->
+            <!-- BAGIAN 3: RENCANA DAN PENANGANAN JANGKA PENDEK (SEMENTARA) -->
             <div>
-                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i class="fa-solid fa-magnifying-glass mr-2"></i> III. Hasil Survey</h2>
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-1">Detail Hasil Survey Lapangan</label>
-                    <textarea id="valHasil" rows="4" placeholder="Tuliskan poin-poin temuan hasil survey dan akibatnya..." class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required></textarea>
-                </div>
-            </div>
-
-            <!-- BAGIAN 4: RENCANA PENANGANAN JANGKA PENDEK -->
-            <div>
-                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i class="fa-solid fa-person-digging mr-2"></i> IV. Rencana & Jadwal Penanganan Darurat</h2>
+                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i class="fa-solid fa-person-digging mr-2"></i> III. Rencana & Penanganan Jangka Pendek (Sementara)</h2>
                 <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">Rencana Tindakan Darurat</label>
-                        <textarea id="valTindakanPendek" rows="3" placeholder="Contoh: 1. Pemasangan rambu peringatan..." class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required></textarea>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Kebutuhan</label>
-                            <input type="text" id="valKebutuhan" placeholder="Contoh: 50 lembar karung pasir..." class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Kategori Perbaikan</label>
+                            <select id="valKategoriPerbaikan" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" onchange="if(this.value==='Lainnya') document.getElementById('valPerbaikanLain').classList.remove('hidden'); else document.getElementById('valPerbaikanLain').classList.add('hidden');" required>
+                                <option value="">Pilih Kategori Perbaikan...</option>
+                                <option value="Penanganan sumbatan">Penanganan sumbatan</option>
+                                <option value="Penggalian sedimentasi">Penggalian sedimentasi</option>
+                                <option value="Perbaikan sementara">Perbaikan sementara</option>
+                                <option value="Perambasan gulma">Perambasan gulma</option>
+                                <option value="Lainnya">Isi Sendiri...</option>
+                            </select>
+                            <input type="text" id="valPerbaikanLain" placeholder="Tuliskan kategori perbaikan lainnya..." class="w-full mt-2 px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm hidden">
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Pelaksanaan</label>
                             <input type="text" id="valWaktuPendek" placeholder="Contoh: 31 Agustus 2026" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
                         </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Jumlah Tenaga</label>
-                            <input type="text" id="valTenaga" placeholder="Contoh: 2 Orang" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- BAGIAN 5: RENCANA TINDAK LANJUT -->
+            <!-- BAGIAN 4: RENCANA TINDAK LANJUT -->
             <div>
-                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i class="fa-solid fa-file-invoice-dollar mr-2"></i> V. Rencana Tindak Lanjut & Anggaran</h2>
+                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i class="fa-solid fa-file-invoice-dollar mr-2"></i> IV. Rencana Tindak Lanjut</h2>
                 <div class="space-y-4 mb-6">
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">Rencana Tindak Lanjut / Rekonstruksi Permanen</label>
-                        <textarea id="valTindakPanjang" rows="3" placeholder="Contoh: 1. Perkuatan tebing dengan tiang pancang..." class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm"></textarea>
-                    </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Tahapan Pelaksanaan</label>
-                            <input type="text" id="valTahapan" placeholder="Contoh: Review DED -> pengadaan -> mobilisasi..." class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Waktu Pelaksanaan</label>
-                            <input type="text" id="valWaktuPanjang" placeholder="Contoh: 31 Agustus 2026" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm">
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Kategori Penanganan</label>
+                            <select id="valKategoriPenanganan" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                                <option value="">Pilih Kategori Penanganan...</option>
+                                <option value="Rekonstruksi melalui swakelola">Rekonstruksi melalui swakelola</option>
+                                <option value="Rekonstruksi usulan tahun anggaran berikutnya">Rekonstruksi usulan tahun anggaran berikutnya</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -170,59 +182,61 @@
                 <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
                     <div class="bg-white p-4 border-b border-slate-200 flex items-center gap-4">
                         <div class="w-12 h-12 bg-rose-600 rounded-xl text-white flex items-center justify-center text-xl shrink-0 shadow-md"><i class="fa-solid fa-calculator"></i></div>
-                        <div><h3 class="font-bold text-slate-800 text-base">Perkiraan Rincian Anggaran Biaya (RAB)</h3></div>
+                        <div><h3 class="font-bold text-slate-800 text-base">Perkiraan Biaya</h3></div>
                     </div>
 
-                    <div class="p-4 bg-slate-50/50">
-                        <div id="rabBody" class="space-y-4">
-                            <!-- RAB Item Card -->
-                            <div class="rab-row bg-white border border-slate-200 rounded-lg p-4 shadow-sm relative">
-                                <span class="absolute top-2 left-3 text-xs font-bold text-slate-400 rab-number">1</span>
-                                <!-- Tombol Hapus (Disembunyikan untuk item pertama agar minimal ada 1) -->
-                                <button type="button" onclick="if(document.querySelectorAll('.rab-row').length > 1) { this.closest('.rab-row').remove(); calculateRAB(); updateRabNumbers(); }" class="absolute top-2 right-2 text-rose-500 hover:text-rose-700 p-1"><i class="fa-solid fa-xmark"></i></button>
-                                
-                                <div class="mt-4 space-y-3">
-                                    <div>
-                                        <label class="block text-xs font-semibold text-slate-600 mb-1">Uraian Pekerjaan & Material</label>
-                                        <input type="text" placeholder="Uraian pekerjaan..." class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm input-uraian">
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-3">
-                                        <div>
-                                            <label class="block text-xs font-semibold text-slate-600 mb-1">Volume</label>
-                                            <input type="text" inputmode="decimal" placeholder="0" class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm input-vol" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); calculateRAB()">
-                                        </div>
-                                        <div>
-                                            <label class="block text-xs font-semibold text-slate-600 mb-1">Satuan</label>
-                                            <input type="text" placeholder="m3" class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm input-satuan">
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-semibold text-slate-600 mb-1">Harga Satuan (Rp)</label>
-                                        <input type="text" inputmode="numeric" placeholder="0" class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm input-harga" oninput="this.value = this.value.replace(/[^0-9]/g, ''); calculateRAB()">
-                                    </div>
-                                    <div class="pt-3 border-t border-slate-100 flex justify-between items-center">
-                                        <span class="text-sm font-bold text-slate-600">Total Harga:</span>
-                                        <span class="text-lg font-bold text-rose-600">Rp <span class="subtotal-text">0</span></span>
-                                    </div>
-                                </div>
+                    <div class="p-4 bg-slate-50/50 space-y-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Metode Perhitungan Biaya</label>
+                            <div class="flex gap-4">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="metodeBiaya" value="manual" checked class="w-4 h-4 text-rose-600" onchange="toggleMetodeBiaya()">
+                                    <span class="text-sm font-medium">Manual (Input Nominal)</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="metodeBiaya" value="otomatis" class="w-4 h-4 text-rose-600" onchange="toggleMetodeBiaya()">
+                                    <span class="text-sm font-medium">Otomatis (Material &amp; 30% Gaji)</span>
+                                </label>
                             </div>
                         </div>
 
-                        <div class="mt-4 pt-4 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                            <button type="button" onclick="addRabRow()" class="text-sm font-bold text-blue-600 hover:text-blue-800 flex items-center justify-center gap-2 bg-blue-50 hover:bg-blue-100 py-3 px-4 rounded-lg w-full sm:w-auto transition-colors shadow-sm border border-blue-200"><i class="fa-solid fa-plus"></i> Tambah Item RAB</button>
+                        <!-- Mode Manual -->
+                        <div id="modeManual" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">Biaya Material (Rp)</label>
+                                <input type="text" id="valBiayaMaterialManual" inputmode="numeric" placeholder="0" class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, ''); calcBiaya()">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">Gaji Tenaga Kerja (Rp)</label>
+                                <input type="text" id="valGajiManual" inputmode="numeric" placeholder="0" class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, ''); calcBiaya()">
+                            </div>
+                        </div>
+
+                        <!-- Mode Otomatis -->
+                        <div id="modeOtomatis" class="grid grid-cols-1 gap-4 hidden">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">Biaya Material (Rp)</label>
+                                <input type="text" id="valBiayaMaterialOtomatis" inputmode="numeric" placeholder="0" class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, ''); calcBiaya()">
+                            </div>
+                            <div class="text-sm text-slate-600 bg-white p-3 rounded border border-slate-200">
+                                <span class="font-semibold">Estimasi Gaji Tenaga Kerja (30% dari Material):</span> 
+                                <span class="text-rose-600 font-bold ml-2">Rp <span id="autoGajiView">0</span></span>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-4 border-t border-slate-200 flex justify-end">
                             <div class="text-right bg-rose-50 p-4 rounded-lg border border-rose-100 shadow-sm w-full sm:w-auto">
-                                <span class="text-xs font-bold text-slate-600 block uppercase mb-1">Total Estimasi Biaya</span>
+                                <span class="text-xs font-bold text-slate-600 block uppercase mb-1">Total Perkiraan Biaya</span>
                                 <span class="text-2xl font-extrabold text-rose-600 leading-none">Rp <span id="grandTotal">0</span></span>
                             </div>
                         </div>
                     </div>
-                        <p class="text-[10px] italic text-slate-500 mt-3">Keterangan: estimasi RAB awal disusun berdasarkan standar harga satuan daerah tahun anggaran 2026 dan sudah termasuk PPN 11%.</p>
-                    </div>
                 </div>
+            </div>
 
-            <!-- BAGIAN 6: LAMPIRAN (Preview Foto) -->
+            <!-- BAGIAN 5: LAMPIRAN (Preview Foto) -->
             <div>
-                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i class="fa-solid fa-camera mr-2"></i> VI. Lampiran Dokumentasi Survey Lokasi</h2>
+                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i class="fa-solid fa-camera mr-2"></i> V. Lampiran Dokumentasi Survey Lokasi</h2>
                 <div>
                     <div class="border-2 border-dashed border-slate-300 rounded-xl bg-slate-50 p-4 sm:p-6 flex flex-col items-center justify-center text-center hover:bg-slate-100 transition cursor-pointer relative" onclick="document.getElementById('fileUpload').click()">
                         <i class="fa-solid fa-cloud-arrow-up text-2xl sm:text-3xl text-slate-400 mb-2"></i>
@@ -234,9 +248,9 @@
                 </div>
             </div>
 
-            <!-- BAGIAN 7: INFORMASI TANDA TANGAN -->
+            <!-- BAGIAN 6: INFORMASI TANDA TANGAN -->
             <div>
-                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i class="fa-solid fa-pen-nib mr-2"></i> VII. Informasi Tanda Tangan Laporan</h2>
+                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i class="fa-solid fa-pen-nib mr-2"></i> VI. Informasi Tanda Tangan Laporan</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 mb-1">Kota Tempat Laporan Dibuat</label>
@@ -314,62 +328,35 @@
             }
         }
 
-        // 2. Fungsi Hitung RAB & Tambah Baris
+        // 2. Fungsi Hitung Biaya
         function formatRupiah(number) { return new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0 }).format(number || 0); }
         
-        function updateRabNumbers() {
-            document.querySelectorAll('.rab-row').forEach((row, idx) => {
-                row.querySelector('.rab-number').innerText = idx + 1;
-            });
+        function toggleMetodeBiaya() {
+            const isManual = document.querySelector('input[name="metodeBiaya"]:checked').value === 'manual';
+            if(isManual) {
+                document.getElementById('modeManual').classList.remove('hidden');
+                document.getElementById('modeOtomatis').classList.add('hidden');
+            } else {
+                document.getElementById('modeManual').classList.add('hidden');
+                document.getElementById('modeOtomatis').classList.remove('hidden');
+            }
+            calcBiaya();
         }
 
-        function calculateRAB() {
-            const rows = document.querySelectorAll('.rab-row');
+        function calcBiaya() {
+            const isManual = document.querySelector('input[name="metodeBiaya"]:checked').value === 'manual';
             let total = 0;
-            rows.forEach((row) => {
-                const vol = parseFloat(row.querySelector('.input-vol').value) || 0;
-                const harga = parseFloat(row.querySelector('.input-harga').value) || 0;
-                const sub = vol * harga;
-                row.querySelector('.subtotal-text').innerText = formatRupiah(sub);
-                total += sub;
-            });
+            if(isManual) {
+                const material = parseFloat(document.getElementById('valBiayaMaterialManual').value) || 0;
+                const gaji = parseFloat(document.getElementById('valGajiManual').value) || 0;
+                total = material + gaji;
+            } else {
+                const material = parseFloat(document.getElementById('valBiayaMaterialOtomatis').value) || 0;
+                const gaji = material * 0.30;
+                document.getElementById('autoGajiView').innerText = formatRupiah(gaji);
+                total = material + gaji;
+            }
             document.getElementById('grandTotal').innerText = formatRupiah(total);
-        }
-
-        function addRabRow() {
-            const container = document.getElementById('rabBody');
-            const rowCount = container.querySelectorAll('.rab-row').length + 1;
-            const div = document.createElement('div');
-            div.className = "rab-row bg-white border border-slate-200 rounded-lg p-4 shadow-sm relative";
-            div.innerHTML = `
-                <span class="absolute top-2 left-3 text-xs font-bold text-slate-400 rab-number">${rowCount}</span>
-                <button type="button" onclick="this.closest('.rab-row').remove(); calculateRAB(); updateRabNumbers();" class="absolute top-2 right-2 text-rose-500 hover:text-rose-700 p-1"><i class="fa-solid fa-xmark"></i></button>
-                <div class="mt-4 space-y-3">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">Uraian Pekerjaan & Material</label>
-                        <input type="text" placeholder="Uraian pekerjaan..." class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm input-uraian">
-                    </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1">Volume</label>
-                            <input type="text" inputmode="decimal" placeholder="0" class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm input-vol" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); calculateRAB()">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 mb-1">Satuan</label>
-                            <input type="text" placeholder="m3" class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm input-satuan">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 mb-1">Harga Satuan (Rp)</label>
-                        <input type="text" inputmode="numeric" placeholder="0" class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm input-harga" oninput="this.value = this.value.replace(/[^0-9]/g, ''); calculateRAB()">
-                    </div>
-                    <div class="pt-3 border-t border-slate-100 flex justify-between items-center">
-                        <span class="text-sm font-bold text-slate-600">Total Harga:</span>
-                        <span class="text-lg font-bold text-rose-600">Rp <span class="subtotal-text">0</span></span>
-                    </div>
-                </div>
-            `;
-            container.appendChild(div);
         }
 
         // 3. Fungsi Preview & Kompres Gambar (Thumbnail)
@@ -414,13 +401,12 @@
                 Array.from(fileUpload.files).forEach(file => {
                     const reader = new FileReader();
                     reader.onload = function(e) {
-                        // Kompresi sebelum simpan
                         compressImage(e.target.result, function(compressedBase64) {
                             const img = document.createElement('img');
                             img.src = compressedBase64;
                             img.className = "w-16 h-16 object-cover rounded-md border border-slate-300 shadow-sm";
                             container.appendChild(img);
-                            fotoArray.push(compressedBase64); // Simpan base64 yang sudah dikompres
+                            fotoArray.push(compressedBase64);
                         });
                     }
                     reader.readAsDataURL(file);
@@ -428,51 +414,37 @@
             }
         }
 
-
-
         // 4. Data Binding -> Simpan Laporan ke LocalStorage saat Submit
         document.getElementById('fieldReportForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Ambil rincian RAB
-            const rabRows = [];
-            document.querySelectorAll('.rab-row').forEach(row => {
-                const uraian = row.querySelector('.input-uraian').value;
-                if (uraian.trim() !== '') {
-                    rabRows.push({
-                        uraian: uraian,
-                        volume: row.querySelector('.input-vol').value,
-                        satuan: row.querySelector('.input-satuan').value,
-                        harga: row.querySelector('.input-harga').value,
-                        jumlah: row.querySelector('.subtotal-text').innerText
-                    });
-                }
-            });
+            // Ambil rincian biaya yang dipilih
+            const isManual = document.querySelector('input[name="metodeBiaya"]:checked').value === 'manual';
+            let biayaMaterial = isManual ? document.getElementById('valBiayaMaterialManual').value : document.getElementById('valBiayaMaterialOtomatis').value;
+            let biayaGaji = isManual ? document.getElementById('valGajiManual').value : (parseFloat(biayaMaterial || 0) * 0.30).toString();
 
-            // Kumpulkan semua isian form
             const reportData = {
                 statusDokumen: document.getElementById('valStatusDokumen').value,
+                sumberInfo: document.getElementById('valSumberInfo').value,
                 lokasi: document.getElementById('valLokasi').value,
                 alamat: document.getElementById('valAlamat').value,
                 gpsLat: gpsLat,
                 gpsLon: gpsLon,
                 waktu: document.getElementById('valWaktu').value,
                 cuaca: document.getElementById('valCuaca').value,
-                petugas: document.getElementById('valPetugas').value,
-                kategoriMasalah: document.getElementById('valKategoriMasalah').value,
-                urgensi: document.getElementById('valUrgensi').value,
-                deskripsiMasalah: document.getElementById('valDeskripsiMasalah').value,
-                hasil: document.getElementById('valHasil').value,
-                tindakPendek: document.getElementById('valTindakanPendek').value,
-                kebutuhan: document.getElementById('valKebutuhan').value,
+                surveyor: document.getElementById('valSurveyor').value,
+                lebar: document.getElementById('valLebar').value,
+                kedalaman: document.getElementById('valKedalaman').value,
+                kondisiExisting: document.getElementById('valKondisiExisting').value === 'Lainnya' ? document.getElementById('valKondisiLain').value : document.getElementById('valKondisiExisting').value,
+                kategoriPerbaikan: document.getElementById('valKategoriPerbaikan').value === 'Lainnya' ? document.getElementById('valPerbaikanLain').value : document.getElementById('valKategoriPerbaikan').value,
                 waktuPendek: document.getElementById('valWaktuPendek').value,
-                tenaga: document.getElementById('valTenaga').value,
-                tindakPanjang: document.getElementById('valTindakPanjang').value,
+                kategoriPenanganan: document.getElementById('valKategoriPenanganan').value,
                 tahapan: document.getElementById('valTahapan').value,
                 waktuPanjang: document.getElementById('valWaktuPanjang').value,
+                biayaMaterial: formatRupiah(biayaMaterial),
+                biayaGaji: formatRupiah(biayaGaji),
                 anggaran: document.getElementById('grandTotal').innerText,
                 fotoDokumentasi: fotoArray,
-                rabRows: rabRows,
                 kotaTtd: document.getElementById('valKotaTtd').value,
                 tglTtd: document.getElementById('valTglTtd').value,
                 roleTtd: document.getElementById('valRoleTtd').value,
@@ -497,7 +469,7 @@
             setTimeout(() => { window.location.href = 'hasil-laporan.html'; }, 1500);
         });
 
-        calculateRAB();
+        calcBiaya();
     </script>
 </body>
 </html>

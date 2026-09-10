@@ -107,8 +107,17 @@
             <table class="formal-table">
                 <tbody>
                     <tr>
-                        <td style="width: 30%; min-width: 150px;">Nama Lokasi</td>
-                        <td id="repLokasi" style="width: 70%;">-</td>
+                    <tr>
+                        <td style="width: 30%; min-width: 150px;">Status Dokumen</td>
+                        <td id="repStatusDokumen" style="width: 70%; font-weight: bold;">-</td>
+                    </tr>
+                    <tr>
+                        <td>Sumber Informasi</td>
+                        <td id="repSumberInfo">-</td>
+                    </tr>
+                    <tr>
+                        <td>Nama Lokasi</td>
+                        <td id="repLokasi">-</td>
                     </tr>
                     <tr>
                         <td>Alamat / Wilayah</td>
@@ -123,8 +132,8 @@
                         <td id="repCuaca">-</td>
                     </tr>
                     <tr>
-                        <td>Petugas</td>
-                        <td id="repPetugas">-</td>
+                        <td>Surveyor</td>
+                        <td id="repSurveyor">-</td>
                     </tr>
                 </tbody>
             </table>
@@ -141,91 +150,82 @@
             <table class="formal-table">
                 <tbody>
                     <tr>
-                        <td style="width: 30%; min-width: 150px;">Kategori Permasalahan</td>
-                        <td id="repKategoriMasalah" style="width: 70%;">-</td>
+                        <td style="width: 30%; min-width: 150px;">Dimensi Saluran</td>
+                        <td>Lebar: <span id="repLebar">-</span> m, Kedalaman: <span id="repKedalaman">-</span> m</td>
                     </tr>
                     <tr>
-                        <td>Tingkat Urgensi</td>
-                        <td id="repUrgensi">-</td>
+                        <td>Kondisi Existing</td>
+                        <td id="repKondisiExisting">-</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <p id="repDeskripsiMasalah" class="whitespace-pre-wrap text-justify">-</p>
 
-        <h2 class="section-title">III. HASIL SURVEY</h2>
-        <p class="mb-2">Berdasarkan pemeriksaan langsung di lapangan, kondisi hasil survey sebagai berikut :</p>
-        <p id="repHasil" class="whitespace-pre-wrap pl-4 text-justify">-</p>
-
-        <h2 class="section-title">IV. RENCANA DAN JADWAL PENANGANAN JANGKA PENDEK (DARURAT)</h2>
-        <p class="mb-2">Rencana tindakan darurat yang dilaksanakan:</p>
-        <p id="repTindakPendek" class="whitespace-pre-wrap pl-4 mb-4 text-justify">-</p>
-        
+        <h2 class="section-title">III. RENCANA DAN JADWAL PENANGANAN JANGKA PENDEK (DARURAT)</h2>
         <div class="overflow-x-auto mb-4">
             <table class="formal-table">
                 <tbody>
                     <tr>
-                        <td style="width: 30%; min-width: 150px;">Kebutuhan</td>
-                        <td id="repKebutuhan" style="width: 70%;">-</td>
+                        <td style="width: 30%; min-width: 150px;">Kategori Perbaikan</td>
+                        <td id="repKategoriPerbaikan" style="width: 70%;">-</td>
                     </tr>
                     <tr>
                         <td>Pelaksanaan</td>
                         <td id="repWaktuPendek">-</td>
                     </tr>
-                    <tr>
-                        <td>Jumlah Tenaga</td>
-                        <td id="repTenaga">-</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
 
-        <h2 class="section-title">V. RENCANA TINDAK LANJUT DAN ANGGARAN JANGKA PANJANG</h2>
-        <p class="mb-2">Rencana tindak lanjut / rekonstruksi permanen:</p>
-        <p id="repTindakPanjang" class="whitespace-pre-wrap pl-4 mb-4 text-justify">-</p>
-
-        <div class="overflow-x-auto mb-6">
+        <h2 class="section-title">IV. RENCANA TINDAK LANJUT</h2>
+        <div class="overflow-x-auto mb-4">
             <table class="formal-table">
                 <tbody>
                     <tr>
-                        <td style="width: 30%; min-width: 150px;">Tahapan Pelaksanaan</td>
-                        <td id="repTahapan" style="width: 70%;">-</td>
+                        <td style="width: 30%; min-width: 150px;">Kategori Penanganan</td>
+                        <td id="repKategoriPenanganan" style="width: 70%;">-</td>
                     </tr>
                     <tr>
-                        <td>Pelaksanaan</td>
+                        <td style="width: 30%; min-width: 150px;">Tahapan Pelaksanaan</td>
+                        <td id="repTahapan">-</td>
+                    </tr>
+                    <tr>
+                        <td>Waktu Pelaksanaan</td>
                         <td id="repWaktuPanjang">-</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <p class="font-bold mb-2">Perkiraan Rincian Anggaran Biaya (RAB)</p>
+        <p class="font-bold mb-2">Perkiraan Biaya</p>
         <div class="overflow-x-auto mb-2">
             <table class="formal-table text-[12px] sm:text-[14px] min-w-[500px]">
                 <thead>
                     <tr>
-                        <th class="text-center w-12">No.</th>
-                        <th class="text-center">Uraian Pekerjaan & Material</th>
-                        <th class="text-center w-16 sm:w-20">Volume</th>
-                        <th class="text-center w-16 sm:w-20">Satuan</th>
-                        <th class="text-center w-24 sm:w-32">Harga Satuan<br>(Rp)</th>
-                        <th class="text-center w-24 sm:w-32">Jumlah Total<br>(Rp)</th>
+                        <th class="text-center">Keterangan</th>
+                        <th class="text-center w-32">Nominal Biaya (Rp)</th>
                     </tr>
                 </thead>
-                <tbody id="repRabBody">
-                    <!-- Data RAB masuk di sini -->
+                <tbody>
+                    <tr>
+                        <td>Biaya Material</td>
+                        <td class="text-center font-semibold" id="repBiayaMaterial">-</td>
+                    </tr>
+                    <tr>
+                        <td>Gaji Tenaga Kerja</td>
+                        <td class="text-center font-semibold" id="repBiayaGaji">-</td>
+                    </tr>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="5" class="text-right font-bold uppercase tracking-wider text-xs sm:text-sm">TOTAL ESTIMASI KEBUTUHAN BIAYA</td>
-                        <td class="text-center font-bold" id="repAnggaran">-</td>
+                        <td class="text-right font-bold uppercase tracking-wider text-xs sm:text-sm">TOTAL ESTIMASI BIAYA</td>
+                        <td class="text-center font-bold text-red-700" id="repAnggaran">-</td>
                     </tr>
                 </tfoot>
             </table>
         </div>
-        <p class="text-[11px] sm:text-[12px] italic mt-2">Keterangan: estimasi RAB awal disusun berdasarkan standar harga satuan daerah tahun anggaran 2026 dan sudah termasuk PPN 11%.</p>
 
-        <h2 class="section-title" style="page-break-before: always;">VI. LAMPIRAN DOKUMENTASI SURVEY LOKASI</h2>
+        <h2 class="section-title" style="page-break-before: always;">V. LAMPIRAN DOKUMENTASI SURVEY LOKASI</h2>
         <p class="mb-4">Dokumentasi kondisi lapangan pada saat pelaksanaan survey:</p>
         <div id="gridFotoDokumentasi" class="grid grid-cols-2 gap-4 mb-16">
             <!-- Foto masuk di sini -->
@@ -259,54 +259,33 @@
                 if(data) {
                     // Header
                     document.getElementById('repTglSurvey').innerText = data.waktu || '-';
-                    document.getElementById('repUrgensiAtas').innerText = (data.statusDokumen ? 'PRIORITAS ' + data.statusDokumen : 'PRIORITAS TINGGI');
+                    document.getElementById('repUrgensiAtas').innerText = (data.statusDokumen ? 'PRIORITAS ' + data.statusDokumen.toUpperCase() : 'BIASA');
 
                     // I. Lokasi
+                    document.getElementById('repStatusDokumen').innerText = data.statusDokumen || '-';
+                    document.getElementById('repSumberInfo').innerText = data.sumberInfo || '-';
                     document.getElementById('repLokasi').innerText = data.lokasi || '-';
                     document.getElementById('repAlamat').innerText = data.alamat || '-';
                     document.getElementById('repWaktu').innerText = data.waktu || '-';
                     document.getElementById('repCuaca').innerText = data.cuaca || '-';
-                    document.getElementById('repPetugas').innerText = data.petugas || '-';
+                    document.getElementById('repSurveyor').innerText = data.surveyor || '-';
 
                     // II. Permasalahan
-                    document.getElementById('repKategoriMasalah').innerText = data.kategoriMasalah || '-';
-                    document.getElementById('repUrgensi').innerText = data.urgensi || '-';
-                    document.getElementById('repDeskripsiMasalah').innerText = data.deskripsiMasalah || '-';
+                    document.getElementById('repLebar').innerText = data.lebar || '-';
+                    document.getElementById('repKedalaman').innerText = data.kedalaman || '-';
+                    document.getElementById('repKondisiExisting').innerText = data.kondisiExisting || '-';
 
-                    // III. Hasil
-                    document.getElementById('repHasil').innerText = data.hasil || '-';
-
-                    // IV. Jangka Pendek
-                    document.getElementById('repTindakPendek').innerText = data.tindakPendek || '-';
-                    document.getElementById('repKebutuhan').innerText = data.kebutuhan || '-';
+                    // III. Jangka Pendek
+                    document.getElementById('repKategoriPerbaikan').innerText = data.kategoriPerbaikan || '-';
                     document.getElementById('repWaktuPendek').innerText = data.waktuPendek || '-';
-                    document.getElementById('repTenaga').innerText = data.tenaga || '-';
 
-                    // V. Jangka Panjang
-                    document.getElementById('repTindakPanjang').innerText = data.tindakPanjang || '-';
+                    // IV. Jangka Panjang
+                    document.getElementById('repKategoriPenanganan').innerText = data.kategoriPenanganan || '-';
                     document.getElementById('repTahapan').innerText = data.tahapan || '-';
                     document.getElementById('repWaktuPanjang').innerText = data.waktuPanjang || '-';
+                    document.getElementById('repBiayaMaterial').innerText = data.biayaMaterial || '-';
+                    document.getElementById('repBiayaGaji').innerText = data.biayaGaji || '-';
                     document.getElementById('repAnggaran').innerText = data.anggaran || '-';
-
-                    // RAB Rows
-                    if (data.rabRows && data.rabRows.length > 0) {
-                        const tbody = document.getElementById('repRabBody');
-                        tbody.innerHTML = '';
-                        data.rabRows.forEach((row, index) => {
-                            const tr = document.createElement('tr');
-                            tr.innerHTML = `
-                                <td class="text-center">${index + 1}</td>
-                                <td>${row.uraian}</td>
-                                <td class="text-center">${row.volume}</td>
-                                <td class="text-center">${row.satuan}</td>
-                                <td class="text-right">${formatRupiah(row.harga)}</td>
-                                <td class="text-right">${row.jumlah}</td>
-                            `;
-                            tbody.appendChild(tr);
-                        });
-                    } else {
-                        document.getElementById('repRabBody').innerHTML = `<tr><td colspan="6" class="text-center italic py-4">Data RAB tidak tersedia</td></tr>`;
-                    }
 
                     // TTD
                     document.getElementById('repKotaTtd').innerText = data.kotaTtd || 'Mataram';
