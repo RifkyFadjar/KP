@@ -1,61 +1,79 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Field Report SDA - PUPR</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script>
         tailwind.config = { theme: { extend: { fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }, colors: { pupr: { blue: '#162e6b', yellow: '#facc15' } } } } }
     </script>
     <style>
         /* Mencegah input memperlebar grid pada layar kecil */
-        input, textarea, select {
+        input,
+        textarea,
+        select {
             min-width: 0;
         }
     </style>
 </head>
+
 <body class="bg-slate-50 font-sans text-slate-800 pb-10">
 
     <div class="bg-pupr-blue text-white sticky top-0 z-50 shadow-md">
         <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <button type="button" onclick="window.location.href='index.html'" class="text-white hover:text-pupr-yellow transition"><i class="fa-solid fa-arrow-left text-xl"></i></button>
-                <div><h1 class="text-lg font-bold leading-tight">Field Report SDA</h1><p class="text-xs text-slate-300">Bidang Sumber Daya Air (SDA)</p></div>
+                <button type="button" onclick="window.location.href='index.html'"
+                    class="text-white hover:text-pupr-yellow transition"><i
+                        class="fa-solid fa-arrow-left text-xl"></i></button>
+                <div>
+                    <h1 class="text-lg font-bold leading-tight">Field Report SDA</h1>
+                    <p class="text-xs text-slate-300">Bidang Sumber Daya Air (SDA)</p>
+                </div>
             </div>
-            <div class="w-10 h-10 bg-white rounded-full p-1 flex items-center justify-center"><img src="img/logo-pupr.png" alt="PUPR" class="w-full h-full object-contain" onerror="this.style.display='none'"></div>
+            <div class="w-10 h-10 bg-white rounded-full p-1 flex items-center justify-center"><img
+                    src="img/logo-pupr.png" alt="PUPR" class="w-full h-full object-contain"
+                    onerror="this.style.display='none'"></div>
         </div>
     </div>
 
     <div class="max-w-4xl mx-auto px-4 mt-6">
-        <div id="successAlert" class="hidden bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl mb-6 flex items-start gap-3">
+        <div id="successAlert"
+            class="hidden bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl mb-6 flex items-start gap-3">
             <i class="fa-solid fa-circle-check text-xl mt-0.5"></i>
-            <div><h4 class="font-bold text-sm">Laporan Berhasil Disimpan Lokal!</h4><p class="text-xs mt-1">Mengalihkan ke halaman cetak dokumen...</p></div>
+            <div>
+                <h4 class="font-bold text-sm">Laporan Berhasil Disimpan Lokal!</h4>
+                <p class="text-xs mt-1">Mengalihkan ke halaman cetak dokumen...</p>
+            </div>
         </div>
 
         <form id="fieldReportForm" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 sm:p-8 space-y-8">
-            
+
             <!-- BAGIAN 1: DATA LOKASI DAN WAKTU PELAKSANAAN -->
             <div>
-                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i class="fa-solid fa-map-location-dot mr-2"></i> I. Data Lokasi dan Waktu Pelaksanaan</h2>
+                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i
+                        class="fa-solid fa-map-location-dot mr-2"></i> I. Data Lokasi dan Waktu Pelaksanaan</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">Status Dokumen</label>
-                        <select id="valStatusDokumen" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
-                            <option value="">Pilih Status Dokumen...</option>
-                            <option value="Biasa">Biasa</option>
-                            <option value="Penting">Penting</option>
-                            <option value="Segera">Segera</option>
-                        </select>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Waktu Pelaksanaan</label>
+                        <input type="text" id="valWaktu" placeholder="Contoh: 31 Agustus 2026, pukul 08.30 – 11.45 WIB"
+                            class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm"
+                            required>
                     </div>
 
-                    <div class="md:col-span-2">
+                    <div>
                         <label class="block text-sm font-semibold text-slate-700 mb-1">Sumber Informasi</label>
-                        <select id="valSumberInfo" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                        <select id="valSumberInfo"
+                            class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm"
+                            required>
                             <option value="">Pilih Sumber Informasi...</option>
                             <option value="Laporan masyarakat">Laporan masyarakat</option>
                             <option value="Surat masuk instansi">Surat masuk instansi</option>
@@ -64,35 +82,53 @@
                     </div>
 
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">Nama Lokasi</label>
-                        <input type="text" id="valLokasi" placeholder="Contoh: Oprit Jembatan Kali Ciliwung, Ruas KM 14+200" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Status</label>
+                        <select id="valStatusDokumen"
+                            class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm"
+                            required>
+                            <option value="">Pilih Status...</option>
+                            <option value="Biasa">Biasa</option>
+                            <option value="Penting">Penting</option>
+                            <option value="Segera">Segera</option>
+                        </select>
                     </div>
-                    
+
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Nama Lokasi</label>
+                        <input type="text" id="valLokasi"
+                            placeholder="Contoh: Oprit Jembatan Kali Ciliwung, Ruas KM 14+200"
+                            class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm"
+                            required>
+                    </div>
+
                     <div class="md:col-span-2">
                         <label class="block text-sm font-semibold text-slate-700 mb-1">Alamat / Wilayah</label>
                         <div class="relative">
-                            <input type="text" id="valAlamat" placeholder="Contoh: Jl. Raya Sukamaju No. 45..." class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm pr-12" required>
+                            <input type="text" id="valAlamat" placeholder="Contoh: Jl. Raya Sukamaju No. 45..."
+                                class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm pr-12"
+                                required>
                             <!-- Tombol GPS -->
-                            <button type="button" onclick="getGPSLocation()" class="absolute right-2 top-1.5 p-1.5 text-blue-500 hover:text-blue-700 bg-blue-50 rounded-md transition-colors" title="Ambil Lokasi Saat Ini"><i class="fa-solid fa-location-crosshairs"></i></button>
+                            <button type="button" onclick="getGPSLocation()"
+                                class="absolute right-2 top-1.5 p-1.5 text-blue-500 hover:text-blue-700 bg-blue-50 rounded-md transition-colors"
+                                title="Ambil Lokasi Saat Ini"><i class="fa-solid fa-location-crosshairs"></i></button>
                         </div>
                     </div>
 
                     <div class="md:col-span-2">
                         <label class="block text-sm font-semibold text-slate-700 mb-1">Peta Lokasi GPS</label>
-                        <div id="mapContainer" class="w-full h-64 bg-slate-100 rounded-xl border border-slate-300 relative z-0 flex flex-col items-center justify-center overflow-hidden">
+                        <div id="mapContainer"
+                            class="w-full h-64 bg-slate-100 rounded-xl border border-slate-300 relative z-0 flex flex-col items-center justify-center overflow-hidden">
                             <i class="fa-solid fa-map-location-dot text-3xl text-slate-300 mb-2"></i>
-                            <span class="text-sm font-medium text-slate-500">Klik tombol GPS pada form alamat untuk menampilkan peta</span>
+                            <span class="text-sm font-medium text-slate-500">Klik tombol GPS pada form alamat untuk
+                                menampilkan peta</span>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">Waktu Pelaksanaan</label>
-                        <input type="text" id="valWaktu" placeholder="Contoh: 31 Agustus 2026, pukul 08.30 – 11.45 WIB" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
                     </div>
 
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 mb-1">Cuaca</label>
-                        <select id="valCuaca" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                        <select id="valCuaca"
+                            class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm"
+                            required>
                             <option value="">Pilih Cuaca...</option>
                             <option value="Cerah">Cerah</option>
                             <option value="Berawan">Berawan</option>
@@ -101,37 +137,60 @@
                     </div>
 
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">Surveyor (Bisa diisi lebih dari 1)</label>
-                        <input type="text" id="valSurveyor" placeholder="Contoh: Maulana Khairil Akbar, Ahmad Fajar" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Surveyor (Bisa diisi lebih dari
+                            1)</label>
+                        <input type="text" id="valSurveyor" placeholder="Contoh: Maulana Khairil Akbar, Ahmad Fajar"
+                            class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm"
+                            required>
                     </div>
                 </div>
             </div>
 
             <!-- BAGIAN 2: PERMASALAHAN YANG DITEMUKAN -->
             <div>
-                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i class="fa-solid fa-triangle-exclamation mr-2"></i> II. Permasalahan yang Ditemukan</h2>
+                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i
+                        class="fa-solid fa-triangle-exclamation mr-2"></i> II. Permasalahan yang Ditemukan</h2>
                 <div class="space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Dimensi Saluran</label>
                             <div class="flex items-center gap-2">
-                                <input type="text" id="valLebar" placeholder="Lebar (m)" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                                <input type="text" id="valLebar" placeholder="Lebar (m)"
+                                    class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm"
+                                    required>
                                 <span class="text-slate-500 font-bold">x</span>
-                                <input type="text" id="valKedalaman" placeholder="Kedalaman (m)" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                                <input type="text" id="valKedalaman" placeholder="Kedalaman (m)"
+                                    class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm"
+                                    required>
                             </div>
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Kondisi Existing</label>
                             <div class="space-y-2 mt-2" id="chkGroupKondisi">
-                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Genangan sumbatan" class="w-4 h-4 text-pupr-blue"> Genangan sumbatan</label>
-                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Talud saluran longsor (rusak, roboh)" class="w-4 h-4 text-pupr-blue"> Talud saluran longsor (rusak, roboh)</label>
-                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Penyempitan saluran" class="w-4 h-4 text-pupr-blue"> Penyempitan saluran</label>
-                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Sedimentasi tinggi" class="w-4 h-4 text-pupr-blue"> Sedimentasi tinggi</label>
-                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Plat rendah" class="w-4 h-4 text-pupr-blue"> Plat rendah</label>
-                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Saluran terbuka dan tertutup" class="w-4 h-4 text-pupr-blue"> Saluran terbuka dan tertutup</label>
-                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Lainnya" class="w-4 h-4 text-pupr-blue" onchange="if(this.checked) document.getElementById('valKondisiLain').classList.remove('hidden'); else document.getElementById('valKondisiLain').classList.add('hidden');"> Lainnya...</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                        value="Genangan sumbatan" class="w-4 h-4 text-pupr-blue"> Genangan
+                                    sumbatan</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                        value="Talud saluran longsor (rusak, roboh)" class="w-4 h-4 text-pupr-blue">
+                                    Talud saluran longsor (rusak, roboh)</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                        value="Penyempitan saluran" class="w-4 h-4 text-pupr-blue"> Penyempitan
+                                    saluran</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                        value="Sedimentasi tinggi" class="w-4 h-4 text-pupr-blue"> Sedimentasi
+                                    tinggi</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                        value="Plat rendah" class="w-4 h-4 text-pupr-blue"> Plat rendah</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                        value="Saluran terbuka dan tertutup" class="w-4 h-4 text-pupr-blue"> Saluran
+                                    terbuka dan tertutup</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Lainnya"
+                                        class="w-4 h-4 text-pupr-blue"
+                                        onchange="if(this.checked) document.getElementById('valKondisiLain').classList.remove('hidden'); else document.getElementById('valKondisiLain').classList.add('hidden');">
+                                    Lainnya...</label>
                             </div>
-                            <input type="text" id="valKondisiLain" placeholder="Tuliskan kondisi lainnya..." class="w-full mt-2 px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm hidden">
+                            <input type="text" id="valKondisiLain" placeholder="Tuliskan kondisi lainnya..."
+                                class="w-full mt-2 px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm hidden">
                         </div>
                     </div>
                 </div>
@@ -139,23 +198,40 @@
 
             <!-- BAGIAN 3: RENCANA DAN PENANGANAN JANGKA PENDEK (SEMENTARA) -->
             <div>
-                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i class="fa-solid fa-person-digging mr-2"></i> III. Rencana & Penanganan Jangka Pendek (Sementara)</h2>
+                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i
+                        class="fa-solid fa-person-digging mr-2"></i> III. Rencana & Penanganan Jangka Pendek (Sementara)
+                </h2>
                 <div class="space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Kategori Perbaikan</label>
                             <div class="space-y-2 mt-2" id="chkGroupPerbaikan">
-                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Penanganan sumbatan" class="w-4 h-4 text-pupr-blue"> Penanganan sumbatan</label>
-                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Penggalian sedimentasi" class="w-4 h-4 text-pupr-blue"> Penggalian sedimentasi</label>
-                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Perbaikan sementara" class="w-4 h-4 text-pupr-blue"> Perbaikan sementara</label>
-                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Perambasan gulma" class="w-4 h-4 text-pupr-blue"> Perambasan gulma</label>
-                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Lainnya" class="w-4 h-4 text-pupr-blue" onchange="if(this.checked) document.getElementById('valPerbaikanLain').classList.remove('hidden'); else document.getElementById('valPerbaikanLain').classList.add('hidden');"> Lainnya...</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                        value="Penanganan sumbatan" class="w-4 h-4 text-pupr-blue"> Penanganan
+                                    sumbatan</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                        value="Penggalian sedimentasi" class="w-4 h-4 text-pupr-blue"> Penggalian
+                                    sedimentasi</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                        value="Perbaikan sementara" class="w-4 h-4 text-pupr-blue"> Perbaikan
+                                    sementara</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                        value="Perambasan gulma" class="w-4 h-4 text-pupr-blue"> Perambasan
+                                    gulma</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Lainnya"
+                                        class="w-4 h-4 text-pupr-blue"
+                                        onchange="if(this.checked) document.getElementById('valPerbaikanLain').classList.remove('hidden'); else document.getElementById('valPerbaikanLain').classList.add('hidden');">
+                                    Lainnya...</label>
                             </div>
-                            <input type="text" id="valPerbaikanLain" placeholder="Tuliskan kategori perbaikan lainnya..." class="w-full mt-2 px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm hidden">
+                            <input type="text" id="valPerbaikanLain"
+                                placeholder="Tuliskan kategori perbaikan lainnya..."
+                                class="w-full mt-2 px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm hidden">
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Pelaksanaan</label>
-                            <input type="text" id="valWaktuPendek" placeholder="Contoh: 31 Agustus 2026" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                            <input type="text" id="valWaktuPendek" placeholder="Contoh: 31 Agustus 2026"
+                                class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm"
+                                required>
                         </div>
                     </div>
                 </div>
@@ -163,39 +239,48 @@
 
             <!-- BAGIAN 4: RENCANA TINDAK LANJUT -->
             <div>
-                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i class="fa-solid fa-file-invoice-dollar mr-2"></i> IV. Rencana Tindak Lanjut</h2>
+                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i
+                        class="fa-solid fa-file-invoice-dollar mr-2"></i> IV. Rencana Tindak Lanjut</h2>
                 <div class="space-y-4 mb-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="md:col-span-2">
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Kategori Penanganan</label>
                             <div class="space-y-2 mt-2" id="chkGroupPenanganan">
-                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Rekonstruksi melalui swakelola" class="w-4 h-4 text-pupr-blue"> Rekonstruksi melalui swakelola</label>
-                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Rekonstruksi usulan tahun anggaran berikutnya" class="w-4 h-4 text-pupr-blue"> Rekonstruksi usulan tahun anggaran berikutnya</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                        value="Rekonstruksi melalui swakelola" class="w-4 h-4 text-pupr-blue">
+                                    Rekonstruksi melalui swakelola</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                        value="Rekonstruksi usulan tahun anggaran berikutnya"
+                                        class="w-4 h-4 text-pupr-blue"> Rekonstruksi usulan tahun anggaran
+                                    berikutnya</label>
                             </div>
-                        </div>
-                        <div class="md:col-span-2 mt-2">
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Jumlah Tenaga Kerja</label>
-                            <input type="text" id="valJumlahTenaga" placeholder="Contoh: 5 Orang" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm">
                         </div>
                     </div>
                 </div>
 
                 <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
                     <div class="bg-white p-4 border-b border-slate-200 flex items-center gap-4">
-                        <div class="w-12 h-12 bg-rose-600 rounded-xl text-white flex items-center justify-center text-xl shrink-0 shadow-md"><i class="fa-solid fa-calculator"></i></div>
-                        <div><h3 class="font-bold text-slate-800 text-base">Perkiraan Biaya</h3></div>
+                        <div
+                            class="w-12 h-12 bg-rose-600 rounded-xl text-white flex items-center justify-center text-xl shrink-0 shadow-md">
+                            <i class="fa-solid fa-calculator"></i></div>
+                        <div>
+                            <h3 class="font-bold text-slate-800 text-base">Perkiraan Biaya</h3>
+                        </div>
                     </div>
 
                     <div class="p-4 bg-slate-50/50 space-y-4">
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">Metode Perhitungan Biaya</label>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">Metode Perhitungan
+                                Biaya</label>
                             <div class="flex gap-4">
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="radio" name="metodeBiaya" value="manual" checked class="w-4 h-4 text-rose-600" onchange="toggleMetodeBiaya()">
+                                    <input type="radio" name="metodeBiaya" value="manual" checked
+                                        class="w-4 h-4 text-rose-600" onchange="toggleMetodeBiaya()">
                                     <span class="text-sm font-medium">Manual (Input Nominal)</span>
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer">
-                                    <input type="radio" name="metodeBiaya" value="otomatis" class="w-4 h-4 text-rose-600" onchange="toggleMetodeBiaya()">
+                                    <input type="radio" name="metodeBiaya" value="otomatis"
+                                        class="w-4 h-4 text-rose-600" onchange="toggleMetodeBiaya()">
                                     <span class="text-sm font-medium">Otomatis (Potong 30% Gaji dari Total)</span>
                                 </label>
                             </div>
@@ -204,31 +289,47 @@
                         <!-- Mode Manual -->
                         <div id="modeManual" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-1">Biaya Material (Rp)</label>
-                                <input type="text" id="valBiayaMaterialManual" inputmode="numeric" placeholder="0" class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, ''); calcBiaya()">
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">Biaya Material
+                                    (Rp)</label>
+                                <input type="text" id="valBiayaMaterialManual" inputmode="numeric" placeholder="0"
+                                    class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, ''); calcBiaya()">
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-1">Gaji Tenaga Kerja (Rp)</label>
-                                <input type="text" id="valGajiManual" inputmode="numeric" placeholder="0" class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, ''); calcBiaya()">
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">Gaji Tenaga Kerja
+                                    (Rp)</label>
+                                <input type="text" id="valGajiManual" inputmode="numeric" placeholder="0"
+                                    class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, ''); calcBiaya()">
                             </div>
                         </div>
 
                         <!-- Mode Otomatis -->
                         <div id="modeOtomatis" class="grid grid-cols-1 gap-4 hidden">
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-1">Total Estimasi Anggaran (Rp)</label>
-                                <input type="text" id="valTotalOtomatis" inputmode="numeric" placeholder="0" class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, ''); calcBiaya()">
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">Total Estimasi Anggaran
+                                    (Rp)</label>
+                                <input type="text" id="valTotalOtomatis" inputmode="numeric" placeholder="0"
+                                    class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, ''); calcBiaya()">
                             </div>
                             <div class="text-sm text-slate-600 bg-white p-3 rounded border border-slate-200">
-                                <div class="mb-1"><span class="font-semibold">Estimasi Gaji (30%):</span> <span class="text-rose-600 font-bold ml-2">Rp <span id="autoGajiView">0</span></span></div>
-                                <div><span class="font-semibold">Estimasi Material (70%):</span> <span class="text-emerald-600 font-bold ml-2">Rp <span id="autoMaterialView">0</span></span></div>
+                                <div class="mb-1"><span class="font-semibold">Estimasi Gaji (30%):</span> <span
+                                        class="text-rose-600 font-bold ml-2">Rp <span id="autoGajiView">0</span></span>
+                                </div>
+                                <div><span class="font-semibold">Estimasi Material (70%):</span> <span
+                                        class="text-emerald-600 font-bold ml-2">Rp <span
+                                            id="autoMaterialView">0</span></span></div>
                             </div>
                         </div>
 
                         <div class="mt-4 pt-4 border-t border-slate-200 flex justify-end">
-                            <div class="text-right bg-rose-50 p-4 rounded-lg border border-rose-100 shadow-sm w-full sm:w-auto">
-                                <span class="text-xs font-bold text-slate-600 block uppercase mb-1">Total Perkiraan Biaya</span>
-                                <span class="text-2xl font-extrabold text-rose-600 leading-none">Rp <span id="grandTotal">0</span></span>
+                            <div
+                                class="text-right bg-rose-50 p-4 rounded-lg border border-rose-100 shadow-sm w-full sm:w-auto">
+                                <span class="text-xs font-bold text-slate-600 block uppercase mb-1">Total Perkiraan
+                                    Biaya</span>
+                                <span class="text-2xl font-extrabold text-rose-600 leading-none">Rp <span
+                                        id="grandTotal">0</span></span>
                             </div>
                         </div>
                     </div>
@@ -237,12 +338,16 @@
 
             <!-- BAGIAN 5: LAMPIRAN (Preview Foto) -->
             <div>
-                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i class="fa-solid fa-camera mr-2"></i> V. Lampiran Dokumentasi Survey Lokasi</h2>
+                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i
+                        class="fa-solid fa-camera mr-2"></i> V. Lampiran Dokumentasi Survey Lokasi</h2>
                 <div>
-                    <div class="border-2 border-dashed border-slate-300 rounded-xl bg-slate-50 p-4 sm:p-6 flex flex-col items-center justify-center text-center hover:bg-slate-100 transition cursor-pointer relative" onclick="document.getElementById('fileUpload').click()">
+                    <div class="border-2 border-dashed border-slate-300 rounded-xl bg-slate-50 p-4 sm:p-6 flex flex-col items-center justify-center text-center hover:bg-slate-100 transition cursor-pointer relative"
+                        onclick="document.getElementById('fileUpload').click()">
                         <i class="fa-solid fa-cloud-arrow-up text-2xl sm:text-3xl text-slate-400 mb-2"></i>
-                        <span class="text-xs sm:text-sm font-medium text-slate-600">Klik untuk Buka Kamera / Pilih Foto Dokumentasi</span>
-                        <input type="file" id="fileUpload" class="hidden" multiple accept="image/*" onchange="previewImages()">
+                        <span class="text-xs sm:text-sm font-medium text-slate-600">Klik untuk Buka Kamera / Pilih Foto
+                            Dokumentasi</span>
+                        <input type="file" id="fileUpload" class="hidden" multiple accept="image/*"
+                            onchange="previewImages()">
                         <!-- Kotak Preview Muncul Disini -->
                         <div id="imagePreviewContainer" class="flex gap-2 mt-4 flex-wrap justify-center"></div>
                     </div>
@@ -251,33 +356,46 @@
 
             <!-- BAGIAN 6: INFORMASI TANDA TANGAN -->
             <div>
-                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i class="fa-solid fa-pen-nib mr-2"></i> VI. Informasi Tanda Tangan Laporan</h2>
+                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i
+                        class="fa-solid fa-pen-nib mr-2"></i> VI. Informasi Tanda Tangan Laporan</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">Kota Tempat Laporan Dibuat</label>
-                        <input type="text" id="valKotaTtd" placeholder="Contoh: Mataram" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Kota Tempat Laporan
+                            Dibuat</label>
+                        <input type="text" id="valKotaTtd" placeholder="Contoh: Mataram"
+                            class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm"
+                            required>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 mb-1">Tanggal Laporan (TTD)</label>
-                        <input type="text" id="valTglTtd" placeholder="Contoh: 31 Agustus 2026" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                        <input type="text" id="valTglTtd" placeholder="Contoh: 31 Agustus 2026"
+                            class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm"
+                            required>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 mb-1">Jabatan / Peran Pembuat</label>
-                        <input type="text" id="valRoleTtd" placeholder="Contoh: Petugas Survey" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                        <input type="text" id="valRoleTtd" placeholder="Contoh: Petugas Survey"
+                            class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm"
+                            required>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 mb-1">Nama Pembuat Laporan</label>
-                        <input type="text" id="valNamaTtd" placeholder="Contoh: Maulana Khoiril Akbar" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                        <input type="text" id="valNamaTtd" placeholder="Contoh: Maulana Khoiril Akbar"
+                            class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm"
+                            required>
                     </div>
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 mb-1">NIP Pembuat Laporan</label>
-                        <input type="text" id="valNipTtd" placeholder="Contoh: 19870415 201201 1 004" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
+                        <input type="text" id="valNipTtd" placeholder="Contoh: 19870415 201201 1 004"
+                            class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm"
+                            required>
                     </div>
                 </div>
             </div>
 
             <div class="pt-4">
-                <button type="submit" class="w-full bg-pupr-yellow text-yellow-950 font-bold py-4 rounded-xl shadow-md hover:bg-yellow-500 transition-colors flex items-center justify-center gap-2 text-lg">
+                <button type="submit"
+                    class="w-full bg-pupr-yellow text-yellow-950 font-bold py-4 rounded-xl shadow-md hover:bg-yellow-500 transition-colors flex items-center justify-center gap-2 text-lg">
                     <i class="fa-solid fa-paper-plane"></i> Kirim Laporan Sekarang
                 </button>
             </div>
@@ -306,10 +424,10 @@
             locInput.value = "Sedang mencari titik koordinat...";
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
-                    (position) => { 
+                    (position) => {
                         gpsLat = position.coords.latitude;
                         gpsLon = position.coords.longitude;
-                        
+
                         // Gunakan reverse geocoding untuk mendapatkan alamat
                         fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${gpsLat}&lon=${gpsLon}`)
                             .then(res => res.json())
@@ -319,7 +437,7 @@
                             .catch(err => {
                                 locInput.value = `${gpsLat}, ${gpsLon}`;
                             });
-                            
+
                         initMap(gpsLat, gpsLon);
                     },
                     (error) => { locInput.value = "Gagal mengakses GPS. Pastikan Anda mengizinkan akses lokasi browser."; }
@@ -331,10 +449,10 @@
 
         // 2. Fungsi Hitung Biaya
         function formatRupiah(number) { return new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0 }).format(number || 0); }
-        
+
         function toggleMetodeBiaya() {
             const isManual = document.querySelector('input[name="metodeBiaya"]:checked').value === 'manual';
-            if(isManual) {
+            if (isManual) {
                 document.getElementById('modeManual').classList.remove('hidden');
                 document.getElementById('modeOtomatis').classList.add('hidden');
             } else {
@@ -347,7 +465,7 @@
         function calcBiaya() {
             const isManual = document.querySelector('input[name="metodeBiaya"]:checked').value === 'manual';
             let total = 0;
-            if(isManual) {
+            if (isManual) {
                 const material = parseFloat(document.getElementById('valBiayaMaterialManual').value) || 0;
                 const gaji = parseFloat(document.getElementById('valGajiManual').value) || 0;
                 total = material + gaji;
@@ -364,7 +482,7 @@
 
         // 3. Fungsi Preview & Kompres Gambar (Thumbnail)
         let fotoArray = [];
-        
+
         function compressImage(base64Str, callback) {
             const MAX_WIDTH = 800;
             const MAX_HEIGHT = 800;
@@ -399,12 +517,12 @@
             const container = document.getElementById('imagePreviewContainer');
             container.innerHTML = ''; // Bersihkan preview lama
             fotoArray = []; // Reset
-            
-            if(fileUpload.files) {
+
+            if (fileUpload.files) {
                 Array.from(fileUpload.files).forEach(file => {
                     const reader = new FileReader();
-                    reader.onload = function(e) {
-                        compressImage(e.target.result, function(compressedBase64) {
+                    reader.onload = function (e) {
+                        compressImage(e.target.result, function (compressedBase64) {
                             const img = document.createElement('img');
                             img.src = compressedBase64;
                             img.className = "w-16 h-16 object-cover rounded-md border border-slate-300 shadow-sm";
@@ -418,9 +536,9 @@
         }
 
         // 4. Data Binding -> Simpan Laporan ke LocalStorage saat Submit
-        document.getElementById('fieldReportForm').addEventListener('submit', function(e) {
+        document.getElementById('fieldReportForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             // Helper fungsi untuk ambil checkbox
             function getCheckedValues(groupId) {
                 const checked = Array.from(document.querySelectorAll(`#${groupId} input[type="checkbox"]:checked`)).map(el => el.value);
@@ -429,21 +547,21 @@
 
             // Ambil checkbox value
             let arrKondisi = getCheckedValues('chkGroupKondisi');
-            if(arrKondisi.includes('Lainnya')) {
+            if (arrKondisi.includes('Lainnya')) {
                 arrKondisi[arrKondisi.indexOf('Lainnya')] = document.getElementById('valKondisiLain').value;
             }
 
             let arrPerbaikan = getCheckedValues('chkGroupPerbaikan');
-            if(arrPerbaikan.includes('Lainnya')) {
+            if (arrPerbaikan.includes('Lainnya')) {
                 arrPerbaikan[arrPerbaikan.indexOf('Lainnya')] = document.getElementById('valPerbaikanLain').value;
             }
 
             let arrPenanganan = getCheckedValues('chkGroupPenanganan');
-            
+
             // Ambil rincian biaya yang dipilih
             const isManual = document.querySelector('input[name="metodeBiaya"]:checked').value === 'manual';
             let biayaMaterial, biayaGaji;
-            if(isManual) {
+            if (isManual) {
                 biayaMaterial = document.getElementById('valBiayaMaterialManual').value;
                 biayaGaji = document.getElementById('valGajiManual').value;
             } else {
@@ -468,9 +586,6 @@
                 kategoriPerbaikan: arrPerbaikan.join(', '),
                 waktuPendek: document.getElementById('valWaktuPendek').value,
                 kategoriPenanganan: arrPenanganan.join(', '),
-                jumlahTenaga: document.getElementById('valJumlahTenaga').value,
-                tahapan: document.getElementById('valTahapan') ? document.getElementById('valTahapan').value : '-',
-                waktuPanjang: document.getElementById('valWaktuPanjang') ? document.getElementById('valWaktuPanjang').value : '-',
                 biayaMaterial: formatRupiah(biayaMaterial),
                 biayaGaji: formatRupiah(biayaGaji),
                 anggaran: document.getElementById('grandTotal').innerText,
@@ -495,11 +610,12 @@
             document.getElementById('fieldReportForm').classList.add('hidden');
             document.getElementById('successAlert').classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            
+
             setTimeout(() => { window.location.href = 'hasil-laporan.html'; }, 1500);
         });
 
         calcBiaya();
     </script>
 </body>
+
 </html>
