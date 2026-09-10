@@ -593,6 +593,9 @@
                     html += '<div class="flex items-center gap-1">';
                     if (!file.inTrash) {
                         html += '<button onclick="event.stopPropagation();toggleStarred(\'' + file.id + '\')" class="p-1.5 text-slate-300 hover:text-amber-500 transition"><i class="fa-' + (file.starred ? 'solid text-amber-500' : 'regular') + ' fa-bookmark text-sm"></i></button>';
+                        if (file.objectURL) {
+                            html += '<a href="' + file.objectURL + '" download="' + file.name + '" onclick="event.stopPropagation()" class="p-1.5 text-slate-300 hover:text-brand-600 transition" title="Download"><i class="fa-solid fa-download text-sm"></i></a>';
+                        }
                         html += '<button onclick="event.stopPropagation();moveToTrash(\'' + file.id + '\')" class="opacity-0 group-hover:opacity-100 p-1.5 text-slate-300 hover:text-rose-600 transition"><i class="fa-solid fa-trash-can text-sm"></i></button>';
                     } else {
                         html += '<button onclick="event.stopPropagation();restoreFromTrash(\'' + file.id + '\')" title="Pulihkan" class="p-1.5 text-emerald-600 hover:text-emerald-700 transition"><i class="fa-solid fa-rotate-left text-sm"></i></button>';
@@ -621,6 +624,9 @@
                     html += '<td class="py-3 px-4 text-right"><div class="flex items-center justify-end gap-2">';
                     if (!file.inTrash) {
                         html += '<button onclick="event.stopPropagation();toggleStarred(\'' + file.id + '\')" class="p-1 text-slate-400 hover:text-amber-500"><i class="fa-' + (file.starred ? 'solid text-amber-500' : 'regular') + ' fa-bookmark"></i></button>';
+                        if (file.objectURL) {
+                            html += '<a href="' + file.objectURL + '" download="' + file.name + '" onclick="event.stopPropagation()" class="p-1 text-slate-400 hover:text-brand-600" title="Download"><i class="fa-solid fa-download"></i></a>';
+                        }
                         html += '<button onclick="event.stopPropagation();moveToTrash(\'' + file.id + '\')" class="p-1 text-slate-400 hover:text-rose-600"><i class="fa-solid fa-trash-can"></i></button>';
                     } else {
                         html += '<button onclick="event.stopPropagation();restoreFromTrash(\'' + file.id + '\')" class="p-1 text-emerald-600"><i class="fa-solid fa-rotate-left"></i></button>';
@@ -710,12 +716,13 @@
             var ext = file.name.split('.').pop().toLowerCase();
             var typeMap = { docx:'word', doc:'word', xlsx:'excel', xls:'excel', csv:'excel', pdf:'pdf', jpg:'image', jpeg:'image', png:'image', gif:'image', svg:'image', webp:'image', mp4:'video', mkv:'video', avi:'video', mov:'video', mp3:'audio', wav:'audio', ogg:'audio' };
             var fileType = typeMap[ext] || 'file';
+            var objectURL = URL.createObjectURL(file);
             var catId = null;
             if (awanState.currentFolderId) {
                 var pf = awanState.folders.find(function(f) { return f.id === awanState.currentFolderId; });
                 if (pf && pf.categoryId) catId = pf.categoryId;
             } else if (awanState.currentNav.startsWith('cat_')) { catId = awanState.currentNav; }
-            awanState.files.push({ id: 'f_' + Date.now(), name: file.name, type: fileType, size: file.size || 512000, folderId: awanState.currentFolderId, categoryId: catId, updatedAt: new Date().toISOString().split('T')[0], starred: false, inTrash: false });
+            awanState.files.push({ id: 'f_' + Date.now(), name: file.name, type: fileType, size: file.size || 512000, folderId: awanState.currentFolderId, categoryId: catId, updatedAt: new Date().toISOString().split('T')[0], starred: false, inTrash: false, objectURL: objectURL });
             closeUploadModal(); awanShowToast('File "' + file.name + '" berhasil diunggah!', 'success'); awanRender();
         }
         function toggleStarred(fileId) {
@@ -740,7 +747,8 @@
             var ic = getFileIcon(file.type);
             document.getElementById('previewTitle').innerText = file.name;
             document.getElementById('previewMeta').innerText = formatFileSize(file.size) + ' • Diperbarui ' + file.updatedAt;
-            document.getElementById('previewBody').innerHTML = '<div class="text-center p-6"><div class="w-20 h-20 mx-auto rounded-2xl ' + ic.bg + ' flex items-center justify-center mb-4"><i class="fa-solid ' + ic.icon + ' ' + ic.color + ' text-4xl"></i></div><p class="font-semibold text-slate-700 text-sm mb-1">' + file.name + '</p><p class="text-xs text-slate-400">Pratinjau langsung tidak tersedia untuk format ini.</p></div>';
+            var downloadBtn = file.objectURL ? '<a href="' + file.objectURL + '" download="' + file.name + '" class="px-4 py-2 mt-4 rounded-xl text-xs font-semibold bg-brand-600 hover:bg-brand-700 text-white transition inline-block"><i class="fa-solid fa-download mr-1"></i> Download</a>' : '';
+            document.getElementById('previewBody').innerHTML = '<div class="text-center p-6"><div class="w-20 h-20 mx-auto rounded-2xl ' + ic.bg + ' flex items-center justify-center mb-4"><i class="fa-solid ' + ic.icon + ' ' + ic.color + ' text-4xl"></i></div><p class="font-semibold text-slate-700 text-sm mb-1">' + file.name + '</p><p class="text-xs text-slate-400">Pratinjau langsung tidak tersedia untuk format ini.</p>' + downloadBtn + '</div>';
             document.getElementById('previewModal').classList.remove('hidden');
         }
         function closePreviewModal() { document.getElementById('previewModal').classList.add('hidden'); }
