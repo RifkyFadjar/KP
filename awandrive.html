@@ -226,9 +226,14 @@
                 <!-- Header -->
                 <div class="flex items-center justify-between px-6 py-4">
                     <h3 id="moveModalTitle" class="text-xl text-slate-800 font-semibold" style="font-family: 'Google Sans', sans-serif;">Pindahkan</h3>
-                    <button onclick="closeMoveModal()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-500 transition">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
+                    <div class="flex items-center gap-1">
+                        <button onclick="createFolderFromModal()" title="Folder baru" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-500 transition">
+                            <i class="fa-solid fa-folder-plus text-lg"></i>
+                        </button>
+                        <button onclick="closeMoveModal()" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-500 transition">
+                            <i class="fa-solid fa-xmark text-lg"></i>
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Current Location Info -->
@@ -256,15 +261,14 @@
                 </div>
 
                 <!-- Footer -->
-                <div class="p-4 border-t border-slate-100 flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                        <button onclick="createFolderFromModal()" title="Folder baru" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-600 transition">
-                            <i class="fa-solid fa-folder-plus text-lg"></i>
-                        </button>
+                <div class="px-6 py-4 border-t border-slate-100 flex items-center justify-between">
+                    <div class="flex items-center gap-2 text-xs font-medium text-slate-800">
+                        <i class="fa-brands fa-google-drive text-slate-600"></i>
+                        <span>Pilih lokasi untuk menampilkan jalur folder</span>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <button onclick="closeMoveModal()" class="px-5 py-2.5 rounded-full text-sm font-medium text-brand-600 hover:bg-brand-50 transition">Batal</button>
-                        <button onclick="confirmMove()" class="px-5 py-2.5 rounded-full text-sm font-medium bg-brand-600 text-white hover:bg-brand-700 transition">Pindahkan</button>
+                    <div class="flex items-center gap-6">
+                        <button onclick="closeMoveModal()" class="text-sm font-semibold text-brand-600 hover:text-brand-700 transition">Batal</button>
+                        <button onclick="confirmMove()" class="px-6 py-2 rounded-full text-sm font-medium bg-slate-200 text-slate-500 hover:bg-brand-600 hover:text-white transition">Pindahkan</button>
                     </div>
                 </div>
             </div>
@@ -716,6 +720,7 @@
                         }
                         html += '<button onclick="event.stopPropagation();renameFile(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-pen-to-square w-4 text-center"></i> Ganti nama</button>';
                         html += '<button onclick="event.stopPropagation();shareFile(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-user-plus w-4 text-center"></i> Bagikan</button>';
+                        html += '<button onclick="event.stopPropagation();openMoveModal(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-folder-arrow-right w-4 text-center"></i> Pindahkan</button>';
                         html += '<div class="border-t border-slate-100 my-1"></div>';
                         html += '<button onclick="event.stopPropagation();toggleStarred(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-' + (file.starred ? 'solid' : 'regular') + ' fa-bookmark w-4 text-center"></i> ' + (file.starred ? 'Hapus dari Penting' : 'Tandai Penting') + '</button>';
                         html += '<button onclick="event.stopPropagation();moveToTrash(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-rose-600 hover:bg-rose-50 transition w-full text-left"><i class="fa-solid fa-trash-can w-4 text-center"></i> Pindahkan ke sampah</button>';
