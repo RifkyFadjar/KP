@@ -122,16 +122,15 @@
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Kondisi Existing</label>
-                            <select id="valKondisiExisting" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" onchange="if(this.value==='Lainnya') document.getElementById('valKondisiLain').classList.remove('hidden'); else document.getElementById('valKondisiLain').classList.add('hidden');" required>
-                                <option value="">Pilih Kondisi Existing...</option>
-                                <option value="Genangan sumbatan">Genangan sumbatan</option>
-                                <option value="Talud saluran longsor (rusak, roboh)">Talud saluran longsor (rusak, roboh)</option>
-                                <option value="Penyempitan saluran">Penyempitan saluran</option>
-                                <option value="Sedimentasi tinggi">Sedimentasi tinggi</option>
-                                <option value="Plat rendah">Plat rendah</option>
-                                <option value="Saluran terbuka dan tertutup">Saluran terbuka dan tertutup</option>
-                                <option value="Lainnya">Lainnya...</option>
-                            </select>
+                            <div class="space-y-2 mt-2" id="chkGroupKondisi">
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Genangan sumbatan" class="w-4 h-4 text-pupr-blue"> Genangan sumbatan</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Talud saluran longsor (rusak, roboh)" class="w-4 h-4 text-pupr-blue"> Talud saluran longsor (rusak, roboh)</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Penyempitan saluran" class="w-4 h-4 text-pupr-blue"> Penyempitan saluran</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Sedimentasi tinggi" class="w-4 h-4 text-pupr-blue"> Sedimentasi tinggi</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Plat rendah" class="w-4 h-4 text-pupr-blue"> Plat rendah</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Saluran terbuka dan tertutup" class="w-4 h-4 text-pupr-blue"> Saluran terbuka dan tertutup</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Lainnya" class="w-4 h-4 text-pupr-blue" onchange="if(this.checked) document.getElementById('valKondisiLain').classList.remove('hidden'); else document.getElementById('valKondisiLain').classList.add('hidden');"> Lainnya...</label>
+                            </div>
                             <input type="text" id="valKondisiLain" placeholder="Tuliskan kondisi lainnya..." class="w-full mt-2 px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm hidden">
                         </div>
                     </div>
@@ -145,14 +144,13 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Kategori Perbaikan</label>
-                            <select id="valKategoriPerbaikan" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" onchange="if(this.value==='Lainnya') document.getElementById('valPerbaikanLain').classList.remove('hidden'); else document.getElementById('valPerbaikanLain').classList.add('hidden');" required>
-                                <option value="">Pilih Kategori Perbaikan...</option>
-                                <option value="Penanganan sumbatan">Penanganan sumbatan</option>
-                                <option value="Penggalian sedimentasi">Penggalian sedimentasi</option>
-                                <option value="Perbaikan sementara">Perbaikan sementara</option>
-                                <option value="Perambasan gulma">Perambasan gulma</option>
-                                <option value="Lainnya">Lainnya...</option>
-                            </select>
+                            <div class="space-y-2 mt-2" id="chkGroupPerbaikan">
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Penanganan sumbatan" class="w-4 h-4 text-pupr-blue"> Penanganan sumbatan</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Penggalian sedimentasi" class="w-4 h-4 text-pupr-blue"> Penggalian sedimentasi</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Perbaikan sementara" class="w-4 h-4 text-pupr-blue"> Perbaikan sementara</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Perambasan gulma" class="w-4 h-4 text-pupr-blue"> Perambasan gulma</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Lainnya" class="w-4 h-4 text-pupr-blue" onchange="if(this.checked) document.getElementById('valPerbaikanLain').classList.remove('hidden'); else document.getElementById('valPerbaikanLain').classList.add('hidden');"> Lainnya...</label>
+                            </div>
                             <input type="text" id="valPerbaikanLain" placeholder="Tuliskan kategori perbaikan lainnya..." class="w-full mt-2 px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm hidden">
                         </div>
                         <div>
@@ -170,11 +168,14 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="md:col-span-2">
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Kategori Penanganan</label>
-                            <select id="valKategoriPenanganan" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm" required>
-                                <option value="">Pilih Kategori Penanganan...</option>
-                                <option value="Rekonstruksi melalui swakelola">Rekonstruksi melalui swakelola</option>
-                                <option value="Rekonstruksi usulan tahun anggaran berikutnya">Rekonstruksi usulan tahun anggaran berikutnya</option>
-                            </select>
+                            <div class="space-y-2 mt-2" id="chkGroupPenanganan">
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Rekonstruksi melalui swakelola" class="w-4 h-4 text-pupr-blue"> Rekonstruksi melalui swakelola</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Rekonstruksi usulan tahun anggaran berikutnya" class="w-4 h-4 text-pupr-blue"> Rekonstruksi usulan tahun anggaran berikutnya</label>
+                            </div>
+                        </div>
+                        <div class="md:col-span-2 mt-2">
+                            <label class="block text-sm font-semibold text-slate-700 mb-1">Jumlah Tenaga Kerja</label>
+                            <input type="text" id="valJumlahTenaga" placeholder="Contoh: 5 Orang" class="w-full px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm">
                         </div>
                     </div>
                 </div>
@@ -195,7 +196,7 @@
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer">
                                     <input type="radio" name="metodeBiaya" value="otomatis" class="w-4 h-4 text-rose-600" onchange="toggleMetodeBiaya()">
-                                    <span class="text-sm font-medium">Otomatis (Material &amp; 30% Gaji)</span>
+                                    <span class="text-sm font-medium">Otomatis (Potong 30% Gaji dari Total)</span>
                                 </label>
                             </div>
                         </div>
@@ -215,12 +216,12 @@
                         <!-- Mode Otomatis -->
                         <div id="modeOtomatis" class="grid grid-cols-1 gap-4 hidden">
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-1">Biaya Material (Rp)</label>
-                                <input type="text" id="valBiayaMaterialOtomatis" inputmode="numeric" placeholder="0" class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, ''); calcBiaya()">
+                                <label class="block text-sm font-semibold text-slate-700 mb-1">Total Estimasi Anggaran (Rp)</label>
+                                <input type="text" id="valTotalOtomatis" inputmode="numeric" placeholder="0" class="w-full border border-slate-200 rounded-md px-3 py-2 focus:border-rose-500 focus:outline-none text-sm" oninput="this.value = this.value.replace(/[^0-9]/g, ''); calcBiaya()">
                             </div>
                             <div class="text-sm text-slate-600 bg-white p-3 rounded border border-slate-200">
-                                <span class="font-semibold">Estimasi Gaji Tenaga Kerja (30% dari Material):</span> 
-                                <span class="text-rose-600 font-bold ml-2">Rp <span id="autoGajiView">0</span></span>
+                                <div class="mb-1"><span class="font-semibold">Estimasi Gaji (30%):</span> <span class="text-rose-600 font-bold ml-2">Rp <span id="autoGajiView">0</span></span></div>
+                                <div><span class="font-semibold">Estimasi Material (70%):</span> <span class="text-emerald-600 font-bold ml-2">Rp <span id="autoMaterialView">0</span></span></div>
                             </div>
                         </div>
 
@@ -351,10 +352,12 @@
                 const gaji = parseFloat(document.getElementById('valGajiManual').value) || 0;
                 total = material + gaji;
             } else {
-                const material = parseFloat(document.getElementById('valBiayaMaterialOtomatis').value) || 0;
-                const gaji = material * 0.30;
+                const totalAnggaran = parseFloat(document.getElementById('valTotalOtomatis').value) || 0;
+                const gaji = totalAnggaran * 0.30;
+                const material = totalAnggaran - gaji;
                 document.getElementById('autoGajiView').innerText = formatRupiah(gaji);
-                total = material + gaji;
+                document.getElementById('autoMaterialView').innerText = formatRupiah(material);
+                total = totalAnggaran;
             }
             document.getElementById('grandTotal').innerText = formatRupiah(total);
         }
@@ -418,10 +421,36 @@
         document.getElementById('fieldReportForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Helper fungsi untuk ambil checkbox
+            function getCheckedValues(groupId) {
+                const checked = Array.from(document.querySelectorAll(`#${groupId} input[type="checkbox"]:checked`)).map(el => el.value);
+                return checked;
+            }
+
+            // Ambil checkbox value
+            let arrKondisi = getCheckedValues('chkGroupKondisi');
+            if(arrKondisi.includes('Lainnya')) {
+                arrKondisi[arrKondisi.indexOf('Lainnya')] = document.getElementById('valKondisiLain').value;
+            }
+
+            let arrPerbaikan = getCheckedValues('chkGroupPerbaikan');
+            if(arrPerbaikan.includes('Lainnya')) {
+                arrPerbaikan[arrPerbaikan.indexOf('Lainnya')] = document.getElementById('valPerbaikanLain').value;
+            }
+
+            let arrPenanganan = getCheckedValues('chkGroupPenanganan');
+            
             // Ambil rincian biaya yang dipilih
             const isManual = document.querySelector('input[name="metodeBiaya"]:checked').value === 'manual';
-            let biayaMaterial = isManual ? document.getElementById('valBiayaMaterialManual').value : document.getElementById('valBiayaMaterialOtomatis').value;
-            let biayaGaji = isManual ? document.getElementById('valGajiManual').value : (parseFloat(biayaMaterial || 0) * 0.30).toString();
+            let biayaMaterial, biayaGaji;
+            if(isManual) {
+                biayaMaterial = document.getElementById('valBiayaMaterialManual').value;
+                biayaGaji = document.getElementById('valGajiManual').value;
+            } else {
+                const totalOtomatis = parseFloat(document.getElementById('valTotalOtomatis').value) || 0;
+                biayaGaji = (totalOtomatis * 0.30).toString();
+                biayaMaterial = (totalOtomatis - parseFloat(biayaGaji)).toString();
+            }
 
             const reportData = {
                 statusDokumen: document.getElementById('valStatusDokumen').value,
@@ -435,10 +464,11 @@
                 surveyor: document.getElementById('valSurveyor').value,
                 lebar: document.getElementById('valLebar').value,
                 kedalaman: document.getElementById('valKedalaman').value,
-                kondisiExisting: document.getElementById('valKondisiExisting').value === 'Lainnya' ? document.getElementById('valKondisiLain').value : document.getElementById('valKondisiExisting').value,
-                kategoriPerbaikan: document.getElementById('valKategoriPerbaikan').value === 'Lainnya' ? document.getElementById('valPerbaikanLain').value : document.getElementById('valKategoriPerbaikan').value,
+                kondisiExisting: arrKondisi.join(', '),
+                kategoriPerbaikan: arrPerbaikan.join(', '),
                 waktuPendek: document.getElementById('valWaktuPendek').value,
-                kategoriPenanganan: document.getElementById('valKategoriPenanganan').value,
+                kategoriPenanganan: arrPenanganan.join(', '),
+                jumlahTenaga: document.getElementById('valJumlahTenaga').value,
                 tahapan: document.getElementById('valTahapan').value,
                 waktuPanjang: document.getElementById('valWaktuPanjang').value,
                 biayaMaterial: formatRupiah(biayaMaterial),

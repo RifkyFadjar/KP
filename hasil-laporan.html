@@ -190,6 +190,10 @@
                         <td id="repTahapan">-</td>
                     </tr>
                     <tr>
+                        <td>Jumlah Tenaga Kerja</td>
+                        <td id="repJumlahTenaga">-</td>
+                    </tr>
+                    <tr>
                         <td>Waktu Pelaksanaan</td>
                         <td id="repWaktuPanjang">-</td>
                     </tr>
@@ -225,21 +229,21 @@
             </table>
         </div>
 
-        <h2 class="section-title" style="page-break-before: always;">V. LAMPIRAN DOKUMENTASI SURVEY LOKASI</h2>
-        <p class="mb-4">Dokumentasi kondisi lapangan pada saat pelaksanaan survey:</p>
-        <div id="gridFotoDokumentasi" class="grid grid-cols-2 gap-4 mb-16">
-            <!-- Foto masuk di sini -->
-            <div class="border border-black aspect-video flex items-center justify-center italic text-gray-500">[ Ruang penempatan foto dokumentasi ]</div>
-            <div class="border border-black aspect-video flex items-center justify-center italic text-gray-500">[ Ruang penempatan foto dokumentasi ]</div>
-        </div>
-
-        <div class="flex justify-end text-center mt-12">
+        <div class="flex justify-end text-center mt-12 mb-8" style="page-break-inside: avoid;">
             <div class="w-64">
                 <p class="mb-2"><span id="repKotaTtd">Mataram</span>, <span id="repTglTtd">-</span></p>
                 <p class="mb-24">Dibuat oleh <span id="repRoleTtd">.......</span></p>
                 <p id="repNamaTtd" class="font-bold underline">-</p>
                 <p>NIP. <span id="repNipTtd">-</span></p>
             </div>
+        </div>
+
+        <h2 class="section-title" style="page-break-before: always;">V. LAMPIRAN DOKUMENTASI SURVEY LOKASI</h2>
+        <p class="mb-4">Dokumentasi kondisi lapangan pada saat pelaksanaan survey:</p>
+        <div id="gridFotoDokumentasi" class="grid grid-cols-2 gap-4 mb-16">
+            <!-- Foto masuk di sini -->
+            <div class="border border-black aspect-video flex items-center justify-center italic text-gray-500">[ Ruang penempatan foto dokumentasi ]</div>
+            <div class="border border-black aspect-video flex items-center justify-center italic text-gray-500">[ Ruang penempatan foto dokumentasi ]</div>
         </div>
 
         <div class="border-t border-black mt-16 pt-2 text-center text-[11px] no-print">
@@ -270,18 +274,29 @@
                     document.getElementById('repCuaca').innerText = data.cuaca || '-';
                     document.getElementById('repSurveyor').innerText = data.surveyor || '-';
 
+                    // Helper to format comma-separated strings as bullet points if multiple
+                    function formatList(str) {
+                        if(!str) return '-';
+                        const items = str.split(',').map(s => s.trim()).filter(s => s);
+                        if(items.length > 1) {
+                            return '<ul class="list-disc pl-4 m-0">' + items.map(i => `<li>${i}</li>`).join('') + '</ul>';
+                        }
+                        return str;
+                    }
+
                     // II. Permasalahan
                     document.getElementById('repLebar').innerText = data.lebar || '-';
                     document.getElementById('repKedalaman').innerText = data.kedalaman || '-';
-                    document.getElementById('repKondisiExisting').innerText = data.kondisiExisting || '-';
+                    document.getElementById('repKondisiExisting').innerHTML = formatList(data.kondisiExisting);
 
                     // III. Jangka Pendek
-                    document.getElementById('repKategoriPerbaikan').innerText = data.kategoriPerbaikan || '-';
+                    document.getElementById('repKategoriPerbaikan').innerHTML = formatList(data.kategoriPerbaikan);
                     document.getElementById('repWaktuPendek').innerText = data.waktuPendek || '-';
 
                     // IV. Jangka Panjang
-                    document.getElementById('repKategoriPenanganan').innerText = data.kategoriPenanganan || '-';
+                    document.getElementById('repKategoriPenanganan').innerHTML = formatList(data.kategoriPenanganan);
                     document.getElementById('repTahapan').innerText = data.tahapan || '-';
+                    document.getElementById('repJumlahTenaga').innerText = data.jumlahTenaga || '-';
                     document.getElementById('repWaktuPanjang').innerText = data.waktuPanjang || '-';
                     document.getElementById('repBiayaMaterial').innerText = data.biayaMaterial || '-';
                     document.getElementById('repBiayaGaji').innerText = data.biayaGaji || '-';
