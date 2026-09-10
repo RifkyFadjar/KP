@@ -261,12 +261,12 @@
                 </div>
 
                 <!-- Footer -->
-                <div class="px-6 py-4 border-t border-slate-100 flex items-center justify-between">
-                    <div class="flex items-center gap-2 text-xs font-medium text-slate-800">
-                        <i class="fa-brands fa-google-drive text-slate-600"></i>
-                        <span>Pilih lokasi untuk menampilkan jalur folder</span>
+                <div class="px-6 py-4 border-t border-slate-100 flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-3 text-[13px] font-medium text-slate-600">
+                        <i class="fa-brands fa-google-drive text-[16px] text-slate-500"></i>
+                        <span class="leading-[1.4] max-w-[200px]">Pilih lokasi untuk menampilkan jalur folder</span>
                     </div>
-                    <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-4 shrink-0">
                         <button onclick="closeMoveModal()" class="text-sm font-semibold text-brand-600 hover:text-brand-700 transition">Batal</button>
                         <button onclick="confirmMove()" class="px-6 py-2 rounded-full text-sm font-medium bg-slate-200 text-slate-500 hover:bg-brand-600 hover:text-white transition">Pindahkan</button>
                     </div>
@@ -720,7 +720,7 @@
                         }
                         html += '<button onclick="event.stopPropagation();renameFile(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-pen-to-square w-4 text-center"></i> Ganti nama</button>';
                         html += '<button onclick="event.stopPropagation();shareFile(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-user-plus w-4 text-center"></i> Bagikan</button>';
-                        html += '<button onclick="event.stopPropagation();openMoveModal(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-folder-arrow-right w-4 text-center"></i> Pindahkan</button>';
+                        html += '<button onclick="event.stopPropagation();openMoveModal(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-folder-open w-4 text-center"></i> Pindahkan</button>';
                         html += '<div class="border-t border-slate-100 my-1"></div>';
                         html += '<button onclick="event.stopPropagation();toggleStarred(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-' + (file.starred ? 'solid' : 'regular') + ' fa-bookmark w-4 text-center"></i> ' + (file.starred ? 'Hapus dari Penting' : 'Tandai Penting') + '</button>';
                         html += '<button onclick="event.stopPropagation();moveToTrash(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-rose-600 hover:bg-rose-50 transition w-full text-left"><i class="fa-solid fa-trash-can w-4 text-center"></i> Pindahkan ke sampah</button>';
@@ -758,7 +758,7 @@
                         }
                         html += '<button onclick="event.stopPropagation();renameFile(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-pen-to-square w-4 text-center"></i> Ganti nama</button>';
                         html += '<button onclick="event.stopPropagation();shareFile(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-user-plus w-4 text-center"></i> Bagikan</button>';
-                        html += '<button onclick="event.stopPropagation();openMoveModal(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-folder-arrow-right w-4 text-center"></i> Pindahkan</button>';
+                        html += '<button onclick="event.stopPropagation();openMoveModal(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-folder-open w-4 text-center"></i> Pindahkan</button>';
                         html += '<div class="border-t border-slate-100 my-1"></div>';
                         html += '<button onclick="event.stopPropagation();toggleStarred(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-' + (file.starred ? 'solid' : 'regular') + ' fa-bookmark w-4 text-center"></i> ' + (file.starred ? 'Hapus dari Penting' : 'Tandai Penting') + '</button>';
                         html += '<button onclick="event.stopPropagation();moveToTrash(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-rose-600 hover:bg-rose-50 transition w-full text-left"><i class="fa-solid fa-trash-can w-4 text-center"></i> Pindahkan ke sampah</button>';
