@@ -590,18 +590,24 @@
                     html += '<div onclick="previewFile(\'' + file.id + '\')" class="group bg-white border border-slate-200/80 hover:border-brand-300 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col justify-between">';
                     html += '<div><div class="flex items-center justify-between mb-3">';
                     html += '<div class="w-10 h-10 rounded-xl ' + ic.bg + ' flex items-center justify-center"><i class="fa-solid ' + ic.icon + ' ' + ic.color + ' text-lg"></i></div>';
-                    html += '<div class="flex items-center gap-1">';
+                    html += '<div class="relative flex items-center">';
+                    html += '<button onclick="event.stopPropagation();toggleDropdown(\'' + file.id + '\')" class="p-1.5 text-slate-400 hover:text-slate-600 transition rounded-lg hover:bg-slate-100"><i class="fa-solid fa-ellipsis-vertical px-2"></i></button>';
+                    html += '<div id="dropdown-' + file.id + '" class="hidden absolute right-0 top-8 w-48 bg-white rounded-xl shadow-lg border border-slate-100 py-1.5 z-30">';
                     if (!file.inTrash) {
-                        html += '<button onclick="event.stopPropagation();toggleStarred(\'' + file.id + '\')" class="p-1.5 text-slate-300 hover:text-amber-500 transition"><i class="fa-' + (file.starred ? 'solid text-amber-500' : 'regular') + ' fa-bookmark text-sm"></i></button>';
                         if (file.objectURL) {
-                            html += '<a href="' + file.objectURL + '" download="' + file.name + '" onclick="event.stopPropagation()" class="p-1.5 text-slate-300 hover:text-brand-600 transition" title="Download"><i class="fa-solid fa-download text-sm"></i></a>';
+                            html += '<a href="' + file.objectURL + '" download="' + file.name + '" onclick="event.stopPropagation();toggleDropdown(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-download w-4 text-center"></i> Download</a>';
+                            html += '<a href="' + file.objectURL + '" target="_blank" onclick="event.stopPropagation();toggleDropdown(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-arrow-up-right-from-square w-4 text-center"></i> Buka di tab baru</a>';
                         }
-                        html += '<button onclick="event.stopPropagation();moveToTrash(\'' + file.id + '\')" class="opacity-0 group-hover:opacity-100 p-1.5 text-slate-300 hover:text-rose-600 transition"><i class="fa-solid fa-trash-can text-sm"></i></button>';
+                        html += '<button onclick="event.stopPropagation();renameFile(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-pen-to-square w-4 text-center"></i> Ganti nama</button>';
+                        html += '<button onclick="event.stopPropagation();shareFile(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-user-plus w-4 text-center"></i> Bagikan</button>';
+                        html += '<div class="border-t border-slate-100 my-1"></div>';
+                        html += '<button onclick="event.stopPropagation();toggleStarred(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-' + (file.starred ? 'solid' : 'regular') + ' fa-bookmark w-4 text-center"></i> ' + (file.starred ? 'Hapus dari Penting' : 'Tandai Penting') + '</button>';
+                        html += '<button onclick="event.stopPropagation();moveToTrash(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-rose-600 hover:bg-rose-50 transition w-full text-left"><i class="fa-solid fa-trash-can w-4 text-center"></i> Pindahkan ke sampah</button>';
                     } else {
-                        html += '<button onclick="event.stopPropagation();restoreFromTrash(\'' + file.id + '\')" title="Pulihkan" class="p-1.5 text-emerald-600 hover:text-emerald-700 transition"><i class="fa-solid fa-rotate-left text-sm"></i></button>';
-                        html += '<button onclick="event.stopPropagation();deletePermanently(\'' + file.id + '\')" title="Hapus Permanen" class="p-1.5 text-rose-500 hover:text-rose-700 transition"><i class="fa-solid fa-xmark text-sm"></i></button>';
+                        html += '<button onclick="event.stopPropagation();restoreFromTrash(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-emerald-600 hover:bg-emerald-50 transition w-full text-left"><i class="fa-solid fa-rotate-left w-4 text-center"></i> Pulihkan</button>';
+                        html += '<button onclick="event.stopPropagation();deletePermanently(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-rose-600 hover:bg-rose-50 transition w-full text-left"><i class="fa-solid fa-xmark w-4 text-center"></i> Hapus Permanen</button>';
                     }
-                    html += '</div></div>';
+                    html += '</div></div></div>';
                     html += '<h3 class="font-semibold text-slate-800 text-sm truncate mb-1" title="' + file.name + '">' + file.name + '</h3>';
                     html += '<div class="flex items-center gap-2"><span class="text-[11px] text-slate-400 font-medium">' + formatFileSize(file.size) + '</span>';
                     if (catName) html += '<span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-[10px] font-semibold">' + catName + '</span>';
@@ -621,18 +627,24 @@
                     html += '<td class="py-3 px-4 text-xs text-slate-500">' + catLabel + '</td>';
                     html += '<td class="py-3 px-4 text-xs text-slate-500">' + formatFileSize(file.size) + '</td>';
                     html += '<td class="py-3 px-4 text-xs text-slate-500">' + file.updatedAt + '</td>';
-                    html += '<td class="py-3 px-4 text-right"><div class="flex items-center justify-end gap-2">';
+                    html += '<td class="py-3 px-4 text-right"><div class="relative flex items-center justify-end">';
+                    html += '<button onclick="event.stopPropagation();toggleDropdown(\'list-' + file.id + '\')" class="p-1 text-slate-400 hover:text-slate-600 transition rounded-lg hover:bg-slate-100"><i class="fa-solid fa-ellipsis-vertical px-2"></i></button>';
+                    html += '<div id="dropdown-list-' + file.id + '" class="hidden absolute right-0 top-8 w-48 bg-white rounded-xl shadow-lg border border-slate-100 py-1.5 z-30">';
                     if (!file.inTrash) {
-                        html += '<button onclick="event.stopPropagation();toggleStarred(\'' + file.id + '\')" class="p-1 text-slate-400 hover:text-amber-500"><i class="fa-' + (file.starred ? 'solid text-amber-500' : 'regular') + ' fa-bookmark"></i></button>';
                         if (file.objectURL) {
-                            html += '<a href="' + file.objectURL + '" download="' + file.name + '" onclick="event.stopPropagation()" class="p-1 text-slate-400 hover:text-brand-600" title="Download"><i class="fa-solid fa-download"></i></a>';
+                            html += '<a href="' + file.objectURL + '" download="' + file.name + '" onclick="event.stopPropagation();toggleDropdown(\'list-' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-download w-4 text-center"></i> Download</a>';
+                            html += '<a href="' + file.objectURL + '" target="_blank" onclick="event.stopPropagation();toggleDropdown(\'list-' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-arrow-up-right-from-square w-4 text-center"></i> Buka di tab baru</a>';
                         }
-                        html += '<button onclick="event.stopPropagation();moveToTrash(\'' + file.id + '\')" class="p-1 text-slate-400 hover:text-rose-600"><i class="fa-solid fa-trash-can"></i></button>';
+                        html += '<button onclick="event.stopPropagation();renameFile(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-pen-to-square w-4 text-center"></i> Ganti nama</button>';
+                        html += '<button onclick="event.stopPropagation();shareFile(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-solid fa-user-plus w-4 text-center"></i> Bagikan</button>';
+                        html += '<div class="border-t border-slate-100 my-1"></div>';
+                        html += '<button onclick="event.stopPropagation();toggleStarred(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-slate-600 hover:bg-slate-50 transition w-full text-left"><i class="fa-' + (file.starred ? 'solid' : 'regular') + ' fa-bookmark w-4 text-center"></i> ' + (file.starred ? 'Hapus dari Penting' : 'Tandai Penting') + '</button>';
+                        html += '<button onclick="event.stopPropagation();moveToTrash(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-rose-600 hover:bg-rose-50 transition w-full text-left"><i class="fa-solid fa-trash-can w-4 text-center"></i> Pindahkan ke sampah</button>';
                     } else {
-                        html += '<button onclick="event.stopPropagation();restoreFromTrash(\'' + file.id + '\')" class="p-1 text-emerald-600"><i class="fa-solid fa-rotate-left"></i></button>';
-                        html += '<button onclick="event.stopPropagation();deletePermanently(\'' + file.id + '\')" class="p-1 text-rose-500"><i class="fa-solid fa-xmark"></i></button>';
+                        html += '<button onclick="event.stopPropagation();restoreFromTrash(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-emerald-600 hover:bg-emerald-50 transition w-full text-left"><i class="fa-solid fa-rotate-left w-4 text-center"></i> Pulihkan</button>';
+                        html += '<button onclick="event.stopPropagation();deletePermanently(\'' + file.id + '\')" class="flex items-center gap-3 px-4 py-2 text-xs text-rose-600 hover:bg-rose-50 transition w-full text-left"><i class="fa-solid fa-xmark w-4 text-center"></i> Hapus Permanen</button>';
                     }
-                    html += '</div></td></tr>';
+                    html += '</div></div></td></tr>';
                 });
                 listBody.innerHTML = html;
             }
@@ -725,9 +737,54 @@
             awanState.files.push({ id: 'f_' + Date.now(), name: file.name, type: fileType, size: file.size || 512000, folderId: awanState.currentFolderId, categoryId: catId, updatedAt: new Date().toISOString().split('T')[0], starred: false, inTrash: false, objectURL: objectURL });
             closeUploadModal(); awanShowToast('File "' + file.name + '" berhasil diunggah!', 'success'); awanRender();
         }
+        function toggleDropdown(id) {
+            var dropdowns = document.querySelectorAll('[id^="dropdown-"]');
+            dropdowns.forEach(function(el) {
+                if (el.id !== 'dropdown-' + id && el.id !== 'dropdown-list-' + id) {
+                    el.classList.add('hidden');
+                }
+            });
+            var el = document.getElementById('dropdown-' + id) || document.getElementById('dropdown-list-' + id);
+            if (el) el.classList.toggle('hidden');
+        }
+
+        document.addEventListener('click', function(e) {
+            var isDropdown = e.target.closest('[id^="dropdown-"]') || e.target.closest('button[onclick^="event.stopPropagation();toggleDropdown"]');
+            if (!isDropdown) {
+                document.querySelectorAll('[id^="dropdown-"]').forEach(function(el) {
+                    el.classList.add('hidden');
+                });
+            }
+        });
+
+        function renameFile(fileId) {
+            var f = awanState.files.find(function(x) { return x.id === fileId; });
+            if (!f) return;
+            var elId = document.getElementById('dropdown-' + fileId) ? fileId : 'list-' + fileId;
+            toggleDropdown(elId);
+            var newName = prompt('Ganti nama file:', f.name);
+            if (newName && newName.trim() !== '') {
+                f.name = newName.trim();
+                awanShowToast('File berhasil diganti nama', 'success');
+                awanRender();
+            }
+        }
+        
+        function shareFile(fileId) {
+            var elId = document.getElementById('dropdown-' + fileId) ? fileId : 'list-' + fileId;
+            toggleDropdown(elId);
+            awanShowToast('Tautan berhasil disalin ke clipboard!', 'success');
+        }
+
         function toggleStarred(fileId) {
             var f = awanState.files.find(function(x) { return x.id === fileId; });
-            if (f) { f.starred = !f.starred; awanShowToast(f.starred ? 'Ditandai sebagai Penting' : 'Dihapus dari Penting', 'info'); awanRender(); }
+            if (f) { 
+                f.starred = !f.starred; 
+                awanShowToast(f.starred ? 'Ditandai sebagai Penting' : 'Dihapus dari Penting', 'info'); 
+                var elId = document.getElementById('dropdown-' + fileId) ? fileId : 'list-' + fileId;
+                toggleDropdown(elId);
+                awanRender(); 
+            }
         }
         function moveToTrash(fileId) {
             var f = awanState.files.find(function(x) { return x.id === fileId; });
