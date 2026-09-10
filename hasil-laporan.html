@@ -87,19 +87,25 @@
     <!-- Kertas A4 -->
     <div class="max-w-4xl mx-auto bg-white p-4 sm:p-10 shadow-lg print-container relative text-[13px] sm:text-[15px] leading-relaxed">
         
-        <h1 class="text-center font-bold text-lg sm:text-xl mb-8">LAPORAN HASIL SURVEY LOKASI DAN PELAKSANAAN<br>KEGIATAN OPERASI</h1>
+        <h1 class="text-center font-bold text-lg sm:text-xl mb-8">LAPORAN SURVEY LAPANGAN</h1>
 
-        <div class="mb-8">
-            <div class="info-row">
-                <div class="info-label">Tanggal Survey</div>
-                <div class="info-colon">:</div>
-                <div id="repTglSurvey" class="font-normal">-</div>
-            </div>
-            <div class="info-row">
-                <div class="info-label">Status Dokumen</div>
-                <div class="info-colon">:</div>
-                <div id="repUrgensiAtas" class="uppercase">-</div>
-            </div>
+        <div class="overflow-x-auto mb-8">
+            <table class="formal-table">
+                <tbody>
+                    <tr>
+                        <td style="width: 30%; min-width: 150px;">Tanggal Survey</td>
+                        <td id="repTglSurveyTop" style="width: 70%;">-</td>
+                    </tr>
+                    <tr>
+                        <td>Sumber Informasi</td>
+                        <td id="repSumberInfoTop">-</td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td id="repStatusTop">-</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <h2 class="section-title">I. DATA LOKASI DAN WAKTU PELAKSANAAN</h2>
@@ -107,25 +113,16 @@
             <table class="formal-table">
                 <tbody>
                     <tr>
-                    <tr>
-                        <td style="width: 30%; min-width: 150px;">Waktu Pelaksanaan</td>
-                        <td id="repWaktu" style="width: 70%;"></td>
-                    </tr>
-                    <tr>
-                        <td>Sumber Informasi</td>
-                        <td id="repSumberInfo">-</td>
-                    </tr>
-                    <tr>
-                        <td>Status</td>
-                        <td id="repStatusDokumen" style="font-weight: bold;">-</td>
-                    </tr>
-                    <tr>
-                        <td>Nama Lokasi</td>
-                        <td id="repLokasi">-</td>
+                        <td style="width: 30%; min-width: 150px;">Nama Lokasi</td>
+                        <td id="repLokasi" style="width: 70%;">-</td>
                     </tr>
                     <tr>
                         <td>Alamat / Wilayah</td>
                         <td id="repAlamat">-</td>
+                    </tr>
+                    <tr>
+                        <td>Waktu Pelaksanaan</td>
+                        <td id="repWaktu">-</td>
                     </tr>
                     <tr>
                         <td>Cuaca</td>
@@ -133,7 +130,9 @@
                     </tr>
                     <tr>
                         <td>Surveyor</td>
-                        <td id="repSurveyor">-</td>
+                        <td id="repSurveyor" class="pl-0 pb-0 pt-2 align-top">
+                            <!-- Ordered list rendered here -->
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -150,18 +149,18 @@
             <table class="formal-table">
                 <tbody>
                     <tr>
-                        <td style="width: 30%; min-width: 150px;">Dimensi Saluran</td>
-                        <td>Lebar: <span id="repLebar">-</span> m, Kedalaman: <span id="repKedalaman">-</span> m</td>
+                        <td style="width: 30%; min-width: 150px;">Kategori Permasalahan</td>
+                        <td id="repKondisiExisting" style="width: 70%;">-</td>
                     </tr>
                     <tr>
-                        <td>Kondisi Existing</td>
-                        <td id="repKondisiExisting">-</td>
+                        <td>Dimensi Saluran</td>
+                        <td>Lebar: <span id="repLebar">-</span> m, Kedalaman: <span id="repKedalaman">-</span> m</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <h2 class="section-title">III. RENCANA DAN JADWAL PENANGANAN JANGKA PENDEK (DARURAT)</h2>
+        <h2 class="section-title">III. RENCANA DAN PENANGANAN JANGKA PENDEK (SEMENTARA)</h2>
         <div class="overflow-x-auto mb-4">
             <table class="formal-table">
                 <tbody>
@@ -182,46 +181,38 @@
             <table class="formal-table">
                 <tbody>
                     <tr>
-                        <td style="width: 30%; min-width: 150px;">Kategori Penanganan</td>
+                        <td style="width: 30%; min-width: 150px;">kategori penanganan</td>
                         <td id="repKategoriPenanganan" style="width: 70%;">-</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <p class="font-bold mb-2">Perkiraan Biaya</p>
+        <p class="font-bold mb-2">Perkiraan Rincian Anggaran Biaya (RAB)</p>
         <div class="overflow-x-auto mb-2">
-            <table class="formal-table text-[12px] sm:text-[14px] min-w-[500px]">
-                <thead>
-                    <tr>
-                        <th class="text-center">Keterangan</th>
-                        <th class="text-center w-32">Nominal Biaya (Rp)</th>
-                    </tr>
-                </thead>
+            <table class="formal-table">
                 <tbody>
                     <tr>
-                        <td>Biaya Material</td>
-                        <td class="text-center font-semibold" id="repBiayaMaterial">-</td>
+                        <td style="width: 30%; min-width: 150px;">Biaya material</td>
+                        <td id="repBiayaMaterial">Rp. -</td>
                     </tr>
                     <tr>
-                        <td>Gaji Tenaga Kerja</td>
-                        <td class="text-center font-semibold" id="repBiayaGaji">-</td>
+                        <td>Upah</td>
+                        <td id="repBiayaGaji">Rp. -</td>
+                    </tr>
+                    <tr>
+                        <td>Total Biaya</td>
+                        <td id="repAnggaran">Rp. -</td>
                     </tr>
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td class="text-right font-bold uppercase tracking-wider text-xs sm:text-sm">TOTAL ESTIMASI BIAYA</td>
-                        <td class="text-center font-bold text-red-700" id="repAnggaran">-</td>
-                    </tr>
-                </tfoot>
             </table>
         </div>
 
         <div class="flex justify-end text-center mt-12 mb-8" style="page-break-inside: avoid;">
             <div class="w-64">
                 <p class="mb-2"><span id="repKotaTtd">Mataram</span>, <span id="repTglTtd">-</span></p>
-                <p class="mb-24">Dibuat oleh <span id="repRoleTtd">.......</span></p>
-                <p id="repNamaTtd" class="font-bold underline">-</p>
+                <p class="mb-24">Dibuat oleh (.......)</p>
+                <p id="repNamaTtd" class="font-bold">-</p>
                 <p>NIP. <span id="repNipTtd">-</span></p>
             </div>
         </div>
@@ -249,25 +240,35 @@
             try {
                 const data = JSON.parse(localStorage.getItem('dataLaporanSDA'));
                 if(data) {
-                    // Header
-                    document.getElementById('repTglSurvey').innerText = data.waktu || '-';
-                    document.getElementById('repUrgensiAtas').innerText = (data.statusDokumen ? 'PRIORITAS ' + data.statusDokumen.toUpperCase() : 'BIASA');
+                    // Header Top Table
+                    const rawWaktu = data.waktu || '-';
+                    const tglOnly = rawWaktu.split(',')[0];
+                    document.getElementById('repTglSurveyTop').innerText = tglOnly;
+                    document.getElementById('repSumberInfoTop').innerText = data.sumberInfo || '-';
+                    document.getElementById('repStatusTop').innerText = data.statusDokumen || '-';
 
                     // I. Lokasi
-                    document.getElementById('repStatusDokumen').innerText = data.statusDokumen || '-';
-                    document.getElementById('repSumberInfo').innerText = data.sumberInfo || '-';
                     document.getElementById('repLokasi').innerText = data.lokasi || '-';
                     document.getElementById('repAlamat').innerText = data.alamat || '-';
-                    document.getElementById('repWaktu').innerText = data.waktu || '-';
+                    document.getElementById('repWaktu').innerText = rawWaktu;
                     document.getElementById('repCuaca').innerText = data.cuaca || '-';
-                    document.getElementById('repSurveyor').innerText = data.surveyor || '-';
+                    
+                    let surveyorText = data.surveyor || '-';
+                    let surveyors = surveyorText.split(',').map(s => s.trim()).filter(s => s);
+                    if(surveyors.length > 0) {
+                        document.getElementById('repSurveyor').innerHTML = '<ol class="list-decimal pl-4 m-0 py-2">' + surveyors.map(s => `<li>${s}</li>`).join('') + '</ol>';
+                    } else {
+                        document.getElementById('repSurveyor').innerText = '-';
+                    }
 
-                    // Helper to format comma-separated strings as bullet points if multiple
+                    // Helper to format comma-separated strings as ordered list
                     function formatList(str) {
                         if(!str) return '-';
                         const items = str.split(',').map(s => s.trim()).filter(s => s);
                         if(items.length > 1) {
-                            return '<ul class="list-disc pl-4 m-0">' + items.map(i => `<li>${i}</li>`).join('') + '</ul>';
+                            return '<ol class="list-decimal pl-4 m-0 py-2">' + items.map(i => `<li>${i}</li>`).join('') + '</ol>';
+                        } else if (items.length === 1) {
+                            return '<ol class="list-decimal pl-4 m-0 py-2"><li>' + items[0] + '</li></ol>';
                         }
                         return str;
                     }
@@ -283,17 +284,14 @@
 
                     // IV. Jangka Panjang
                     document.getElementById('repKategoriPenanganan').innerHTML = formatList(data.kategoriPenanganan);
-                    document.getElementById('repTahapan').innerText = data.tahapan || '-';
-                    document.getElementById('repJumlahTenaga').innerText = data.jumlahTenaga || '-';
-                    document.getElementById('repWaktuPanjang').innerText = data.waktuPanjang || '-';
-                    document.getElementById('repBiayaMaterial').innerText = data.biayaMaterial || '-';
-                    document.getElementById('repBiayaGaji').innerText = data.biayaGaji || '-';
-                    document.getElementById('repAnggaran').innerText = data.anggaran || '-';
+                    document.getElementById('repBiayaMaterial').innerText = 'Rp. ' + (data.biayaMaterial || '-');
+                    document.getElementById('repBiayaGaji').innerText = 'Rp. ' + (data.biayaGaji || '-');
+                    document.getElementById('repAnggaran').innerText = 'Rp. ' + (data.anggaran || '-');
 
                     // TTD
                     document.getElementById('repKotaTtd').innerText = data.kotaTtd || 'Mataram';
-                    document.getElementById('repTglTtd').innerText = data.tglTtd || '-';
-                    document.getElementById('repRoleTtd').innerText = data.roleTtd || '.......';
+                    const rawTglTtd = data.tglTtd || tglOnly;
+                    document.getElementById('repTglTtd').innerText = rawTglTtd;
                     document.getElementById('repNamaTtd').innerText = data.namaTtd || '-';
                     document.getElementById('repNipTtd').innerText = data.nipTtd || '-';
 
