@@ -222,21 +222,50 @@
         </div>
 
         <div id="moveModal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100 flex flex-col max-h-[80vh]">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-bold text-slate-800 text-lg">Pindahkan ke...</h3>
-                    <button onclick="closeMoveModal()" class="text-slate-400 hover:text-slate-600 transition">
-                        <i class="fa-solid fa-xmark text-lg"></i>
+            <div class="bg-white rounded-xl w-full max-w-sm sm:max-w-md shadow-2xl flex flex-col h-[500px]">
+                <!-- Header -->
+                <div class="flex items-center justify-between px-6 py-4">
+                    <h3 id="moveModalTitle" class="text-xl text-slate-800 font-semibold" style="font-family: 'Google Sans', sans-serif;">Pindahkan</h3>
+                    <button onclick="closeMoveModal()" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-500 transition">
+                        <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <div class="flex-1 overflow-y-auto mb-4 -mx-2 px-2">
-                    <div id="moveOptionsList" class="space-y-1">
-                        <!-- Dynamic options here -->
+                
+                <!-- Current Location Info -->
+                <div class="px-6 pb-2 flex items-center gap-2 text-sm text-slate-700">
+                    <span>Lokasi saat ini:</span>
+                    <button id="moveModalCurrentLoc" class="flex items-center gap-1.5 px-3 py-1.5 border border-slate-300 rounded-lg bg-slate-50 font-medium text-slate-600">
+                        <i class="fa-brands fa-google-drive"></i>
+                        <span>Drive Saya</span>
+                    </button>
+                </div>
+
+                <!-- Tabs -->
+                <div class="px-6 border-b border-slate-200 flex items-center gap-6 text-sm font-medium text-slate-500 relative">
+                    <button class="pb-3 hover:text-slate-800 transition relative hidden sm:block">Disarankan</button>
+                    <button class="pb-3 hover:text-slate-800 transition relative hidden sm:block">Berbintang</button>
+                    <button class="pb-3 text-brand-600 border-b-2 border-brand-600 relative">Semua lokasi</button>
+                    <button class="absolute right-6 pb-3 text-slate-400 hover:text-slate-600 transition"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+
+                <!-- Folder List Area -->
+                <div class="flex-1 overflow-y-auto px-2 py-2">
+                    <div id="moveOptionsList" class="flex flex-col">
+                        <!-- Dynamic Options -->
                     </div>
                 </div>
-                <div class="flex items-center justify-end gap-2 pt-4 border-t border-slate-100">
-                    <button onclick="closeMoveModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">Batal</button>
-                    <button id="btnConfirmMove" onclick="confirmMove()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white hover:bg-brand-700 transition disabled:opacity-50 disabled:cursor-not-allowed">Pindahkan di sini</button>
+
+                <!-- Footer -->
+                <div class="p-4 border-t border-slate-100 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <button onclick="createFolderFromModal()" title="Folder baru" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-600 transition">
+                            <i class="fa-solid fa-folder-plus text-lg"></i>
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button onclick="closeMoveModal()" class="px-5 py-2.5 rounded-full text-sm font-medium text-brand-600 hover:bg-brand-50 transition">Batal</button>
+                        <button onclick="confirmMove()" class="px-5 py-2.5 rounded-full text-sm font-medium bg-brand-600 text-white hover:bg-brand-700 transition">Pindahkan</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -753,13 +782,17 @@
         }
 
         var fileToMove = null;
-        var selectedTargetFolderId = null;
+        var modalCurrentFolderId = null;
 
         function openMoveModal(fileId) {
             fileToMove = fileId;
-            selectedTargetFolderId = null;
+            modalCurrentFolderId = null;
+            
+            var f = awanState.files.find(function(x) { return x.id === fileId; });
+            if (f) {
+                document.getElementById('moveModalTitle').innerText = 'Pindahkan "' + f.name + '"';
+            }
             document.getElementById('moveModal').classList.remove('hidden');
-            document.getElementById('btnConfirmMove').disabled = true;
             
             var elId = document.getElementById('dropdown-' + fileId) ? fileId : 'list-' + fileId;
             toggleDropdown(elId);
@@ -770,46 +803,82 @@
         function closeMoveModal() {
             document.getElementById('moveModal').classList.add('hidden');
             fileToMove = null;
-            selectedTargetFolderId = null;
+            modalCurrentFolderId = null;
         }
 
-        function selectTargetFolder(folderId) {
-            selectedTargetFolderId = folderId;
-            document.getElementById('btnConfirmMove').disabled = false;
+        function navigateToModalFolder(folderId) {
+            if (folderId === 'null' || folderId === '') modalCurrentFolderId = null;
+            else modalCurrentFolderId = folderId;
             renderMoveOptions();
         }
 
         function renderMoveOptions() {
             var container = document.getElementById('moveOptionsList');
-            if (!container) return;
+            var locBtn = document.getElementById('moveModalCurrentLoc');
+            if (!container || !locBtn) return;
             var html = '';
-            
-            var isSelectedRoot = selectedTargetFolderId === 'root';
-            var rootCls = isSelectedRoot ? 'bg-brand-50 border-brand-200' : 'bg-transparent border-transparent hover:bg-slate-50 hover:border-slate-200';
-            html += '<button onclick="selectTargetFolder(\'root\')" class="w-full flex items-center gap-3 p-3 rounded-xl border transition-all text-left ' + rootCls + '">';
-            html += '<div class="w-8 h-8 rounded-lg bg-brand-100 flex items-center justify-center text-brand-600"><i class="fa-solid fa-hard-drive"></i></div>';
-            html += '<div class="flex-1 font-medium text-sm text-slate-700">Drive Saya</div>';
-            if (isSelectedRoot) html += '<i class="fa-solid fa-check text-brand-600"></i>';
-            html += '</button>';
 
-            var availableFolders = awanState.folders.filter(function(f) { return !f.inTrash; });
-            availableFolders.forEach(function(folder) {
-                var isSelected = selectedTargetFolderId === folder.id;
-                var cls = isSelected ? 'bg-brand-50 border-brand-200' : 'bg-transparent border-transparent hover:bg-slate-50 hover:border-slate-200';
-                html += '<button onclick="selectTargetFolder(\'' + folder.id + '\')" class="w-full flex items-center gap-3 p-3 rounded-xl border transition-all text-left ' + cls + '">';
-                html += '<div class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center text-amber-500"><i class="fa-solid fa-folder"></i></div>';
-                html += '<div class="flex-1 font-medium text-sm text-slate-700">' + folder.name + '</div>';
-                if (isSelected) html += '<i class="fa-solid fa-check text-brand-600"></i>';
+            // Update Lokasi saat ini text
+            if (modalCurrentFolderId) {
+                var currentFolder = awanState.folders.find(function(f) { return f.id === modalCurrentFolderId; });
+                locBtn.innerHTML = '<i class="fa-solid fa-folder text-slate-400"></i><span>' + (currentFolder ? currentFolder.name : 'Unknown') + '</span>';
+            } else {
+                locBtn.innerHTML = '<i class="fa-brands fa-google-drive text-slate-400"></i><span>Drive Saya</span>';
+            }
+
+            // Go Up button if not at root
+            if (modalCurrentFolderId !== null) {
+                var currentFolder = awanState.folders.find(function(f) { return f.id === modalCurrentFolderId; });
+                var parentId = currentFolder ? currentFolder.parentId : null;
+                
+                html += '<button onclick="navigateToModalFolder(\'' + (parentId || '') + '\')" class="w-full flex items-center gap-4 px-4 py-3 hover:bg-slate-50 transition text-left">';
+                html += '<div class="w-6 h-6 flex items-center justify-center text-slate-400"><i class="fa-solid fa-arrow-left"></i></div>';
+                html += '<div class="flex-1 font-medium text-sm text-slate-600">Kembali</div>';
                 html += '</button>';
+            }
+
+            // List folders
+            var availableFolders = awanState.folders.filter(function(f) { 
+                return !f.inTrash && f.parentId === modalCurrentFolderId; 
             });
+
+            if (availableFolders.length === 0) {
+                html += '<div class="py-12 text-center text-sm text-slate-400 flex flex-col items-center gap-2">';
+                html += '<i class="fa-regular fa-folder-open text-3xl mb-1 opacity-50"></i>';
+                html += '<span>Folder ini kosong</span></div>';
+            } else {
+                availableFolders.forEach(function(folder) {
+                    html += '<button onclick="navigateToModalFolder(\'' + folder.id + '\')" class="w-full flex items-center gap-4 px-4 py-3 hover:bg-slate-50 transition text-left group">';
+                    html += '<div class="w-6 h-6 flex items-center justify-center text-slate-400 group-hover:text-slate-600 transition"><i class="fa-solid fa-folder text-lg"></i></div>';
+                    html += '<div class="flex-1 font-medium text-sm text-slate-700 truncate">' + folder.name + '</div>';
+                    html += '<div class="text-slate-300 group-hover:text-slate-500 transition"><i class="fa-solid fa-chevron-right text-xs"></i></div>';
+                    html += '</button>';
+                });
+            }
             container.innerHTML = html;
         }
 
+        function createFolderFromModal() {
+            var name = prompt("Nama folder baru:");
+            if (name && name.trim() !== '') {
+                awanState.folders.push({ 
+                    id: 'fold_' + Date.now(), 
+                    name: name.trim(), 
+                    parentId: modalCurrentFolderId, 
+                    categoryId: null, 
+                    inTrash: false 
+                });
+                awanShowToast('Folder "' + name.trim() + '" berhasil dibuat', 'success');
+                renderMoveOptions();
+                awanRender();
+            }
+        }
+
         function confirmMove() {
-            if (!fileToMove || !selectedTargetFolderId) return;
+            if (!fileToMove) return;
             var f = awanState.files.find(function(x) { return x.id === fileToMove; });
             if (f) {
-                f.folderId = selectedTargetFolderId === 'root' ? null : selectedTargetFolderId;
+                f.folderId = modalCurrentFolderId;
                 awanShowToast('File berhasil dipindahkan', 'success');
                 awanRender();
             }
