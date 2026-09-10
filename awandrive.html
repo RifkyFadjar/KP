@@ -747,8 +747,26 @@
             var ic = getFileIcon(file.type);
             document.getElementById('previewTitle').innerText = file.name;
             document.getElementById('previewMeta').innerText = formatFileSize(file.size) + ' • Diperbarui ' + file.updatedAt;
-            var downloadBtn = file.objectURL ? '<a href="' + file.objectURL + '" download="' + file.name + '" class="px-4 py-2 mt-4 rounded-xl text-xs font-semibold bg-brand-600 hover:bg-brand-700 text-white transition inline-block"><i class="fa-solid fa-download mr-1"></i> Download</a>' : '';
-            document.getElementById('previewBody').innerHTML = '<div class="text-center p-6"><div class="w-20 h-20 mx-auto rounded-2xl ' + ic.bg + ' flex items-center justify-center mb-4"><i class="fa-solid ' + ic.icon + ' ' + ic.color + ' text-4xl"></i></div><p class="font-semibold text-slate-700 text-sm mb-1">' + file.name + '</p><p class="text-xs text-slate-400">Pratinjau langsung tidak tersedia untuk format ini.</p>' + downloadBtn + '</div>';
+            
+            var downloadBtn = file.objectURL ? '<a href="' + file.objectURL + '" download="' + file.name + '" class="px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 hover:bg-brand-700 text-white transition inline-flex items-center justify-center gap-2 mr-2"><i class="fa-solid fa-download"></i> Download</a>' : '';
+            var externalBtn = file.objectURL ? '<a href="' + file.objectURL + '" target="_blank" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition inline-flex items-center justify-center gap-2"><i class="fa-solid fa-arrow-up-right-from-square"></i> Buka di Tab Baru</a>' : '';
+            var actionButtons = '<div class="mt-4 flex justify-center">' + downloadBtn + externalBtn + '</div>';
+
+            var previewContent = '<div class="text-center p-6 w-full"><div class="w-20 h-20 mx-auto rounded-2xl ' + ic.bg + ' flex items-center justify-center mb-4"><i class="fa-solid ' + ic.icon + ' ' + ic.color + ' text-4xl"></i></div><p class="font-semibold text-slate-700 text-sm mb-1">' + file.name + '</p><p class="text-xs text-slate-400">Pratinjau langsung tidak tersedia untuk format ini.</p>' + actionButtons + '</div>';
+
+            if (file.objectURL) {
+                if (file.type === 'image') {
+                    previewContent = '<div class="text-center w-full"><img src="' + file.objectURL + '" class="max-w-full max-h-[50vh] object-contain rounded-lg shadow-sm mx-auto mb-4" alt="' + file.name + '">' + actionButtons + '</div>';
+                } else if (file.type === 'video') {
+                    previewContent = '<div class="text-center w-full"><video controls src="' + file.objectURL + '" class="max-w-full max-h-[50vh] rounded-lg shadow-sm mx-auto mb-4"></video>' + actionButtons + '</div>';
+                } else if (file.type === 'audio') {
+                    previewContent = '<div class="text-center w-full p-6"><div class="w-20 h-20 mx-auto rounded-2xl ' + ic.bg + ' flex items-center justify-center mb-6"><i class="fa-solid ' + ic.icon + ' ' + ic.color + ' text-4xl"></i></div><p class="font-semibold text-slate-700 text-sm mb-4">' + file.name + '</p><audio controls src="' + file.objectURL + '" class="w-full mx-auto mb-4"></audio>' + actionButtons + '</div>';
+                } else if (file.type === 'pdf') {
+                    previewContent = '<div class="text-center w-full h-full flex flex-col"><iframe src="' + file.objectURL + '" class="w-full flex-1 min-h-[50vh] rounded-lg border border-slate-200 mb-4"></iframe>' + actionButtons + '</div>';
+                }
+            }
+
+            document.getElementById('previewBody').innerHTML = previewContent;
             document.getElementById('previewModal').classList.remove('hidden');
         }
         function closePreviewModal() { document.getElementById('previewModal').classList.add('hidden'); }
