@@ -187,6 +187,10 @@
                         <td style="width: 30%; min-width: 150px;">kategori penanganan</td>
                         <td id="repKategoriPenanganan" style="width: 70%;">-</td>
                     </tr>
+                    <tr>
+                        <td>Pelaksanaan</td>
+                        <td id="repWaktuPanjang">-</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -292,6 +296,7 @@
 
                     // IV. Jangka Panjang
                     document.getElementById('repKategoriPenanganan').innerHTML = formatList(data.kategoriPenanganan);
+                    document.getElementById('repWaktuPanjang').innerText = data.waktuPanjang || '-';
                     document.getElementById('repBiayaMaterial').innerText = 'Rp. ' + (data.biayaMaterial || '-');
                     document.getElementById('repBiayaGaji').innerText = 'Rp. ' + (data.biayaGaji || '-');
                     document.getElementById('repAnggaran').innerText = 'Rp. ' + (data.anggaran || '-');
