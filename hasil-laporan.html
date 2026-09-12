@@ -211,6 +211,10 @@
                 <table class="formal-table">
                     <tbody>
                         <tr>
+                            <td style="width: 30%; min-width: 150px;">Permasalahan yang Ditemukan</td>
+                            <td id="repPermasalahanDitemukan" style="width: 70%;">-</td>
+                        </tr>
+                        <tr>
                             <td style="width: 30%; min-width: 150px;">Deskripsi Permasalahan</td>
                             <td id="repDeskripsiMasalah" style="width: 70%; white-space: pre-line;">-</td>
                         </tr>
@@ -355,6 +359,8 @@
                     document.getElementById('repKondisiLapangan').innerHTML = formatList(data.kondisiLapangan || data.kondisiExisting);
 
                     // III. Permasalahan di Lapangan
+                    const rawPermasalahan = data.permasalahanDitemukan || data.permasalahan;
+                    document.getElementById('repPermasalahanDitemukan').innerHTML = formatList(rawPermasalahan);
                     document.getElementById('repDeskripsiMasalah').innerText = data.deskripsiMasalah || data.deskripsi_permasalahan || '-';
 
                     // IV. Jangka Pendek

@@ -233,12 +233,37 @@
             <div>
                 <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i
                         class="fa-solid fa-triangle-exclamation mr-2"></i> III. Permasalahan di Lapangan</h2>
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-1">Deskripsikan Permasalahan</label>
-                    <textarea id="valDeskripsiMasalah" rows="3"
-                        placeholder="Deskripsikan detail permasalahan yang ditemukan di lapangan..."
-                        class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm"
-                        required></textarea>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Permasalahan yang Ditemukan</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 mt-2" id="chkGroupPermasalahan">
+                            <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                    value="Genangan sumbatan" class="w-4 h-4 text-pupr-blue rounded"> Genangan sumbatan</label>
+                            <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                    value="Talud saluran longsor (rusak roboh)" class="w-4 h-4 text-pupr-blue rounded">
+                                Talud saluran longsor (rusak roboh)</label>
+                            <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                    value="Penyempitan saluran" class="w-4 h-4 text-pupr-blue rounded"> Penyempitan saluran</label>
+                            <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                    value="Sedimentasi tinggi" class="w-4 h-4 text-pupr-blue rounded"> Sedimentasi tinggi</label>
+                            <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                    value="Plat rendah" class="w-4 h-4 text-pupr-blue rounded"> Plat rendah</label>
+                            <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                    value="Saluran terbuka dan tertutup" class="w-4 h-4 text-pupr-blue rounded"> Saluran terbuka dan tertutup</label>
+                            <label class="flex items-center gap-2 text-sm"><input type="checkbox" value="Lainnya"
+                                    class="w-4 h-4 text-pupr-blue rounded"
+                                    onchange="if(this.checked) document.getElementById('valPermasalahanLain').classList.remove('hidden'); else document.getElementById('valPermasalahanLain').classList.add('hidden');">
+                                Lainnya...</label>
+                        </div>
+                        <input type="text" id="valPermasalahanLain" placeholder="Tuliskan permasalahan lainnya..."
+                            class="w-full mt-2 px-4 py-2 sm:py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm hidden">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Deskripsikan Permasalahan</label>
+                        <textarea id="valDeskripsiMasalah" rows="3"
+                            placeholder="Deskripsikan detail permasalahan yang ditemukan di lapangan..."
+                            class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-pupr-blue text-sm"></textarea>
+                    </div>
                 </div>
             </div>
 
@@ -298,12 +323,17 @@
                                         value="Swakelola" class="w-4 h-4 text-pupr-blue rounded">
                                     Swakelola</label>
                                 <label class="flex items-center gap-2 text-sm"><input type="checkbox"
-                                        value="Usulan anggaran perubahan" class="w-4 h-4 text-pupr-blue rounded">
-                                    Usulan anggaran perubahan</label>
+                                        value="Penanganan sumbatan" class="w-4 h-4 text-pupr-blue rounded">
+                                    Penanganan sumbatan</label>
                                 <label class="flex items-center gap-2 text-sm"><input type="checkbox"
-                                        value="Usulan anggaran tahun berikutnya"
-                                        class="w-4 h-4 text-pupr-blue rounded"> Usulan anggaran tahun
-                                    berikutnya</label>
+                                        value="Penggalian sedimentasi" class="w-4 h-4 text-pupr-blue rounded">
+                                    Penggalian sedimentasi</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                        value="Perbaikan sementara" class="w-4 h-4 text-pupr-blue rounded">
+                                    Perbaikan sementara</label>
+                                <label class="flex items-center gap-2 text-sm"><input type="checkbox"
+                                        value="Perambasan gulma" class="w-4 h-4 text-pupr-blue rounded">
+                                    Perambasan gulma</label>
                             </div>
                         </div>
                         <div>
@@ -669,6 +699,15 @@
                 }
             }
 
+            let arrPermasalahan = getCheckedValues('chkGroupPermasalahan');
+            if (arrPermasalahan.includes('Lainnya')) {
+                const customVal = document.getElementById('valPermasalahanLain').value.trim();
+                const idx = arrPermasalahan.indexOf('Lainnya');
+                if (customVal) {
+                    arrPermasalahan[idx] = customVal;
+                }
+            }
+
             let arrTindakLanjut = getCheckedValues('chkGroupTindakLanjut');
 
             // Ambil rincian biaya yang diinput
@@ -691,6 +730,7 @@
                 konstruksiSaluran: arrKonstruksi.join(', '),
                 kondisiLapangan: arrKondisi.join(', '),
                 kondisiExisting: arrKondisi.join(', '), // fallback kompatibilitas
+                permasalahanDitemukan: arrPermasalahan.join(', '),
                 deskripsiMasalah: document.getElementById('valDeskripsiMasalah').value,
                 opsiPenanganan: arrOpsi.join(', '),
                 kategoriPerbaikan: arrOpsi.join(', '), // fallback kompatibilitas
