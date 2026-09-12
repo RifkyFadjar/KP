@@ -31,6 +31,12 @@
             background-color: #e5e7eb; /* light gray header for RAB */
         }
         
+        .section-block {
+            page-break-inside: avoid;
+            break-inside: avoid;
+            margin-bottom: 1rem;
+        }
+
         .section-title {
             font-weight: bold;
             text-transform: uppercase;
@@ -39,6 +45,8 @@
             margin-top: 1rem;
             margin-bottom: 0.5rem;
             font-size: 1.1rem;
+            page-break-after: avoid;
+            break-after: avoid;
         }
 
         .info-row {
@@ -61,7 +69,29 @@
                 padding: 0 !important; 
                 max-width: 100% !important; 
             }
-            @page { margin: 2cm; }
+            .section-block {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            .section-title {
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+            }
+            .formal-table {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            .formal-table tr {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            .overflow-x-auto {
+                overflow: visible !important;
+            }
+            @page { 
+                margin: 1.5cm 2cm; 
+                size: portrait;
+            }
         }
     </style>
 </head>
@@ -111,131 +141,143 @@
             </table>
         </div>
 
-        <h2 class="section-title">I. DATA LOKASI DAN WAKTU PELAKSANAAN</h2>
-        <div class="overflow-x-auto mb-2">
-            <table class="formal-table">
-                <tbody>
-                    <tr>
-                        <td style="width: 30%; min-width: 150px;">Nama Lokasi</td>
-                        <td id="repLokasi" style="width: 70%;">-</td>
-                    </tr>
-                    <tr>
-                        <td>Alamat / Wilayah</td>
-                        <td id="repAlamat">-</td>
-                    </tr>
-                    <tr>
-                        <td>Waktu Pelaksanaan</td>
-                        <td id="repWaktu">-</td>
-                    </tr>
-                    <tr>
-                        <td>Cuaca</td>
-                        <td id="repCuaca">-</td>
-                    </tr>
-                    <tr>
-                        <td>Surveyor</td>
-                        <td id="repSurveyor" class="pl-0 pb-0 pt-2 align-top">
-                            <!-- Ordered list rendered here -->
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="section-block">
+            <h2 class="section-title">I. DATA LOKASI DAN WAKTU PELAKSANAAN</h2>
+            <div class="overflow-x-auto mb-2">
+                <table class="formal-table">
+                    <tbody>
+                        <tr>
+                            <td style="width: 30%; min-width: 150px;">Nama Lokasi</td>
+                            <td id="repLokasi" style="width: 70%;">-</td>
+                        </tr>
+                        <tr>
+                            <td>Alamat / Wilayah</td>
+                            <td id="repAlamat">-</td>
+                        </tr>
+                        <tr>
+                            <td>Waktu Pelaksanaan</td>
+                            <td id="repWaktu">-</td>
+                        </tr>
+                        <tr>
+                            <td>Cuaca</td>
+                            <td id="repCuaca">-</td>
+                        </tr>
+                        <tr>
+                            <td>Surveyor</td>
+                            <td id="repSurveyor" class="pl-0 pb-0 pt-2 align-top">
+                                <!-- Ordered list rendered here -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- Peta Lokasi -->
-        <div id="petaLokasiWrapper" class="hidden mb-6">
+        <div id="petaLokasiWrapper" class="hidden mb-6 section-block">
             <p class="font-bold mb-2">Peta Lokasi GPS:</p>
             <div id="mapReportContainer" class="w-full h-64 border border-black z-0"></div>
         </div>
 
-        <h2 class="section-title">II. KONDISI EKSISTING</h2>
-        <div class="overflow-x-auto mb-2">
-            <table class="formal-table">
-                <tbody>
-                    <tr>
-                        <td style="width: 30%; min-width: 150px;">Dimensi Saluran</td>
-                        <td style="width: 70%;">Lebar: <span id="repLebar">-</span> m, Kedalaman: <span id="repKedalaman">-</span> m</td>
-                    </tr>
-                    <tr>
-                        <td>Type Saluran</td>
-                        <td id="repTypeSaluran">-</td>
-                    </tr>
-                    <tr>
-                        <td>Jenis Konstruksi Saluran</td>
-                        <td id="repKonstruksiSaluran">-</td>
-                    </tr>
-                    <tr>
-                        <td>Kondisi Lapangan</td>
-                        <td id="repKondisiLapangan">-</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="section-block">
+            <h2 class="section-title">II. KONDISI EKSISTING</h2>
+            <div class="overflow-x-auto mb-2">
+                <table class="formal-table">
+                    <tbody>
+                        <tr>
+                            <td style="width: 30%; min-width: 150px;">Dimensi Saluran</td>
+                            <td style="width: 70%;">Lebar: <span id="repLebar">-</span> m, Kedalaman: <span id="repKedalaman">-</span> m</td>
+                        </tr>
+                        <tr>
+                            <td>Type Saluran</td>
+                            <td id="repTypeSaluran">-</td>
+                        </tr>
+                        <tr>
+                            <td>Jenis Konstruksi Saluran</td>
+                            <td id="repKonstruksiSaluran">-</td>
+                        </tr>
+                        <tr>
+                            <td>Kondisi Lapangan</td>
+                            <td id="repKondisiLapangan">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <h2 class="section-title">III. PERMASALAHAN DI LAPANGAN</h2>
-        <div class="overflow-x-auto mb-2">
-            <table class="formal-table">
-                <tbody>
-                    <tr>
-                        <td style="width: 30%; min-width: 150px;">Deskripsi Permasalahan</td>
-                        <td id="repDeskripsiMasalah" style="width: 70%; white-space: pre-line;">-</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="section-block">
+            <h2 class="section-title">III. PERMASALAHAN DI LAPANGAN</h2>
+            <div class="overflow-x-auto mb-2">
+                <table class="formal-table">
+                    <tbody>
+                        <tr>
+                            <td style="width: 30%; min-width: 150px;">Deskripsi Permasalahan</td>
+                            <td id="repDeskripsiMasalah" style="width: 70%; white-space: pre-line;">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <h2 class="section-title">IV. RENCANA PENANGANAN JANGKA PENDEK (SEMENTARA)</h2>
-        <div class="overflow-x-auto mb-2">
-            <table class="formal-table">
-                <tbody>
-                    <tr>
-                        <td style="width: 30%; min-width: 150px;">Opsi Penanganan</td>
-                        <td id="repOpsiPenanganan" style="width: 70%;">-</td>
-                    </tr>
-                    <tr>
-                        <td>Pelaksanaan</td>
-                        <td id="repWaktuPendek">-</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="section-block">
+            <h2 class="section-title">IV. RENCANA PENANGANAN JANGKA PENDEK (SEMENTARA)</h2>
+            <div class="overflow-x-auto mb-2">
+                <table class="formal-table">
+                    <tbody>
+                        <tr>
+                            <td style="width: 30%; min-width: 150px;">Opsi Penanganan</td>
+                            <td id="repOpsiPenanganan" style="width: 70%;">-</td>
+                        </tr>
+                        <tr>
+                            <td>Pelaksanaan</td>
+                            <td id="repWaktuPendek">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <h2 class="section-title">V. RENCANA TINDAK LANJUT</h2>
-        <div class="overflow-x-auto mb-2">
-            <table class="formal-table">
-                <tbody>
-                    <tr>
-                        <td style="width: 30%; min-width: 150px;">Peningkatan/Rehabilitasi Saluran Melalui</td>
-                        <td id="repTindakLanjut" style="width: 70%;">-</td>
-                    </tr>
-                    <tr>
-                        <td>Pelaksanaan</td>
-                        <td id="repWaktuPanjang">-</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="section-block">
+            <h2 class="section-title">V. RENCANA TINDAK LANJUT</h2>
+            <div class="overflow-x-auto mb-2">
+                <table class="formal-table">
+                    <tbody>
+                        <tr>
+                            <td style="width: 30%; min-width: 150px;">Peningkatan/Rehabilitasi Saluran Melalui</td>
+                            <td id="repTindakLanjut" style="width: 70%;">-</td>
+                        </tr>
+                        <tr>
+                            <td>Pelaksanaan</td>
+                            <td id="repWaktuPanjang">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <p class="font-bold mb-2">Perkiraan Biaya</p>
-        <div class="overflow-x-auto mb-2">
-            <table class="formal-table">
-                <tbody>
-                    <tr>
-                        <td style="width: 30%; min-width: 150px;">Biaya material</td>
-                        <td id="repBiayaMaterial">Rp. -</td>
-                    </tr>
-                    <tr>
-                        <td>Upah</td>
-                        <td id="repBiayaGaji">Rp. -</td>
-                    </tr>
-                    <tr>
-                        <td>Total Biaya</td>
-                        <td id="repAnggaran">Rp. -</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="section-block">
+            <p class="font-bold mb-2">Perkiraan Biaya</p>
+            <div class="overflow-x-auto mb-2">
+                <table class="formal-table">
+                    <tbody>
+                        <tr>
+                            <td style="width: 30%; min-width: 150px;">Biaya material</td>
+                            <td id="repBiayaMaterial">Rp. -</td>
+                        </tr>
+                        <tr>
+                            <td>Upah</td>
+                            <td id="repBiayaGaji">Rp. -</td>
+                        </tr>
+                        <tr>
+                            <td>Total Biaya</td>
+                            <td id="repAnggaran">Rp. -</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <table style="width: 100%; page-break-inside: avoid; break-inside: avoid; margin-top: 24px; margin-bottom: 16px; border: none;">
+        <table class="section-block" style="width: 100%; page-break-inside: avoid; break-inside: avoid; margin-top: 24px; margin-bottom: 16px; border: none;">
             <tr>
                 <td style="border: none; text-align: right; padding: 0;">
                     <div style="display: inline-block; width: 256px; text-align: center;">
