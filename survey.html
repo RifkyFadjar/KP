@@ -359,18 +359,38 @@
 
             <!-- BAGIAN 6: LAMPIRAN (Preview Foto) -->
             <div>
-                <h2 class="text-sm font-bold text-pupr-blue mb-4 uppercase tracking-wider border-b pb-2"><i
-                        class="fa-solid fa-camera mr-2"></i> VI. Lampiran Dokumentasi Survey Lokasi</h2>
-                <div>
-                    <div class="border-2 border-dashed border-slate-300 rounded-xl bg-slate-50 p-4 sm:p-6 flex flex-col items-center justify-center text-center hover:bg-slate-100 transition cursor-pointer relative"
+                <div class="flex items-center justify-between border-b pb-2 mb-4">
+                    <h2 class="text-sm font-bold text-pupr-blue uppercase tracking-wider">
+                        <i class="fa-solid fa-camera mr-2"></i> VI. Lampiran Dokumentasi Survey Lokasi
+                    </h2>
+                    <span id="photoCountBadge" class="hidden text-xs bg-blue-100 text-pupr-blue font-semibold px-2.5 py-0.5 rounded-full">
+                        0 Foto Terpilih
+                    </span>
+                </div>
+                <div class="space-y-4">
+                    <!-- Dropzone / Tombol Upload -->
+                    <div class="border-2 border-dashed border-slate-300 rounded-xl bg-slate-50 p-6 flex flex-col items-center justify-center text-center hover:bg-blue-50/50 hover:border-pupr-blue/50 transition cursor-pointer group"
                         onclick="document.getElementById('fileUpload').click()">
-                        <i class="fa-solid fa-cloud-arrow-up text-2xl sm:text-3xl text-slate-400 mb-2"></i>
-                        <span class="text-xs sm:text-sm font-medium text-slate-600">Klik untuk Buka Kamera / Pilih Foto
-                            Dokumentasi</span>
+                        <div class="w-12 h-12 rounded-full bg-blue-50 text-pupr-blue flex items-center justify-center mb-2 group-hover:scale-110 transition shadow-sm border border-blue-100">
+                            <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
+                        </div>
+                        <span class="text-xs sm:text-sm font-semibold text-slate-700">Klik untuk Buka Kamera / Pilih Foto Dokumentasi</span>
+                        <span class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Dapat memilih lebih dari 1 foto sekaligus atau bertahap (JPG, PNG, WebP)</span>
                         <input type="file" id="fileUpload" class="hidden" multiple accept="image/*"
-                            onchange="previewImages()">
-                        <!-- Kotak Preview Muncul Disini -->
-                        <div id="imagePreviewContainer" class="flex gap-2 mt-4 flex-wrap justify-center"></div>
+                            onchange="handleFileUpload(this)">
+                    </div>
+
+                    <!-- Kotak Preview Foto & Opsi Hapus -->
+                    <div id="previewArea" class="hidden">
+                        <div class="flex items-center justify-between mb-2 px-1">
+                            <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Foto Terlampir (<span id="photoCounter">0</span>)</span>
+                            <button type="button" onclick="clearAllPhotos()" class="text-xs text-rose-500 hover:text-rose-700 font-semibold flex items-center gap-1.5 transition px-2 py-1 rounded hover:bg-rose-50">
+                                <i class="fa-solid fa-trash-can"></i> Hapus Semua Foto
+                            </button>
+                        </div>
+                        <div id="imagePreviewContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <!-- Preview item foto terisi dinamis via JS -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -489,7 +509,7 @@
             document.getElementById('grandTotal').innerText = formatRupiah(total);
         }
 
-        // 3. Fungsi Preview & Kompres Gambar (Thumbnail)
+        // 3. Fungsi Upload, Kompres, Preview & Hapus Gambar (Multi-Upload)
         let fotoArray = [];
 
         function compressImage(base64Str, callback) {
@@ -521,27 +541,99 @@
             };
         }
 
+        function handleFileUpload(input) {
+            if (!input.files || input.files.length === 0) return;
+
+            const files = Array.from(input.files);
+            let processed = 0;
+
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    compressImage(e.target.result, function (compressedBase64) {
+                        fotoArray.push(compressedBase64);
+                        processed++;
+                        if (processed === files.length) {
+                            renderPhotoPreviews();
+                        }
+                    });
+                };
+                reader.readAsDataURL(file);
+            });
+
+            // Reset input file agar pengguna dapat memilih file yang sama atau menambah foto lagi kapan saja
+            input.value = '';
+        }
+
+        // Fallback untuk kompatibilitas
         function previewImages() {
             const fileUpload = document.getElementById('fileUpload');
-            const container = document.getElementById('imagePreviewContainer');
-            container.innerHTML = ''; // Bersihkan preview lama
-            fotoArray = []; // Reset
+            if (fileUpload) handleFileUpload(fileUpload);
+        }
 
-            if (fileUpload.files) {
-                Array.from(fileUpload.files).forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        compressImage(e.target.result, function (compressedBase64) {
-                            const img = document.createElement('img');
-                            img.src = compressedBase64;
-                            img.className = "w-16 h-16 object-cover rounded-md border border-slate-300 shadow-sm";
-                            container.appendChild(img);
-                            fotoArray.push(compressedBase64);
-                        });
-                    }
-                    reader.readAsDataURL(file);
-                });
+        function removePhoto(index, event) {
+            if (event) {
+                event.stopPropagation();
             }
+            fotoArray.splice(index, 1);
+            renderPhotoPreviews();
+        }
+
+        function clearAllPhotos() {
+            if (fotoArray.length === 0) return;
+            if (confirm('Apakah Anda yakin ingin menghapus semua foto dokumentasi?')) {
+                fotoArray = [];
+                renderPhotoPreviews();
+            }
+        }
+
+        function renderPhotoPreviews() {
+            const container = document.getElementById('imagePreviewContainer');
+            const previewArea = document.getElementById('previewArea');
+            const countBadge = document.getElementById('photoCountBadge');
+            const photoCounter = document.getElementById('photoCounter');
+
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            const total = fotoArray.length;
+            if (photoCounter) photoCounter.innerText = total;
+
+            if (total === 0) {
+                if (previewArea) previewArea.classList.add('hidden');
+                if (countBadge) countBadge.classList.add('hidden');
+                return;
+            }
+
+            if (previewArea) previewArea.classList.remove('hidden');
+            if (countBadge) {
+                countBadge.classList.remove('hidden');
+                countBadge.innerText = `${total} Foto Terpilih`;
+            }
+
+            fotoArray.forEach((photoSrc, idx) => {
+                const card = document.createElement('div');
+                card.className = "relative group bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition";
+                card.innerHTML = `
+                    <div class="aspect-video w-full bg-slate-100 flex items-center justify-center overflow-hidden">
+                        <img src="${photoSrc}" alt="Dokumentasi ${idx + 1}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-1.5 bg-white flex items-center justify-between border-t border-slate-100">
+                        <span class="text-[11px] font-semibold text-slate-600">Foto #${idx + 1}</span>
+                        <button type="button" onclick="removePhoto(${idx}, event)" title="Hapus foto ini"
+                            class="text-rose-500 hover:text-white hover:bg-rose-500 px-2 py-0.5 rounded text-xs transition flex items-center gap-1">
+                            <i class="fa-solid fa-trash-can text-[10px]"></i> Hapus
+                        </button>
+                    </div>
+                    <!-- Tombol Hapus Mengambang Cepat di Sudut Kanan Atas -->
+                    <button type="button" onclick="removePhoto(${idx}, event)" title="Hapus foto ini"
+                        class="absolute top-1.5 right-1.5 w-6 h-6 bg-rose-600/90 hover:bg-rose-600 text-white rounded-full flex items-center justify-center shadow-md transition">
+                        <i class="fa-solid fa-xmark text-xs"></i>
+                    </button>
+                `;
+                container.appendChild(card);
+            });
         }
 
         // 4. Data Binding -> Simpan Laporan ke LocalStorage saat Submit
