@@ -147,29 +147,49 @@
             <div id="mapReportContainer" class="w-full h-64 border border-black z-0"></div>
         </div>
 
-        <h2 class="section-title">II. PERMASALAHAN YANG DITEMUKAN</h2>
+        <h2 class="section-title">II. KONDISI EKSISTING</h2>
         <div class="overflow-x-auto mb-2">
             <table class="formal-table">
                 <tbody>
                     <tr>
-                        <td style="width: 30%; min-width: 150px;">Kategori Permasalahan</td>
-                        <td id="repKondisiExisting" style="width: 70%;">-</td>
+                        <td style="width: 30%; min-width: 150px;">Dimensi Saluran</td>
+                        <td style="width: 70%;">Lebar: <span id="repLebar">-</span> m, Kedalaman: <span id="repKedalaman">-</span> m</td>
                     </tr>
                     <tr>
-                        <td>Dimensi Saluran</td>
-                        <td>Lebar: <span id="repLebar">-</span> m, Kedalaman: <span id="repKedalaman">-</span> m</td>
+                        <td>Type Saluran</td>
+                        <td id="repTypeSaluran">-</td>
+                    </tr>
+                    <tr>
+                        <td>Jenis Konstruksi Saluran</td>
+                        <td id="repKonstruksiSaluran">-</td>
+                    </tr>
+                    <tr>
+                        <td>Kondisi Lapangan</td>
+                        <td id="repKondisiLapangan">-</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <h2 class="section-title">III. RENCANA DAN PENANGANAN JANGKA PENDEK (SEMENTARA)</h2>
+        <h2 class="section-title">III. PERMASALAHAN DI LAPANGAN</h2>
         <div class="overflow-x-auto mb-2">
             <table class="formal-table">
                 <tbody>
                     <tr>
-                        <td style="width: 30%; min-width: 150px;">Kategori Perbaikan</td>
-                        <td id="repKategoriPerbaikan" style="width: 70%;">-</td>
+                        <td style="width: 30%; min-width: 150px;">Deskripsi Permasalahan</td>
+                        <td id="repDeskripsiMasalah" style="width: 70%; white-space: pre-line;">-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="section-title">IV. RENCANA PENANGANAN JANGKA PENDEK (SEMENTARA)</h2>
+        <div class="overflow-x-auto mb-2">
+            <table class="formal-table">
+                <tbody>
+                    <tr>
+                        <td style="width: 30%; min-width: 150px;">Opsi Penanganan</td>
+                        <td id="repOpsiPenanganan" style="width: 70%;">-</td>
                     </tr>
                     <tr>
                         <td>Pelaksanaan</td>
@@ -179,13 +199,13 @@
             </table>
         </div>
 
-        <h2 class="section-title">IV. RENCANA TINDAK LANJUT</h2>
+        <h2 class="section-title">V. RENCANA TINDAK LANJUT</h2>
         <div class="overflow-x-auto mb-2">
             <table class="formal-table">
                 <tbody>
                     <tr>
-                        <td style="width: 30%; min-width: 150px;">kategori penanganan</td>
-                        <td id="repKategoriPenanganan" style="width: 70%;">-</td>
+                        <td style="width: 30%; min-width: 150px;">Peningkatan/Rehabilitasi Saluran Melalui</td>
+                        <td id="repTindakLanjut" style="width: 70%;">-</td>
                     </tr>
                     <tr>
                         <td>Pelaksanaan</td>
@@ -229,7 +249,7 @@
             </tr>
         </table>
 
-        <h2 class="section-title" style="page-break-before: always;">V. LAMPIRAN DOKUMENTASI SURVEY LOKASI</h2>
+        <h2 class="section-title" style="page-break-before: always;">VI. LAMPIRAN DOKUMENTASI SURVEY LOKASI</h2>
         <p class="mb-4">Dokumentasi kondisi lapangan pada saat pelaksanaan survey:</p>
         <div id="gridFotoDokumentasi" class="grid grid-cols-2 gap-4 mb-16">
             <!-- Foto masuk di sini -->
@@ -285,17 +305,22 @@
                         return str;
                     }
 
-                    // II. Permasalahan
+                    // II. Kondisi Eksisting
                     document.getElementById('repLebar').innerText = data.lebar || '-';
                     document.getElementById('repKedalaman').innerText = data.kedalaman || '-';
-                    document.getElementById('repKondisiExisting').innerHTML = formatList(data.kondisiExisting);
+                    document.getElementById('repTypeSaluran').innerHTML = formatList(data.typeSaluran);
+                    document.getElementById('repKonstruksiSaluran').innerHTML = formatList(data.konstruksiSaluran);
+                    document.getElementById('repKondisiLapangan').innerHTML = formatList(data.kondisiLapangan || data.kondisiExisting);
 
-                    // III. Jangka Pendek
-                    document.getElementById('repKategoriPerbaikan').innerHTML = formatList(data.kategoriPerbaikan);
+                    // III. Permasalahan di Lapangan
+                    document.getElementById('repDeskripsiMasalah').innerText = data.deskripsiMasalah || data.deskripsi_permasalahan || '-';
+
+                    // IV. Jangka Pendek
+                    document.getElementById('repOpsiPenanganan').innerHTML = formatList(data.opsiPenanganan || data.kategoriPerbaikan);
                     document.getElementById('repWaktuPendek').innerText = data.waktuPendek || '-';
 
-                    // IV. Jangka Panjang
-                    document.getElementById('repKategoriPenanganan').innerHTML = formatList(data.kategoriPenanganan);
+                    // V. Rencana Tindak Lanjut
+                    document.getElementById('repTindakLanjut').innerHTML = formatList(data.tindakLanjut || data.kategoriPenanganan);
                     document.getElementById('repWaktuPanjang').innerText = data.waktuPanjang || '-';
                     document.getElementById('repBiayaMaterial').innerText = 'Rp. ' + (data.biayaMaterial || '-');
                     document.getElementById('repBiayaGaji').innerText = 'Rp. ' + (data.biayaGaji || '-');

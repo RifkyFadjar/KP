@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AwanDrive - Portal Aplikasi Terpadu</title>
-    
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Tailwind Config -->
     <script>
         tailwind.config = {
@@ -19,19 +20,23 @@
 </head>
 
 <body class="bg-slate-50 font-sans text-slate-800 antialiased min-h-screen overflow-x-hidden">
-    
+
     <div id="awandrive-view" class="w-full h-auto min-h-screen flex">
         <!-- Sidebar -->
-        <aside class="w-full md:w-64 bg-white border-r border-slate-200 flex-shrink-0 flex flex-col justify-between h-auto md:h-screen sticky top-0 z-20">
+        <aside
+            class="w-full md:w-64 bg-white border-r border-slate-200 flex-shrink-0 flex flex-col justify-between h-auto md:h-screen sticky top-0 z-20">
             <div>
                 <!-- Logo Brand -->
                 <div class="p-5 flex items-center border-b border-slate-100">
                     <!-- Tombol Kembali ke Portal -->
-                    <button onclick="window.location.href='index.html'" class="w-8 h-8 rounded-lg bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-800 flex items-center justify-center mr-3 transition" title="Kembali ke Portal">
+                    <button onclick="window.location.href='index.html'"
+                        class="w-8 h-8 rounded-lg bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-800 flex items-center justify-center mr-3 transition"
+                        title="Kembali ke Portal">
                         <i class="fa-solid fa-arrow-left text-sm"></i>
                     </button>
                     <div class="flex items-center gap-3 cursor-pointer" onclick="setActiveNav('all')">
-                        <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center shadow-lg shadow-brand-500/30">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center shadow-lg shadow-brand-500/30">
                             <i class="fa-solid fa-cloud text-lg"></i>
                         </div>
                         <div>
@@ -43,7 +48,8 @@
 
                 <!-- Action Button -->
                 <div class="p-4">
-                    <button onclick="openUploadModal()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3 px-4 rounded-xl shadow-md shadow-brand-500/20 transition-all flex items-center justify-center gap-2 text-sm">
+                    <button onclick="openUploadModal()"
+                        class="w-full bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3 px-4 rounded-xl shadow-md shadow-brand-500/20 transition-all flex items-center justify-center gap-2 text-sm">
                         <i class="fa-solid fa-plus"></i>
                         <span>Tambah Baru</span>
                     </button>
@@ -51,19 +57,23 @@
 
                 <!-- Navigation Links -->
                 <nav class="px-3 space-y-1">
-                    <button onclick="setActiveNav('all')" id="nav-all" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-sm text-brand-600 bg-brand-50 transition-colors">
+                    <button onclick="setActiveNav('all')" id="nav-all"
+                        class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-sm text-brand-600 bg-brand-50 transition-colors">
                         <i class="fa-solid fa-folder-open w-5 text-center"></i>
                         <span>Semua File</span>
                     </button>
-                    <button onclick="setActiveNav('starred')" id="nav-starred" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition-colors">
+                    <button onclick="setActiveNav('starred')" id="nav-starred"
+                        class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition-colors">
                         <i class="fa-solid fa-bookmark w-5 text-center text-amber-500"></i>
                         <span>Penting</span>
                     </button>
-                    <button onclick="setActiveNav('recent')" id="nav-recent" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition-colors">
+                    <button onclick="setActiveNav('recent')" id="nav-recent"
+                        class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition-colors">
                         <i class="fa-solid fa-clock-rotate-left w-5 text-center text-purple-500"></i>
                         <span>Terbaru</span>
                     </button>
-                    <button onclick="setActiveNav('trash')" id="nav-trash" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition-colors">
+                    <button onclick="setActiveNav('trash')" id="nav-trash"
+                        class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition-colors">
                         <i class="fa-solid fa-trash-can w-5 text-center text-rose-500"></i>
                         <span>Sampah</span>
                     </button>
@@ -72,7 +82,8 @@
                     <div class="pt-4 mt-3 border-t border-slate-100">
                         <div class="flex items-center justify-between px-3 mb-2">
                             <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Kategori</span>
-                            <button onclick="openCategoryModal()" title="Tambah Kategori Baru" class="text-slate-400 hover:text-brand-600 p-1 rounded-md hover:bg-slate-100 transition">
+                            <button onclick="openCategoryModal()" title="Tambah Kategori Baru"
+                                class="text-slate-400 hover:text-brand-600 p-1 rounded-md hover:bg-slate-100 transition">
                                 <i class="fa-solid fa-plus text-xs"></i>
                             </button>
                         </div>
@@ -90,14 +101,16 @@
                     <span id="storagePercentText" class="text-xs font-bold text-brand-600">0%</span>
                 </div>
                 <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden mb-2">
-                    <div id="storageProgressBar" class="bg-brand-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    <div id="storageProgressBar" class="bg-brand-600 h-2 rounded-full transition-all duration-300"
+                        style="width: 0%"></div>
                 </div>
                 <p id="storageUsedText" class="text-[11px] text-slate-500 font-medium">0 MB dari 15 GB digunakan</p>
             </div>
 
             <!-- Logout Button -->
             <div class="px-4 pb-4">
-                <button onclick="awanLogout()" class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold text-rose-600 bg-rose-50 hover:bg-rose-100 transition-colors">
+                <button onclick="awanLogout()"
+                    class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold text-rose-600 bg-rose-50 hover:bg-rose-100 transition-colors">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span>Keluar</span>
                 </button>
@@ -107,16 +120,21 @@
         <!-- Main Content Area -->
         <main class="flex-1 flex flex-col min-w-0 bg-slate-50">
             <!-- Top Bar Header -->
-            <header class="bg-white border-b border-slate-200 p-4 sticky top-0 z-10 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
+            <header
+                class="bg-white border-b border-slate-200 p-4 sticky top-0 z-10 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
                 <!-- Search Bar -->
                 <div class="relative w-full sm:w-96">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                    <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Cari file di semua folder..." class="w-full pl-10 pr-4 py-2 bg-slate-100 border border-transparent rounded-xl text-sm focus:outline-none focus:bg-white focus:border-brand-500 transition-all">
+                    <i
+                        class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="searchInput" oninput="handleSearch(this.value)"
+                        placeholder="Cari file di semua folder..."
+                        class="w-full pl-10 pr-4 py-2 bg-slate-100 border border-transparent rounded-xl text-sm focus:outline-none focus:bg-white focus:border-brand-500 transition-all">
                 </div>
 
                 <!-- Top Actions -->
                 <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
-                    <button onclick="openNewFolderModal()" class="px-3.5 py-2 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition flex items-center gap-1.5">
+                    <button onclick="openNewFolderModal()"
+                        class="px-3.5 py-2 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition flex items-center gap-1.5">
                         <i class="fa-solid fa-folder-plus text-amber-500"></i>
                         <span>Folder Baru</span>
                     </button>
@@ -126,28 +144,35 @@
             <!-- Main Body Workspace -->
             <div class="p-4 sm:p-6 flex-1 flex flex-col max-w-7xl w-full mx-auto">
                 <!-- Navigation Toolbar & Breadcrumb -->
-                <div class="flex flex-wrap items-center justify-between gap-3 mb-6 bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-sm">
+                <div
+                    class="flex flex-wrap items-center justify-between gap-3 mb-6 bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-sm">
                     <!-- Back Button & Breadcrumbs -->
                     <div class="flex items-center gap-2 overflow-x-auto py-1">
-                        <button id="btnGoBack" onclick="awanGoBack()" class="hidden items-center justify-center w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition flex-shrink-0" title="Kembali">
+                        <button id="btnGoBack" onclick="awanGoBack()"
+                            class="hidden items-center justify-center w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition flex-shrink-0"
+                            title="Kembali">
                             <i class="fa-solid fa-arrow-left text-sm"></i>
                         </button>
-                        <nav id="breadcrumbNav" class="flex items-center gap-2 text-sm text-slate-600 font-medium whitespace-nowrap">
+                        <nav id="breadcrumbNav"
+                            class="flex items-center gap-2 text-sm text-slate-600 font-medium whitespace-nowrap">
                             <!-- Dynamic Breadcrumbs -->
                         </nav>
                     </div>
 
                     <!-- Controls & Filters -->
                     <div class="flex items-center gap-2">
-                        <select id="typeFilter" onchange="handleFilterChange(this.value)" class="bg-slate-100 border-none rounded-xl text-xs font-medium px-3 py-2 text-slate-700 focus:ring-2 focus:ring-brand-500 outline-none cursor-pointer">
+                        <select id="typeFilter" onchange="handleFilterChange(this.value)"
+                            class="bg-slate-100 border-none rounded-xl text-xs font-medium px-3 py-2 text-slate-700 focus:ring-2 focus:ring-brand-500 outline-none cursor-pointer">
                             <!-- Dynamic Filter Options -->
                         </select>
 
                         <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200/50">
-                            <button onclick="setViewMode('grid')" id="viewGridBtn" class="p-1.5 rounded-lg text-brand-600 bg-white shadow-sm transition">
+                            <button onclick="setViewMode('grid')" id="viewGridBtn"
+                                class="p-1.5 rounded-lg text-brand-600 bg-white shadow-sm transition">
                                 <i class="fa-solid fa-border-all text-xs"></i>
                             </button>
-                            <button onclick="setViewMode('list')" id="viewListBtn" class="p-1.5 rounded-lg text-slate-500 hover:text-slate-700 transition">
+                            <button onclick="setViewMode('list')" id="viewListBtn"
+                                class="p-1.5 rounded-lg text-slate-500 hover:text-slate-700 transition">
                                 <i class="fa-solid fa-list text-xs"></i>
                             </button>
                         </div>
@@ -157,14 +182,16 @@
                 <!-- Folder Section -->
                 <div id="foldersContainer" class="mb-8">
                     <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Folder</h2>
-                    <div id="folderGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+                    <div id="folderGrid"
+                        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
                         <!-- Dynamic Folders -->
                     </div>
                 </div>
 
                 <!-- File Section Header -->
                 <div class="flex items-center justify-between mb-3">
-                    <h2 id="filesHeaderTitle" class="text-xs font-bold text-slate-400 uppercase tracking-wider">File Saya</h2>
+                    <h2 id="filesHeaderTitle" class="text-xs font-bold text-slate-400 uppercase tracking-wider">File
+                        Saya</h2>
                 </div>
 
                 <!-- File Grid View -->
@@ -173,10 +200,12 @@
                 </div>
 
                 <!-- File List View -->
-                <div id="fileList" class="hidden bg-white border border-slate-200/80 rounded-2xl overflow-hidden shadow-sm">
+                <div id="fileList"
+                    class="hidden bg-white border border-slate-200/80 rounded-2xl overflow-hidden shadow-sm">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-sm">
-                            <thead class="bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-500 uppercase">
+                            <thead
+                                class="bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-500 uppercase">
                                 <tr>
                                     <th class="py-3 px-4">Nama File</th>
                                     <th class="py-3 px-4">Kategori</th>
@@ -194,63 +223,79 @@
 
                 <!-- Empty State -->
                 <div id="emptyState" class="hidden flex-col items-center justify-center py-16 text-center">
-                    <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center text-slate-400 mb-4">
+                    <div
+                        class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center text-slate-400 mb-4">
                         <i class="fa-solid fa-folder-open text-3xl"></i>
                     </div>
                     <h3 class="font-semibold text-slate-700 text-base mb-1">Tidak ada file atau folder</h3>
-                    <p class="text-slate-400 text-xs max-w-sm">Folder ini kosong atau tidak ada file yang sesuai dengan pencarian Anda.</p>
+                    <p class="text-slate-400 text-xs max-w-sm">Folder ini kosong atau tidak ada file yang sesuai dengan
+                        pencarian Anda.</p>
                 </div>
             </div>
         </main>
 
         <!-- AwanDrive Modals -->
-        <div id="categoryModal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100 transform transition-all">
+        <div id="categoryModal"
+            class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div
+                class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100 transform transition-all">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-bold text-slate-800 text-lg">Tambah Kategori Baru</h3>
                     <button onclick="closeCategoryModal()" class="text-slate-400 hover:text-slate-600 transition">
                         <i class="fa-solid fa-xmark text-lg"></i>
                     </button>
                 </div>
-                <p class="text-xs text-slate-500 mb-4">Buat kategori kustom untuk mengelompokkan file Anda secara rapi di sidebar.</p>
-                <input type="text" id="newCategoryName" placeholder="Contoh: Desain, Keuangan, Tugas" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand-500 mb-4">
+                <p class="text-xs text-slate-500 mb-4">Buat kategori kustom untuk mengelompokkan file Anda secara rapi
+                    di sidebar.</p>
+                <input type="text" id="newCategoryName" placeholder="Contoh: Desain, Keuangan, Tugas"
+                    class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand-500 mb-4">
                 <div class="flex items-center justify-end gap-2">
-                    <button onclick="closeCategoryModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">Batal</button>
-                    <button onclick="createNewCategory()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white hover:bg-brand-700 transition">Simpan Kategori</button>
+                    <button onclick="closeCategoryModal()"
+                        class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">Batal</button>
+                    <button onclick="createNewCategory()"
+                        class="px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white hover:bg-brand-700 transition">Simpan
+                        Kategori</button>
                 </div>
             </div>
         </div>
 
-        <div id="moveModal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div id="moveModal"
+            class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div class="bg-white rounded-xl w-full max-w-sm sm:max-w-md shadow-2xl flex flex-col h-[500px]">
                 <!-- Header -->
                 <div class="flex items-center justify-between px-6 py-4">
-                    <h3 id="moveModalTitle" class="text-xl text-slate-800 font-semibold" style="font-family: 'Google Sans', sans-serif;">Pindahkan</h3>
+                    <h3 id="moveModalTitle" class="text-xl text-slate-800 font-semibold"
+                        style="font-family: 'Google Sans', sans-serif;">Pindahkan</h3>
                     <div class="flex items-center gap-1">
-                        <button onclick="createFolderFromModal()" title="Folder baru" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-500 transition">
+                        <button onclick="createFolderFromModal()" title="Folder baru"
+                            class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-500 transition">
                             <i class="fa-solid fa-folder-plus text-lg"></i>
                         </button>
-                        <button onclick="closeMoveModal()" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-500 transition">
+                        <button onclick="closeMoveModal()"
+                            class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-500 transition">
                             <i class="fa-solid fa-xmark text-lg"></i>
                         </button>
                     </div>
                 </div>
-                
+
                 <!-- Current Location Info -->
                 <div class="px-6 pb-2 flex items-center gap-2 text-sm text-slate-700">
                     <span>Lokasi saat ini:</span>
-                    <button id="moveModalCurrentLoc" class="flex items-center gap-1.5 px-3 py-1.5 border border-slate-300 rounded-lg bg-slate-50 font-medium text-slate-600">
+                    <button id="moveModalCurrentLoc"
+                        class="flex items-center gap-1.5 px-3 py-1.5 border border-slate-300 rounded-lg bg-slate-50 font-medium text-slate-600">
                         <i class="fa-brands fa-google-drive"></i>
                         <span>Drive Saya</span>
                     </button>
                 </div>
 
                 <!-- Tabs -->
-                <div class="px-6 border-b border-slate-200 flex items-center gap-6 text-sm font-medium text-slate-500 relative">
+                <div
+                    class="px-6 border-b border-slate-200 flex items-center gap-6 text-sm font-medium text-slate-500 relative">
                     <button class="pb-3 hover:text-slate-800 transition relative hidden sm:block">Disarankan</button>
                     <button class="pb-3 hover:text-slate-800 transition relative hidden sm:block">Berbintang</button>
                     <button class="pb-3 text-brand-600 border-b-2 border-brand-600 relative">Semua lokasi</button>
-                    <button class="absolute right-6 pb-3 text-slate-400 hover:text-slate-600 transition"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <button class="absolute right-6 pb-3 text-slate-400 hover:text-slate-600 transition"><i
+                            class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
 
                 <!-- Folder List Area -->
@@ -267,27 +312,34 @@
                         <span class="leading-[1.4] max-w-[200px]">Pilih lokasi untuk menampilkan jalur folder</span>
                     </div>
                     <div class="flex items-center gap-4 shrink-0">
-                        <button onclick="closeMoveModal()" class="text-sm font-semibold text-brand-600 hover:text-brand-700 transition">Batal</button>
-                        <button onclick="confirmMove()" class="px-6 py-2 rounded-full text-sm font-medium bg-slate-200 text-slate-500 hover:bg-brand-600 hover:text-white transition">Pindahkan</button>
+                        <button onclick="closeMoveModal()"
+                            class="text-sm font-semibold text-brand-600 hover:text-brand-700 transition">Batal</button>
+                        <button onclick="confirmMove()"
+                            class="px-6 py-2 rounded-full text-sm font-medium bg-slate-200 text-slate-500 hover:bg-brand-600 hover:text-white transition">Pindahkan</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="shareModal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div id="shareModal"
+            class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div class="bg-white rounded-2xl w-full max-w-[500px] shadow-2xl flex flex-col relative overflow-hidden">
                 <!-- Header -->
                 <div class="flex items-center justify-between px-6 pt-5 pb-3">
-                    <h3 id="shareModalTitle" class="text-[22px] text-slate-800 font-semibold" style="font-family: 'Google Sans', sans-serif;">Bagikan</h3>
-                    <button onclick="closeShareModal()" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-500 transition">
+                    <h3 id="shareModalTitle" class="text-[22px] text-slate-800 font-semibold"
+                        style="font-family: 'Google Sans', sans-serif;">Bagikan</h3>
+                    <button onclick="closeShareModal()"
+                        class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-500 transition">
                         <i class="fa-solid fa-xmark text-lg"></i>
                     </button>
                 </div>
-                
+
                 <div class="px-6 pb-4">
                     <!-- Input -->
-                    <div class="flex items-center border border-slate-300 rounded-lg px-4 py-2 hover:border-slate-800 transition focus-within:border-brand-600 focus-within:ring-1 focus-within:ring-brand-600">
-                        <input type="text" placeholder="Tambahkan orang dan grup" class="w-full bg-transparent text-sm focus:outline-none placeholder-slate-500">
+                    <div
+                        class="flex items-center border border-slate-300 rounded-lg px-4 py-2 hover:border-slate-800 transition focus-within:border-brand-600 focus-within:ring-1 focus-within:ring-brand-600">
+                        <input type="text" placeholder="Tambahkan orang dan grup"
+                            class="w-full bg-transparent text-sm focus:outline-none placeholder-slate-500">
                     </div>
                 </div>
 
@@ -296,7 +348,9 @@
                     <h4 class="text-sm font-medium text-slate-800 mb-3">Orang yang memiliki akses</h4>
                     <div class="flex items-center justify-between mb-4">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-brand-600 text-white flex items-center justify-center text-lg font-bold">R</div>
+                            <div
+                                class="w-10 h-10 rounded-full bg-brand-600 text-white flex items-center justify-center text-lg font-bold">
+                                R</div>
                             <div>
                                 <div class="text-sm text-slate-800 font-medium">Rifky Fadjar (Anda)</div>
                                 <div class="text-xs text-slate-500">rifkyfadjar@example.com</div>
@@ -310,19 +364,24 @@
                 <div class="px-6 py-4 bg-slate-50 border-y border-slate-200">
                     <h4 class="text-sm font-medium text-slate-800 mb-3">Akses umum</h4>
                     <div class="flex gap-4">
-                        <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 shrink-0">
+                        <div
+                            class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 shrink-0">
                             <i class="fa-solid fa-earth-americas text-lg"></i>
                         </div>
                         <div class="flex-1">
                             <!-- Custom Select (Visual only) -->
-                            <button id="btnGeneralAccess" class="flex items-center gap-2 px-2 py-1 -ml-2 rounded hover:bg-slate-200 transition text-slate-800">
-                                <span id="generalAccessText" class="text-sm font-medium">Siapa saja yang memiliki link</span>
+                            <button id="btnGeneralAccess"
+                                class="flex items-center gap-2 px-2 py-1 -ml-2 rounded hover:bg-slate-200 transition text-slate-800">
+                                <span id="generalAccessText" class="text-sm font-medium">Siapa saja yang memiliki
+                                    link</span>
                                 <i class="fa-solid fa-caret-down text-xs"></i>
                             </button>
-                            <div class="text-xs text-slate-500 mt-1">Siapa saja di internet yang memiliki link ini dapat melihat</div>
+                            <div class="text-xs text-slate-500 mt-1">Siapa saja di internet yang memiliki link ini dapat
+                                melihat</div>
                         </div>
                         <div class="shrink-0 flex items-start">
-                            <button class="flex items-center gap-2 px-2 py-1 text-sm font-medium text-slate-600 hover:bg-slate-200 rounded transition">
+                            <button
+                                class="flex items-center gap-2 px-2 py-1 text-sm font-medium text-slate-600 hover:bg-slate-200 rounded transition">
                                 <span>Pelihat</span>
                                 <i class="fa-solid fa-caret-down text-xs"></i>
                             </button>
@@ -332,18 +391,21 @@
 
                 <!-- Footer -->
                 <div class="px-6 py-4 flex items-center justify-between bg-white">
-                    <button onclick="copyLinkFromModal()" class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-300 text-sm font-medium text-brand-600 hover:bg-slate-50 transition">
+                    <button onclick="copyLinkFromModal()"
+                        class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-300 text-sm font-medium text-brand-600 hover:bg-slate-50 transition">
                         <i class="fa-solid fa-link"></i>
                         <span>Salin link</span>
                     </button>
-                    <button onclick="closeShareModal()" class="px-6 py-2.5 rounded-full bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 transition shadow-md hover:shadow-lg shadow-brand-500/30">
+                    <button onclick="closeShareModal()"
+                        class="px-6 py-2.5 rounded-full bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 transition shadow-md hover:shadow-lg shadow-brand-500/30">
                         Selesai
                     </button>
                 </div>
             </div>
         </div>
 
-        <div id="folderModal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div id="folderModal"
+            class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-bold text-slate-800 text-lg">Buat Folder Baru</h3>
@@ -351,15 +413,20 @@
                         <i class="fa-solid fa-xmark text-lg"></i>
                     </button>
                 </div>
-                <input type="text" id="newFolderName" placeholder="Nama folder..." class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand-500 mb-4">
+                <input type="text" id="newFolderName" placeholder="Nama folder..."
+                    class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand-500 mb-4">
                 <div class="flex items-center justify-end gap-2">
-                    <button onclick="closeFolderModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">Batal</button>
-                    <button onclick="createNewFolder()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white hover:bg-brand-700 transition">Buat Folder</button>
+                    <button onclick="closeFolderModal()"
+                        class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">Batal</button>
+                    <button onclick="createNewFolder()"
+                        class="px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white hover:bg-brand-700 transition">Buat
+                        Folder</button>
                 </div>
             </div>
         </div>
 
-        <div id="uploadModal" class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div id="uploadModal"
+            class="hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-100">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="font-bold text-slate-800 text-lg">Unggah File Baru</h3>
@@ -367,7 +434,8 @@
                         <i class="fa-solid fa-xmark text-lg"></i>
                     </button>
                 </div>
-                <div class="border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center bg-slate-50 hover:bg-brand-50/50 hover:border-brand-300 transition cursor-pointer" onclick="document.getElementById('fileInputElement').click()">
+                <div class="border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center bg-slate-50 hover:bg-brand-50/50 hover:border-brand-300 transition cursor-pointer"
+                    onclick="document.getElementById('fileInputElement').click()">
                     <i class="fa-solid fa-cloud-arrow-up text-4xl text-brand-500 mb-3"></i>
                     <p class="text-sm font-semibold text-slate-700 mb-1">Klik untuk memilih file</p>
                     <p class="text-xs text-slate-400">PDF, Word, Excel, Gambar, Audio, atau Video</p>
@@ -376,20 +444,24 @@
             </div>
         </div>
 
-        <div id="previewModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-100 max-h-[90vh] flex flex-col">
+        <div id="previewModal"
+            class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div
+                class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-100 max-h-[90vh] flex flex-col">
                 <div class="flex items-center justify-between mb-4">
                     <h3 id="previewTitle" class="font-bold text-slate-800 text-lg truncate pr-4">Preview File</h3>
                     <button onclick="closePreviewModal()" class="text-slate-400 hover:text-slate-600 transition">
                         <i class="fa-solid fa-xmark text-lg"></i>
                     </button>
                 </div>
-                <div id="previewBody" class="flex-1 bg-slate-50 rounded-xl p-4 flex items-center justify-center overflow-auto min-h-[250px]">
+                <div id="previewBody"
+                    class="flex-1 bg-slate-50 rounded-xl p-4 flex items-center justify-center overflow-auto min-h-[250px]">
                     <!-- Dynamic File Content Preview -->
                 </div>
                 <div class="mt-4 flex items-center justify-between pt-3 border-t border-slate-100">
                     <span id="previewMeta" class="text-xs text-slate-400 font-medium"></span>
-                    <button onclick="closePreviewModal()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Tutup</button>
+                    <button onclick="closePreviewModal()"
+                        class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Tutup</button>
                 </div>
             </div>
         </div>
@@ -444,10 +516,10 @@
             var iconMap = { success: 'fa-circle-check', error: 'fa-circle-exclamation', info: 'fa-circle-info' };
             toast.innerHTML = '<i class="fa-solid ' + (iconMap[type] || 'fa-circle-info') + '"></i><span>' + message + '</span>';
             container.appendChild(toast);
-            setTimeout(function() { toast.style.opacity = '1'; toast.style.transform = 'translateY(0)'; }, 10);
-            setTimeout(function() {
+            setTimeout(function () { toast.style.opacity = '1'; toast.style.transform = 'translateY(0)'; }, 10);
+            setTimeout(function () {
                 toast.style.opacity = '0'; toast.style.transform = 'translateY(8px)';
-                setTimeout(function() { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 300);
+                setTimeout(function () { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 300);
             }, 3000);
         }
 
@@ -460,12 +532,12 @@
 
         function getFileIcon(type) {
             var icons = {
-                pdf:   { icon: 'fa-file-pdf',   color: 'text-rose-500',    bg: 'bg-rose-50' },
-                word:  { icon: 'fa-file-word',  color: 'text-blue-600',    bg: 'bg-blue-50' },
+                pdf: { icon: 'fa-file-pdf', color: 'text-rose-500', bg: 'bg-rose-50' },
+                word: { icon: 'fa-file-word', color: 'text-blue-600', bg: 'bg-blue-50' },
                 excel: { icon: 'fa-file-excel', color: 'text-emerald-600', bg: 'bg-emerald-50' },
-                image: { icon: 'fa-file-image', color: 'text-sky-500',     bg: 'bg-sky-50' },
-                video: { icon: 'fa-file-video', color: 'text-purple-500',  bg: 'bg-purple-50' },
-                audio: { icon: 'fa-file-audio', color: 'text-amber-500',   bg: 'bg-amber-50' }
+                image: { icon: 'fa-file-image', color: 'text-sky-500', bg: 'bg-sky-50' },
+                video: { icon: 'fa-file-video', color: 'text-purple-500', bg: 'bg-purple-50' },
+                audio: { icon: 'fa-file-audio', color: 'text-amber-500', bg: 'bg-amber-50' }
             };
             return icons[type] || { icon: 'fa-file', color: 'text-slate-500', bg: 'bg-slate-50' };
         }
@@ -476,7 +548,7 @@
             awanState.searchQuery = '';
             var searchInput = document.getElementById('searchInput');
             if (searchInput) searchInput.value = '';
-            ['all', 'starred', 'recent', 'trash'].forEach(function(item) {
+            ['all', 'starred', 'recent', 'trash'].forEach(function (item) {
                 var btn = document.getElementById('nav-' + item);
                 if (!btn) return;
                 if (item === nav) {
@@ -490,7 +562,7 @@
 
         function updateStorageMetrics() {
             var usedBytes = 0;
-            awanState.files.forEach(function(f) { if (!f.inTrash) usedBytes += (f.size || 0); });
+            awanState.files.forEach(function (f) { if (!f.inTrash) usedBytes += (f.size || 0); });
             var pct = Math.min(100, ((usedBytes / TOTAL_STORAGE_BYTES) * 100)).toFixed(1);
             var pb = document.getElementById('storageProgressBar');
             var pt = document.getElementById('storagePercentText');
@@ -504,7 +576,7 @@
             var container = document.getElementById('sidebarCategories');
             if (!container) return;
             var html = '';
-            awanState.categories.forEach(function(cat) {
+            awanState.categories.forEach(function (cat) {
                 var isActive = awanState.currentNav === cat.id;
                 var cls = isActive ? 'text-brand-600 bg-brand-50 font-semibold' : 'text-slate-600 hover:bg-slate-100 font-medium';
                 html += '<div class="group flex items-center justify-between rounded-lg transition-colors ' + cls + '">';
@@ -523,11 +595,11 @@
             var select = document.getElementById('typeFilter');
             if (!select) return;
             var cv = awanState.filterType;
-            var html = '<option value="all"' + (cv==='all'?' selected':'') + '>Semua Tipe</option>';
-            html += '<option value="folder"' + (cv==='folder'?' selected':'') + '>Folder</option>';
-            awanState.categories.forEach(function(cat) {
+            var html = '<option value="all"' + (cv === 'all' ? ' selected' : '') + '>Semua Tipe</option>';
+            html += '<option value="folder"' + (cv === 'folder' ? ' selected' : '') + '>Folder</option>';
+            awanState.categories.forEach(function (cat) {
                 var val = cat.typeKey || ('custom_' + cat.customTag);
-                html += '<option value="' + val + '"' + (cv===val?' selected':'') + '>' + cat.name + '</option>';
+                html += '<option value="' + val + '"' + (cv === val ? ' selected' : '') + '>' + cat.name + '</option>';
             });
             select.innerHTML = html;
         }
@@ -552,10 +624,10 @@
                 return;
             }
             if (awanState.currentNav === 'starred') { nav.innerHTML = '<span class="text-amber-600 font-bold"><i class="fa-solid fa-bookmark mr-1"></i> File Penting</span>'; return; }
-            if (awanState.currentNav === 'recent')  { nav.innerHTML = '<span class="text-purple-600 font-bold"><i class="fa-solid fa-clock-rotate-left mr-1"></i> File Terbaru</span>'; return; }
-            if (awanState.currentNav === 'trash')   { nav.innerHTML = '<span class="text-rose-600 font-bold"><i class="fa-solid fa-trash-can mr-1"></i> Tempat Sampah</span>'; return; }
+            if (awanState.currentNav === 'recent') { nav.innerHTML = '<span class="text-purple-600 font-bold"><i class="fa-solid fa-clock-rotate-left mr-1"></i> File Terbaru</span>'; return; }
+            if (awanState.currentNav === 'trash') { nav.innerHTML = '<span class="text-rose-600 font-bold"><i class="fa-solid fa-trash-can mr-1"></i> Tempat Sampah</span>'; return; }
             if (awanState.currentNav.startsWith('cat_')) {
-                var cat = awanState.categories.find(function(c) { return c.id === awanState.currentNav; });
+                var cat = awanState.categories.find(function (c) { return c.id === awanState.currentNav; });
                 nav.innerHTML = '<span>Kategori: <strong class="text-brand-600">' + (cat ? cat.name : 'Kustom') + '</strong></span>';
                 return;
             }
@@ -563,10 +635,10 @@
             var crumbs = ['<span onclick="navigateToFolder(null)" class="cursor-pointer hover:text-brand-600 font-bold text-slate-800">Semua File</span>'];
             var currentId = awanState.currentFolderId, path = [];
             while (currentId) {
-                var folder = awanState.folders.find(function(f) { return f.id === currentId; });
+                var folder = awanState.folders.find(function (f) { return f.id === currentId; });
                 if (folder) { path.unshift(folder); currentId = folder.parentId; } else break;
             }
-            path.forEach(function(f) {
+            path.forEach(function (f) {
                 crumbs.push('<i class="fa-solid fa-chevron-right text-[10px] text-slate-300"></i>');
                 crumbs.push('<span onclick="navigateToFolder(\'' + f.id + '\')" class="cursor-pointer hover:text-brand-600 font-bold text-slate-800">' + f.name + '</span>');
             });
@@ -580,7 +652,7 @@
                 awanRender(); return;
             }
             if (awanState.currentFolderId) {
-                var cf = awanState.folders.find(function(f) { return f.id === awanState.currentFolderId; });
+                var cf = awanState.folders.find(function (f) { return f.id === awanState.currentFolderId; });
                 awanState.currentFolderId = cf ? cf.parentId : null;
                 awanRender(); return;
             }
@@ -598,9 +670,9 @@
 
             var ff = [];
             if (awanState.currentNav === 'trash') {
-                ff = awanState.folders.filter(function(f) { return f.inTrash; });
+                ff = awanState.folders.filter(function (f) { return f.inTrash; });
             } else {
-                ff = awanState.folders.filter(function(f) { return f.parentId === awanState.currentFolderId && !f.inTrash; });
+                ff = awanState.folders.filter(function (f) { return f.parentId === awanState.currentFolderId && !f.inTrash; });
                 if (awanState.currentNav.startsWith('cat_')) {
                     ff = []; // Sembunyikan folder saat melihat kategori, seperti Google Drive
                 }
@@ -611,12 +683,12 @@
             folderSection.classList.remove('hidden');
 
             var html = '';
-            ff.forEach(function(folder) {
+            ff.forEach(function (folder) {
                 var clickAttr = folder.inTrash ? '' : 'onclick="navigateToFolder(\'' + folder.id + '\')"';
                 var cursorCls = folder.inTrash ? 'cursor-default opacity-80' : 'cursor-pointer';
                 var folderIcon = folder.inTrash ? 'text-slate-400' : 'text-amber-400 group-hover:scale-110';
                 var nameStyle = folder.inTrash ? 'line-through text-slate-500' : '';
-                var fileCount = awanState.files.filter(function(f) { return f.folderId === folder.id && !f.inTrash; }).length;
+                var fileCount = awanState.files.filter(function (f) { return f.folderId === folder.id && !f.inTrash; }).length;
 
                 html += '<div ' + clickAttr + ' class="group relative bg-slate-50 hover:bg-brand-50/50 border border-slate-200/80 hover:border-brand-200 rounded-2xl p-4 ' + cursorCls + ' transition-all">';
                 html += '<div class="flex items-center justify-between mb-2">';
@@ -648,43 +720,43 @@
             if (awanState.searchQuery) {
                 headerTitle.innerText = 'Semua File Ditemukan';
                 var q = awanState.searchQuery.toLowerCase();
-                files = files.filter(function(f) { return !f.inTrash && f.name.toLowerCase().indexOf(q) !== -1; });
+                files = files.filter(function (f) { return !f.inTrash && f.name.toLowerCase().indexOf(q) !== -1; });
             } else if (awanState.currentNav === 'starred') {
                 headerTitle.innerText = 'File Penting';
-                files = files.filter(function(f) { return f.starred && !f.inTrash; });
+                files = files.filter(function (f) { return f.starred && !f.inTrash; });
             } else if (awanState.currentNav === 'trash') {
                 headerTitle.innerText = 'Tempat Sampah';
-                files = files.filter(function(f) { return f.inTrash; });
+                files = files.filter(function (f) { return f.inTrash; });
             } else if (awanState.currentNav === 'recent') {
                 headerTitle.innerText = 'File Terbaru';
-                files = files.filter(function(f) { return !f.inTrash; }).sort(function(a, b) { return new Date(b.updatedAt) - new Date(a.updatedAt); });
+                files = files.filter(function (f) { return !f.inTrash; }).sort(function (a, b) { return new Date(b.updatedAt) - new Date(a.updatedAt); });
             } else if (awanState.currentFolderId) {
                 headerTitle.innerText = 'File dalam Folder';
-                files = files.filter(function(f) { return f.folderId === awanState.currentFolderId && !f.inTrash; });
+                files = files.filter(function (f) { return f.folderId === awanState.currentFolderId && !f.inTrash; });
             } else if (awanState.currentNav.startsWith('cat_')) {
-                var selCat = awanState.categories.find(function(c) { return c.id === awanState.currentNav; });
+                var selCat = awanState.categories.find(function (c) { return c.id === awanState.currentNav; });
                 if (selCat) {
                     headerTitle.innerText = 'File Kategori: ' + selCat.name;
-                    var catFiles = files.filter(function(f) { return !f.inTrash && f.folderId === null && f.categoryId === awanState.currentNav; });
+                    var catFiles = files.filter(function (f) { return !f.inTrash && f.folderId === null && f.categoryId === awanState.currentNav; });
                     if (selCat.typeKey) {
-                        var smartFiles = files.filter(function(f) { return !f.inTrash && f.folderId === null && !f.categoryId && f.type === selCat.typeKey; });
+                        var smartFiles = files.filter(function (f) { return !f.inTrash && f.folderId === null && !f.categoryId && f.type === selCat.typeKey; });
                         var combined = catFiles.slice();
-                        smartFiles.forEach(function(sf) { if (combined.indexOf(sf) === -1) combined.push(sf); });
+                        smartFiles.forEach(function (sf) { if (combined.indexOf(sf) === -1) combined.push(sf); });
                         files = combined;
                     } else { files = catFiles; }
                 }
             } else {
                 headerTitle.innerText = 'File Saya';
-                files = files.filter(function(f) { return f.folderId === null && !f.inTrash && !f.categoryId; });
+                files = files.filter(function (f) { return f.folderId === null && !f.inTrash && !f.categoryId; });
             }
 
             if (awanState.filterType !== 'all' && awanState.filterType !== 'folder') {
                 if (awanState.filterType.startsWith('custom_')) {
                     var cname = awanState.filterType.replace('custom_', '');
-                    var ccat = awanState.categories.find(function(c) { return c.customTag === cname; });
-                    if (ccat) files = files.filter(function(f) { return f.categoryId === ccat.id; });
+                    var ccat = awanState.categories.find(function (c) { return c.customTag === cname; });
+                    if (ccat) files = files.filter(function (f) { return f.categoryId === ccat.id; });
                 } else {
-                    files = files.filter(function(f) { return f.type === awanState.filterType; });
+                    files = files.filter(function (f) { return f.type === awanState.filterType; });
                 }
             }
 
@@ -700,11 +772,11 @@
             if (awanState.viewMode === 'grid') {
                 gridContainer.classList.remove('hidden'); fileList.classList.add('hidden');
                 var html = '';
-                files.forEach(function(file) {
+                files.forEach(function (file) {
                     var ic = getFileIcon(file.type);
                     var catName = '';
                     if (file.categoryId) {
-                        var cc = awanState.categories.find(function(c) { return c.id === file.categoryId; });
+                        var cc = awanState.categories.find(function (c) { return c.id === file.categoryId; });
                         if (cc) catName = cc.name;
                     }
                     html += '<div onclick="previewFile(\'' + file.id + '\')" class="group bg-white border border-slate-200/80 hover:border-brand-300 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col justify-between">';
@@ -740,9 +812,9 @@
             } else {
                 gridContainer.classList.add('hidden'); fileList.classList.remove('hidden');
                 var html = '';
-                files.forEach(function(file) {
+                files.forEach(function (file) {
                     var ic = getFileIcon(file.type);
-                    var catLabel = file.categoryId ? (function() { var c = awanState.categories.find(function(x) { return x.id === file.categoryId; }); return c ? c.name : ''; })() : file.type.toUpperCase();
+                    var catLabel = file.categoryId ? (function () { var c = awanState.categories.find(function (x) { return x.id === file.categoryId; }); return c ? c.name : ''; })() : file.type.toUpperCase();
                     html += '<tr onclick="previewFile(\'' + file.id + '\')" class="hover:bg-slate-50 transition cursor-pointer">';
                     html += '<td class="py-3 px-4 font-medium text-slate-800"><div class="flex items-center gap-3"><i class="fa-solid ' + ic.icon + ' ' + ic.color + ' text-base"></i><span class="truncate max-w-xs">' + file.name + '</span></div></td>';
                     html += '<td class="py-3 px-4 text-xs text-slate-500">' + catLabel + '</td>';
@@ -791,7 +863,7 @@
         function createNewCategory() {
             var name = document.getElementById('newCategoryName').value.trim();
             if (!name) { awanShowToast('Nama kategori tidak boleh kosong', 'error'); return; }
-            if (awanState.categories.some(function(c) { return c.name.toLowerCase() === name.toLowerCase(); })) { awanShowToast('Kategori sudah ada', 'error'); return; }
+            if (awanState.categories.some(function (c) { return c.name.toLowerCase() === name.toLowerCase(); })) { awanShowToast('Kategori sudah ada', 'error'); return; }
             var nc = { id: 'cat_' + Date.now(), name: name, customTag: name, icon: 'fa-tag', color: 'text-brand-600', isCustom: true };
             awanState.categories.push(nc);
             closeCategoryModal();
@@ -799,14 +871,14 @@
             setActiveNav(nc.id);
         }
         function deleteCategory(catId) {
-            awanState.categories = awanState.categories.filter(function(c) { return c.id !== catId; });
+            awanState.categories = awanState.categories.filter(function (c) { return c.id !== catId; });
             if (awanState.currentNav === catId) setActiveNav('all'); else awanRender();
             awanShowToast('Kategori berhasil dihapus', 'info');
         }
         function navigateToFolder(folderId) {
             awanState.currentFolderId = folderId; awanState.searchQuery = '';
             if (folderId) {
-                var f = awanState.folders.find(function(x) { return x.id === folderId; });
+                var f = awanState.folders.find(function (x) { return x.id === folderId; });
                 awanState.currentNav = (f && f.categoryId) ? f.categoryId : 'all';
             }
             var si = document.getElementById('searchInput'); if (si) si.value = '';
@@ -825,16 +897,16 @@
             closeFolderModal(); awanShowToast('Folder "' + name + '" berhasil dibuat!', 'success'); awanRender();
         }
         function deleteFolder(folderId) {
-            var f = awanState.folders.find(function(x) { return x.id === folderId; });
-            if (f) { f.inTrash = true; awanState.files.forEach(function(x) { if (x.folderId === folderId) x.inTrash = true; }); awanShowToast('Folder dipindahkan ke sampah', 'info'); awanRender(); }
+            var f = awanState.folders.find(function (x) { return x.id === folderId; });
+            if (f) { f.inTrash = true; awanState.files.forEach(function (x) { if (x.folderId === folderId) x.inTrash = true; }); awanShowToast('Folder dipindahkan ke sampah', 'info'); awanRender(); }
         }
         function restoreFolder(folderId) {
-            var f = awanState.folders.find(function(x) { return x.id === folderId; });
-            if (f) { f.inTrash = false; awanState.files.forEach(function(x) { if (x.folderId === folderId) x.inTrash = false; }); awanShowToast('Folder berhasil dipulihkan', 'success'); awanRender(); }
+            var f = awanState.folders.find(function (x) { return x.id === folderId; });
+            if (f) { f.inTrash = false; awanState.files.forEach(function (x) { if (x.folderId === folderId) x.inTrash = false; }); awanShowToast('Folder berhasil dipulihkan', 'success'); awanRender(); }
         }
         function deleteFolderPermanently(folderId) {
-            awanState.folders = awanState.folders.filter(function(f) { return f.id !== folderId; });
-            awanState.files = awanState.files.filter(function(f) { return f.folderId !== folderId; });
+            awanState.folders = awanState.folders.filter(function (f) { return f.id !== folderId; });
+            awanState.files = awanState.files.filter(function (f) { return f.folderId !== folderId; });
             awanShowToast('Folder dihapus permanen', 'info'); awanRender();
         }
         function openUploadModal() { document.getElementById('uploadModal').classList.remove('hidden'); }
@@ -843,12 +915,12 @@
             var file = event.target.files[0];
             if (!file) return;
             var ext = file.name.split('.').pop().toLowerCase();
-            var typeMap = { docx:'word', doc:'word', xlsx:'excel', xls:'excel', csv:'excel', pdf:'pdf', jpg:'image', jpeg:'image', png:'image', gif:'image', svg:'image', webp:'image', mp4:'video', mkv:'video', avi:'video', mov:'video', mp3:'audio', wav:'audio', ogg:'audio' };
+            var typeMap = { docx: 'word', doc: 'word', xlsx: 'excel', xls: 'excel', csv: 'excel', pdf: 'pdf', jpg: 'image', jpeg: 'image', png: 'image', gif: 'image', svg: 'image', webp: 'image', mp4: 'video', mkv: 'video', avi: 'video', mov: 'video', mp3: 'audio', wav: 'audio', ogg: 'audio' };
             var fileType = typeMap[ext] || 'file';
             var objectURL = URL.createObjectURL(file);
             var catId = null;
             if (awanState.currentFolderId) {
-                var pf = awanState.folders.find(function(f) { return f.id === awanState.currentFolderId; });
+                var pf = awanState.folders.find(function (f) { return f.id === awanState.currentFolderId; });
                 if (pf && pf.categoryId) catId = pf.categoryId;
             } else if (awanState.currentNav.startsWith('cat_')) { catId = awanState.currentNav; }
             awanState.files.push({ id: 'f_' + Date.now(), name: file.name, type: fileType, size: file.size || 512000, folderId: awanState.currentFolderId, categoryId: catId, updatedAt: new Date().toISOString().split('T')[0], starred: false, inTrash: false, objectURL: objectURL });
@@ -861,13 +933,13 @@
         function openMoveModal(fileId) {
             fileToMove = fileId;
             modalCurrentFolderId = null;
-            
-            var f = awanState.files.find(function(x) { return x.id === fileId; });
+
+            var f = awanState.files.find(function (x) { return x.id === fileId; });
             if (f) {
                 document.getElementById('moveModalTitle').innerText = 'Pindahkan "' + f.name + '"';
             }
             document.getElementById('moveModal').classList.remove('hidden');
-            
+
             var elId = document.getElementById('dropdown-' + fileId) ? fileId : 'list-' + fileId;
             toggleDropdown(elId);
 
@@ -894,7 +966,7 @@
 
             // Update Lokasi saat ini text
             if (modalCurrentFolderId) {
-                var currentFolder = awanState.folders.find(function(f) { return f.id === modalCurrentFolderId; });
+                var currentFolder = awanState.folders.find(function (f) { return f.id === modalCurrentFolderId; });
                 locBtn.innerHTML = '<i class="fa-solid fa-folder text-slate-400"></i><span>' + (currentFolder ? currentFolder.name : 'Unknown') + '</span>';
             } else {
                 locBtn.innerHTML = '<i class="fa-brands fa-google-drive text-slate-400"></i><span>Drive Saya</span>';
@@ -902,9 +974,9 @@
 
             // Go Up button if not at root
             if (modalCurrentFolderId !== null) {
-                var currentFolder = awanState.folders.find(function(f) { return f.id === modalCurrentFolderId; });
+                var currentFolder = awanState.folders.find(function (f) { return f.id === modalCurrentFolderId; });
                 var parentId = currentFolder ? currentFolder.parentId : null;
-                
+
                 html += '<button onclick="navigateToModalFolder(\'' + (parentId || '') + '\')" class="w-full flex items-center gap-4 px-4 py-3 hover:bg-slate-50 transition text-left">';
                 html += '<div class="w-6 h-6 flex items-center justify-center text-slate-400"><i class="fa-solid fa-arrow-left"></i></div>';
                 html += '<div class="flex-1 font-medium text-sm text-slate-600">Kembali</div>';
@@ -912,8 +984,8 @@
             }
 
             // List folders
-            var availableFolders = awanState.folders.filter(function(f) { 
-                return !f.inTrash && f.parentId === modalCurrentFolderId; 
+            var availableFolders = awanState.folders.filter(function (f) {
+                return !f.inTrash && f.parentId === modalCurrentFolderId;
             });
 
             if (availableFolders.length === 0) {
@@ -921,7 +993,7 @@
                 html += '<i class="fa-regular fa-folder-open text-3xl mb-1 opacity-50"></i>';
                 html += '<span>Folder ini kosong</span></div>';
             } else {
-                availableFolders.forEach(function(folder) {
+                availableFolders.forEach(function (folder) {
                     html += '<button onclick="navigateToModalFolder(\'' + folder.id + '\')" class="w-full flex items-center gap-4 px-4 py-3 hover:bg-slate-50 transition text-left group">';
                     html += '<div class="w-6 h-6 flex items-center justify-center text-slate-400 group-hover:text-slate-600 transition"><i class="fa-solid fa-folder text-lg"></i></div>';
                     html += '<div class="flex-1 font-medium text-sm text-slate-700 truncate">' + folder.name + '</div>';
@@ -935,12 +1007,12 @@
         function createFolderFromModal() {
             var name = prompt("Nama folder baru:");
             if (name && name.trim() !== '') {
-                awanState.folders.push({ 
-                    id: 'fold_' + Date.now(), 
-                    name: name.trim(), 
-                    parentId: modalCurrentFolderId, 
-                    categoryId: null, 
-                    inTrash: false 
+                awanState.folders.push({
+                    id: 'fold_' + Date.now(),
+                    name: name.trim(),
+                    parentId: modalCurrentFolderId,
+                    categoryId: null,
+                    inTrash: false
                 });
                 awanShowToast('Folder "' + name.trim() + '" berhasil dibuat', 'success');
                 renderMoveOptions();
@@ -950,7 +1022,7 @@
 
         function confirmMove() {
             if (!fileToMove) return;
-            var f = awanState.files.find(function(x) { return x.id === fileToMove; });
+            var f = awanState.files.find(function (x) { return x.id === fileToMove; });
             if (f) {
                 f.folderId = modalCurrentFolderId;
                 awanShowToast('File berhasil dipindahkan', 'success');
@@ -961,7 +1033,7 @@
 
         function toggleDropdown(id) {
             var dropdowns = document.querySelectorAll('[id^="dropdown-"]');
-            dropdowns.forEach(function(el) {
+            dropdowns.forEach(function (el) {
                 if (el.id !== 'dropdown-' + id && el.id !== 'dropdown-list-' + id) {
                     el.classList.add('hidden');
                 }
@@ -970,17 +1042,17 @@
             if (el) el.classList.toggle('hidden');
         }
 
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             var isDropdown = e.target.closest('[id^="dropdown-"]') || e.target.closest('button[onclick^="event.stopPropagation();toggleDropdown"]');
             if (!isDropdown) {
-                document.querySelectorAll('[id^="dropdown-"]').forEach(function(el) {
+                document.querySelectorAll('[id^="dropdown-"]').forEach(function (el) {
                     el.classList.add('hidden');
                 });
             }
         });
 
         function renameFile(fileId) {
-            var f = awanState.files.find(function(x) { return x.id === fileId; });
+            var f = awanState.files.find(function (x) { return x.id === fileId; });
             if (!f) return;
             var elId = document.getElementById('dropdown-' + fileId) ? fileId : 'list-' + fileId;
             toggleDropdown(elId);
@@ -991,11 +1063,11 @@
                 awanRender();
             }
         }
-        
+
         var fileToShare = null;
         function shareFile(fileId) {
             fileToShare = fileId;
-            var f = awanState.files.find(function(x) { return x.id === fileId; });
+            var f = awanState.files.find(function (x) { return x.id === fileId; });
             if (f) {
                 document.getElementById('shareModalTitle').innerText = 'Bagikan "' + f.name + '"';
             }
@@ -1014,34 +1086,34 @@
         }
 
         function toggleStarred(fileId) {
-            var f = awanState.files.find(function(x) { return x.id === fileId; });
-            if (f) { 
-                f.starred = !f.starred; 
-                awanShowToast(f.starred ? 'Ditandai sebagai Penting' : 'Dihapus dari Penting', 'info'); 
+            var f = awanState.files.find(function (x) { return x.id === fileId; });
+            if (f) {
+                f.starred = !f.starred;
+                awanShowToast(f.starred ? 'Ditandai sebagai Penting' : 'Dihapus dari Penting', 'info');
                 var elId = document.getElementById('dropdown-' + fileId) ? fileId : 'list-' + fileId;
                 toggleDropdown(elId);
-                awanRender(); 
+                awanRender();
             }
         }
         function moveToTrash(fileId) {
-            var f = awanState.files.find(function(x) { return x.id === fileId; });
+            var f = awanState.files.find(function (x) { return x.id === fileId; });
             if (f) { f.inTrash = true; awanShowToast('File dipindahkan ke sampah', 'info'); awanRender(); }
         }
         function restoreFromTrash(fileId) {
-            var f = awanState.files.find(function(x) { return x.id === fileId; });
+            var f = awanState.files.find(function (x) { return x.id === fileId; });
             if (f) { f.inTrash = false; awanShowToast('File berhasil dipulihkan', 'success'); awanRender(); }
         }
         function deletePermanently(fileId) {
-            awanState.files = awanState.files.filter(function(f) { return f.id !== fileId; });
+            awanState.files = awanState.files.filter(function (f) { return f.id !== fileId; });
             awanShowToast('File dihapus permanen', 'info'); awanRender();
         }
         function previewFile(fileId) {
-            var file = awanState.files.find(function(f) { return f.id === fileId; });
+            var file = awanState.files.find(function (f) { return f.id === fileId; });
             if (!file) return;
             var ic = getFileIcon(file.type);
             document.getElementById('previewTitle').innerText = file.name;
             document.getElementById('previewMeta').innerText = formatFileSize(file.size) + ' • Diperbarui ' + file.updatedAt;
-            
+
             var downloadBtn = file.objectURL ? '<a href="' + file.objectURL + '" download="' + file.name + '" class="px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 hover:bg-brand-700 text-white transition inline-flex items-center justify-center gap-2 mr-2"><i class="fa-solid fa-download"></i> Download</a>' : '';
             var externalBtn = file.objectURL ? '<a href="' + file.objectURL + '" target="_blank" class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition inline-flex items-center justify-center gap-2"><i class="fa-solid fa-arrow-up-right-from-square"></i> Buka di Tab Baru</a>' : '';
             var actionButtons = '<div class="mt-4 flex justify-center">' + downloadBtn + externalBtn + '</div>';
@@ -1095,4 +1167,5 @@
         })();
     </script>
 </body>
-</html>
+
+</html>

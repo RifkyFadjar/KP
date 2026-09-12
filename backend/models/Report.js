@@ -138,12 +138,18 @@ const reportSchema = new mongoose.Schema(
         // ============================================================
         // POIN 5: HASIL SURVEY & KONDISI EKSISTING
         // ============================================================
+        lebar: { type: String, trim: true, default: '' },
+        kedalaman: { type: String, trim: true, default: '' },
+        type_saluran: { type: String, default: '' },
+        jenis_konstruksi: { type: String, default: '' },
+        kondisi_lapangan: { type: String, default: '' },
         kondisi_eksisting: { type: String, default: '' },
         dampak_lapangan: { type: String, default: '' },
 
         // ============================================================
         // POIN 6: PENANGANAN JANGKA PENDEK (DARURAT)
         // ============================================================
+        opsi_penanganan: { type: String, default: '' },
         penanganan_pendek: { type: String, default: '' },
         pic_pendek: { type: String, trim: true, default: '' },
         material_pendek: { type: String, default: '' },
@@ -155,6 +161,7 @@ const reportSchema = new mongoose.Schema(
         // POIN 7: RENCANA TINDAK LANJUT JANGKA PANJANG
         // ============================================================
         enable_jangka_panjang: { type: Boolean, default: true },
+        tindak_lanjut: { type: String, default: '' },
         rencana_panjang: { type: String, default: '' },
         tahapan_panjang: { type: String, default: '' },
         estimasi_waktu_panjang: { type: String, default: '' },
